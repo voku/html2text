@@ -22,6 +22,8 @@
 
 /**
  * Converts HTML to formatted plain text
+ * 
+ * @since 1.0.0
  */
 class Html2Text
 {
@@ -416,7 +418,7 @@ class Html2Text
         $text = preg_replace($this->ent_search, $this->ent_replace, $text);
 
         // Replace known html entities
-        $text = html_entity_decode($text, ENT_QUOTES);
+        $text = html_entity_decode($text, ENT_QUOTES, 'UTF-8');
 
         // Remove unknown/unhandled entities (this cannot be done in search-and-replace block)
         $text = preg_replace('/&([a-zA-Z0-9]{2,6}|#[0-9]{2,4});/', '', $text);
@@ -564,7 +566,7 @@ class Html2Text
                         
                         // Add citation markers and create PRE block
                         $body = preg_replace('/((^|\n)>*)/', '\\1> ', trim($body));
-                        $body = '<pre>' . htmlspecialchars($body) . '</pre>';
+                        $body = '<pre>' . htmlspecialchars($body, 'UTF-8') . '</pre>';
                         
                         // Re-set text width
                         $this->_options['width'] = $p_width;
@@ -660,7 +662,7 @@ class Html2Text
      */
     private function _strtoupper($str)
     {
-        $str = html_entity_decode($str, ENT_COMPAT);
+        $str = html_entity_decode($str, ENT_COMPAT, 'UTF-8');
 
         if (function_exists('mb_strtoupper')) {
             $str = mb_strtoupper($str, 'UTF-8');
@@ -668,7 +670,7 @@ class Html2Text
             $str = strtoupper($str);
         }
 
-        $str = htmlspecialchars($str, ENT_COMPAT);
+        $str = htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
 
         return $str;
     }
