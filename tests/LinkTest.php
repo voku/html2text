@@ -66,15 +66,66 @@ EOT;
     $this->assertEquals($expected, $output);
   }
 
-  public function testDoLinksInHtml()
+  public function testDoLinksInHtmlTable()
   {
     $html = <<<EOT
+<p><a href="http://foo.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://lall.com" class="foo">Link text lall</a></p>
+<p><a href="http://lall.com" class="bar">Link text lall</a></p>
+<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
 <p><a href="http://example.com" class="_html2text_link_none">Link text</a></p>
 <p><a href="http://example.com" class="_html2text_link_inline">Link text</a></p>
 <p><a href="http://example.com" class="_html2text_link_nextline">Link text</a></p>
 EOT;
 
     $expected = <<<EOT
+Link text lall [http://foo.com]
+
+Link text lall [1]
+
+Link text lall [1]
+
+Link text lall [http://lall.com]
+
+Link text lall [http://lall.com]
+
+Link text
+
+Link text [http://example.com]
+
+Link text
+[http://example.com]
+
+Links:
+------
+[1] http://lall.com
+EOT;
+
+    $html2text = new Html2Text($html, array('do_links' => 'table'));
+    $output = $html2text->getText();
+
+    $this->assertEquals($expected, $output);
+  }
+
+  public function testDoLinksInHtml()
+  {
+    $html = <<<EOT
+<p><a href="http://foo.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://example.com" class="_html2text_link_none">Link text</a></p>
+<p><a href="http://example.com" class="_html2text_link_inline">Link text</a></p>
+<p><a href="http://example.com" class="_html2text_link_nextline">Link text</a></p>
+EOT;
+
+    $expected = <<<EOT
+Link text lall [http://foo.com]
+
+Link text lall [http://lall.com]
+
+Link text lall [http://lall.com]
+
 Link text
 
 Link text [http://example.com]
