@@ -27,7 +27,7 @@ HTML symbols &amp;
 EOT;
 
     $expected = <<<'EOT'
-Before 
+Before
 
 Foo bar baz
 

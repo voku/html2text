@@ -330,10 +330,15 @@ class Html2Text
     $text = UTF8::normalize_whitespace($text);
 
     // don't use tabs
-    $text = preg_replace("/\t/", "  ", $text);
+    $text = preg_replace("/\t/", '  ', $text);
 
-    // remove leading/ending empty spaces and lines
-    //$text = UTF8::trim($text, "\n| ");
+    // trim every line
+    $textArray = explode("\n", $text);
+    array_walk($textArray, array('self', 'trimCallback'));
+    $text = implode("\n", $textArray);
+
+    // remove leading/ending empty lines
+    $text = UTF8::trim($text, "\n");
 
     $this->text = $text;
 
@@ -428,7 +433,7 @@ class Html2Text
             $this->converter($body);
 
             // add citation markers and create PRE block
-            $body = preg_replace('/((^|\n)>*)/', '\\1> ', trim($body));
+            $body = preg_replace('/((^|\n)>*)/', '\\1> ', UTF8::trim($body));
             $body = '<pre>' . UTF8::htmlspecialchars($body) . '</pre>';
 
             // re-set text width
@@ -462,7 +467,7 @@ class Html2Text
     while (preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
       $this->preContent = $matches[1];
 
-      // Run our defined tags search-and-replace with callback
+      // run our defined tags search-and-replace with callback
       $this->preContent = preg_replace_callback(
           $this->callbackSearch,
           array($this, 'pregCallback'),
@@ -511,6 +516,16 @@ class Html2Text
   }
 
   /**
+   * Callback function for array_walk use.
+   *
+   * @param $string
+   */
+  protected function trimCallback(&$string)
+  {
+    $string = UTF8::trim($string);
+  }
+
+  /**
    * Callback function for preg_replace_callback use.
    *
    * @param  array $matches PREG matches
@@ -524,7 +539,7 @@ class Html2Text
       case 'strong':
         return $this->toupper($matches[3]);
       case 'th':
-        return $this->toupper("\t\t" . $matches[3] . "\n");
+        return $this->toupper($matches[3] . "\n");
       case 'h':
         return $this->toupper("\n\n" . $matches[3] . "\n\n");
       case 'a':

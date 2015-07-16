@@ -71,6 +71,7 @@ EOT;
     $text = $html2text->getText();
 
     self::assertEquals(UTF8::file_get_contents(__DIR__ . '/test3Html.txt'), $text);
+
   }
 
   public function testHtmlToText4()

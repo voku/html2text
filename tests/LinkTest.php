@@ -21,7 +21,6 @@ Link text [1]
 Links:
 ------
 [1] http://example.com
-
 EOT;
 
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'table'));
@@ -76,9 +75,9 @@ EOT;
 EOT;
 
     $expected = <<<EOT
-Link text 
+Link text
 
-Link text [http://example.com] 
+Link text [http://example.com]
 
 Link text
 [http://example.com]
