@@ -545,7 +545,7 @@ class Html2Text
   }
 
   /**
-   * Strtoupper function with HTML tags and entities handling.
+   * "strtoupper" function with HTML tags and entities handling.
    *
    * @param  string $str Text to convert
    *
@@ -559,29 +559,11 @@ class Html2Text
     // convert toupper only the text between HTML tags
     foreach ($chunks as $i => &$chunk) {
       if ($chunk[0] != '<') {
-        $chunk = $this->strtoupper($chunk);
+        $chunk = UTF8::strtoupper($chunk);
       }
     }
 
     return implode($chunks);
-  }
-
-  /**
-   * Strtoupper multibyte wrapper function with HTML entities handling.
-   *
-   * @param  string $str Text to convert
-   *
-   * @return string Converted text
-   */
-  private function strtoupper($str)
-  {
-    $str = UTF8::html_entity_decode($str);
-
-    $str = UTF8::strtoupper($str);
-
-    $str = UTF8::htmlspecialchars($str);
-
-    return $str;
   }
 
   /**
