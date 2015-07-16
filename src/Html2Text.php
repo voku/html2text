@@ -429,11 +429,12 @@ class Html2Text
             }
 
             // convert blockquote content
-            $body = UTF8::trim($body);
             $this->converter($body);
 
-            // add citation markers and create PRE block
+            // add citation markers
             $body = preg_replace('/((^|\n)>*)/', '\\1> ', UTF8::trim($body));
+
+            // create PRE block
             $body = '<pre>' . UTF8::htmlspecialchars($body) . '</pre>';
 
             // re-set text width
@@ -442,7 +443,7 @@ class Html2Text
             // replace content
             $text = UTF8::substr($text, 0, $start - $diff) . $body . UTF8::substr($text, $end + UTF8::strlen($m[0]) - $diff);
 
-            $diff = $len + $taglen + UTF8::strlen($m[0]) - UTF8::strlen($body);
+            $diff += $len + $taglen + UTF8::strlen($m[0]) - UTF8::strlen($body);
             unset($body);
           }
         } else {

@@ -37,4 +37,28 @@ EOT;
     $html2text = new Html2Text($html);
     $this->assertEquals($expected, $html2text->getText());
   }
+
+  public function testMultipleBlockquotes()
+  {
+    $html = <<<'EOT'
+<p>Before</p>
+<blockquote>Foo foo foo</blockquote>
+<blockquote>Foo foo foo</blockquote>
+<blockquote>Bar bar bar</blockquote>
+<p>After</p>
+EOT;
+    $expected = <<<'EOT'
+Before
+
+> Foo foo foo
+
+> Foo foo foo
+
+> Bar bar bar
+
+After
+EOT;
+    $html2text = new Html2Text($html);
+    $this->assertEquals($expected, $html2text->getText());
+  }
 }
