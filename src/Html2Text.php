@@ -200,7 +200,7 @@ class Html2Text
    * Contains URL addresses from links to be rendered in plain text.
    *
    * @type array
-   * @see buildlinkList()
+   * @see buildLinkList()
    */
   protected $linkList = array();
 
@@ -564,7 +564,7 @@ class Html2Text
         // remove spaces in URL (#1487805)
         $url = str_replace(' ', '', $matches[3]);
 
-        return $this->buildlinkList($url, $matches[5], $linkOverride);
+        return $this->buildLinkList($url, $matches[5], $linkOverride);
     }
 
     return '';
@@ -610,7 +610,7 @@ class Html2Text
    *
    * @return string
    */
-  protected function buildlinkList($link, $display, $linkOverride = null)
+  protected function buildLinkList($link, $display, $linkOverride = null)
   {
     $linkMethod = ($linkOverride) ? $linkOverride : $this->options['do_links'];
     if ($linkMethod == 'none') {
