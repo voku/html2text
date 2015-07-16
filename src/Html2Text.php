@@ -210,16 +210,26 @@ class Html2Text
    * @type array
    */
   protected $options = array(
-      'do_links' => 'inline',
-      // 'none'
-      // 'inline' (show links inline)
-      // 'nextline' (show links on the next line)
-      // 'table' (if a table of link URLs should be listed after the text.
-
-      'width'    => 70,
-      //  Maximum width of the formatted text, in columns.
-      //  Set this value to 0 (or less) to ignore word wrapping
-      //  and not constrain text to a fixed-width column.
+    //
+    // "do_upper" ------------>
+    //
+    // Convert strong and bold to uppercase?
+    'do_upper' => true,
+    //
+    // "do_links ------------>
+    //
+    // 'none'
+    // 'inline' (show links inline)
+    // 'nextline' (show links on the next line)
+    // 'table' (if a table of link URLs should be listed after the text.
+    'do_links' => 'inline',
+    //
+    // "width ------------>
+    //
+    //  Maximum width of the formatted text, in columns.
+    //  Set this value to 0 (or less) to ignore word wrapping
+    //  and not constrain text to a fixed-width column.
+    'width'    => 70,
   );
 
   /**
@@ -569,6 +579,10 @@ class Html2Text
    */
   private function toupper($str)
   {
+    if ($this->options['do_upper'] !== true) {
+      return $str;
+    }
+
     // string can contain HTML tags
     $chunks = preg_split('/(<[^>]*>)/', $str, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
@@ -640,7 +654,8 @@ class Html2Text
    *
    * @return string
    */
-  protected function pregPreCallback(/** @noinspection PhpUnusedParameterInspection */ $matches)
+  protected function pregPreCallback(/** @noinspection PhpUnusedParameterInspection */
+      $matches)
   {
     return $this->preContent;
   }
