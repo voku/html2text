@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/voku/html2text.svg?branch=master)](https://travis-ci.org/voku/html2text)
 [![codecov.io](http://codecov.io/github/voku/html2text/coverage.svg?branch=master)](http://codecov.io/github/voku/html2text?branch=master)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/81471116-0fb1-442b-a78f-7555ee585ebe/big.png)](https://insight.sensiolabs.com/projects/81471116-0fb1-442b-a78f-7555ee585ebe)
 
 
 # Html2Text
