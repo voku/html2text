@@ -184,6 +184,7 @@ class Html2Text
     // 'inline' (show links inline)
     // 'nextline' (show links on the next line)
     // 'table' (if a table of link URLs should be listed after the text.
+    // 'bbcode' (show links as bbcode)
     'do_links' => 'inline',
     //
     // "width ------------>
@@ -621,6 +622,8 @@ class Html2Text
       return $display . ' [' . ($index + 1) . ']';
     } elseif ($linkMethod == 'nextline') {
       return $display . "\n[" . $url . ']';
+    } elseif ($linkMethod == 'bbcode') {
+      return '[url=' . $url . ']' . $display . '[/url]';
     } else {
       // link_method defaults to inline
       return $display . ' [' . $url . ']';

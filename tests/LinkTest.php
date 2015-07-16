@@ -41,6 +41,18 @@ EOT;
     $this->assertEquals($expected, $output);
   }
 
+  public function testDoLinksBBCode()
+  {
+    $expected = <<<EOT
+[url=http://example.com]Link text[/url]
+EOT;
+
+    $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'bbcode'));
+    $output = $html2text->getText();
+
+    $this->assertEquals($output, $expected);
+  }
+
   public function testDoLinksNone()
   {
     $expected = <<<EOT
