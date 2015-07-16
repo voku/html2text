@@ -2,11 +2,16 @@
 
 namespace Html2Text;
 
+/**
+ * Class TableTest
+ *
+ * @package Html2Text
+ */
 class TableTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTable()
-    {
-        $html =<<<'EOT'
+  public function testTable()
+  {
+    $html = <<<'EOT'
 <table>
   <tr>
     <th>Heading 1</th>
@@ -19,17 +24,17 @@ class TableTest extends \PHPUnit_Framework_TestCase
 </table>
 EOT;
 
-        $expected =<<<'EOT'
- 		HEADING 1
- 		Data 1
+    $expected = <<<'EOT'
+     HEADING 1
+ Data 1
 
- 		HEADING 2
- 		Data 2
+     HEADING 2
+ Data 2
 
 
 EOT;
 
-        $html2text = new Html2Text($html);
-        $this->assertEquals($expected, $html2text->getText());
-    }
+    $html2text = new Html2Text($html);
+    $this->assertEquals($expected, $html2text->getText());
+  }
 }

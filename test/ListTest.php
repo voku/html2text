@@ -2,11 +2,16 @@
 
 namespace Html2Text;
 
+/**
+ * Class ListTest
+ *
+ * @package Html2Text
+ */
 class ListTest extends \PHPUnit_Framework_TestCase
 {
-    public function testList()
-    {
-        $html =<<<'EOT'
+  public function testList()
+  {
+    $html = <<<'EOT'
 <ul>
   <li>Item 1</li>
   <li>Item 2</li>
@@ -14,21 +19,21 @@ class ListTest extends \PHPUnit_Framework_TestCase
 </ul>
 EOT;
 
-        $expected =<<<'EOT'
- 	* Item 1
- 	* Item 2
- 	* Item 3
+    $expected = <<<'EOT'
+ * Item 1
+ * Item 2
+ * Item 3
 
 
 EOT;
 
-        $html2text = new Html2Text($html);
-        $this->assertEquals($expected, $html2text->getText());
-    }
+    $html2text = new Html2Text($html);
+    $this->assertEquals($expected, $html2text->getText());
+  }
 
-    public function testOrderedList()
-    {
-        $html =<<<'EOT'
+  public function testOrderedList()
+  {
+    $html = <<<'EOT'
 <ol>
   <li>Item 1</li>
   <li>Item 2</li>
@@ -36,15 +41,15 @@ EOT;
 </ol>
 EOT;
 
-        $expected =<<<'EOT'
- 	* Item 1
- 	* Item 2
- 	* Item 3
+    $expected = <<<'EOT'
+ * Item 1
+ * Item 2
+ * Item 3
 
 
 EOT;
 
-        $html2text = new Html2Text($html);
-        $this->assertEquals($expected, $html2text->getText());
-    }
+    $html2text = new Html2Text($html);
+    $this->assertEquals($expected, $html2text->getText());
+  }
 }

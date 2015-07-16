@@ -2,11 +2,16 @@
 
 namespace Html2Text;
 
+/**
+ * Class PreTest
+ *
+ * @package Html2Text
+ */
 class PreTest extends \PHPUnit_Framework_TestCase
 {
-    public function testPre()
-    {
-        $html =<<<'EOT'
+  public function testPre()
+  {
+    $html = <<<'EOT'
 <p>Before</p>
 <pre>
 
@@ -19,17 +24,17 @@ HTML symbols &amp;
 <p>After</p>
 EOT;
 
-        $expected =<<<'EOT'
+    $expected = <<<'EOT'
 Before 
 
-Foo bar baz
+Foo bar baz
 
-HTML symbols &
+HTML symbols &
 
 After
 EOT;
 
-        $html2text = new Html2Text($html);
-        $this->assertEquals($expected, $html2text->getText());
-    }
+    $html2text = new Html2Text($html);
+    $this->assertEquals($expected, $html2text->getText());
+  }
 }
