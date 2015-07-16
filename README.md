@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/voku/html2text.svg?branch=master)](https://travis-ci.org/voku/html2text)
+[![codecov.io](http://codecov.io/github/voku/html2text/coverage.svg?branch=master)](http://codecov.io/github/voku/html2text?branch=master)
+
+
 # Html2Text
 
 WARNING: this is only a Extended-Fork of "https://github.com/mtibben/html2text/"
