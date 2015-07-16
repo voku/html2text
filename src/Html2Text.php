@@ -1,6 +1,6 @@
 <?php
 
-namespace Html2Text;
+namespace voku\Html2Text;
 
 use voku\helper\UTF8;
 
@@ -557,9 +557,9 @@ class Html2Text
     $chunks = preg_split('/(<[^>]*>)/', $str, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
     // convert toupper only the text between HTML tags
-    foreach ($chunks as $i => $chunk) {
+    foreach ($chunks as $i => &$chunk) {
       if ($chunk[0] != '<') {
-        $chunks[$i] = $this->strtoupper($chunk);
+        $chunk = $this->strtoupper($chunk);
       }
     }
 

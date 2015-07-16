@@ -1,10 +1,12 @@
 # Html2Text
 
+WARNING: this is only a Extended-Fork of "https://github.com/mtibben/html2text/"
+
 A PHP library for converting HTML to formatted plain text.
 
 ## Basic Usage
 ```php
-$html = new \Html2Text\Html2Text('Hello, &quot;<b>world</b>&quot;');
+$html = new \voku\Html2Text\Html2Text('Hello, &quot;<b>world</b>&quot;');
 
 echo $html->getText();  // Hello, "WORLD"
 ```

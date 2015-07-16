@@ -1,6 +1,8 @@
 <?php
 
-namespace Html2Text;
+namespace voku\Html2Text\tests;
+
+use \voku\Html2Text\Html2Text;
 
 /**
  * Class StrToUpperTest
