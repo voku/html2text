@@ -30,112 +30,90 @@ class Html2Text
   /**
    * Contains the HTML content to convert.
    *
-   * @type string
+   * @var string
    */
   protected $html;
 
   /**
    * Contains the converted, formatted text.
    *
-   * @type string
+   * @var string
    */
   protected $text;
 
   /**
-   * List of preg* regular expression patterns to search for,
-   * used in conjunction with $replace.
+   * List of preg* regular expression patterns to search / replace
    *
-   * @type array
-   * @see $replace
+   * @var array
    */
-  protected $search = array(
-      "/\r/",                                           // Non-legal carriage return
-      "/[\n\t]+/",                                      // Newlines and tabs
-      '/<head[^>]*>.*?<\/head>/i',                      // <head>
-      '/<script[^>]*>.*?<\/script>/i',                  // <script>s -- which strip_tags supposedly has problems with
-      '/<style[^>]*>.*?<\/style>/i',                    // <style>s -- which strip_tags supposedly has problems with
-      '/<p[^>]*>/i',                                    // <P>
-      '/<br[^>]*>/i',                                   // <br>
-      '/<i[^>]*>(.*?)<\/i>/i',                          // <i>
-      '/<em[^>]*>(.*?)<\/em>/i',                        // <em>
-      '/(<ul[^>]*>|<\/ul>)/i',                          // <ul> and </ul>
-      '/(<ol[^>]*>|<\/ol>)/i',                          // <ol> and </ol>
-      '/(<dl[^>]*>|<\/dl>)/i',                          // <dl> and </dl>
-      '/<li[^>]*>(.*?)<\/li>/i',                        // <li> and </li>
-      '/<dd[^>]*>(.*?)<\/dd>/i',                        // <dd> and </dd>
-      '/<dt[^>]*>(.*?)<\/dt>/i',                        // <dt> and </dt>
-      '/<li[^>]*>/i',                                   // <li>
-      '/<hr[^>]*>/i',                                   // <hr>
-      '/<div[^>]*>/i',                                  // <div>
-      '/(<table[^>]*>|<\/table>)/i',                    // <table> and </table>
-      '/(<tr[^>]*>|<\/tr>)/i',                          // <tr> and </tr>
-      '/<td[^>]*>(.*?)<\/td>/i',                        // <td> and </td>
-      '/<span class="_html2text_ignore">.+?<\/span>/i', // <span class="_html2text_ignore">...</span>
+  protected $searchReplaceArray = array(
+    // Non-legal carriage return
+    "/\r/"                                           => '',
+    // Newlines and tabs
+    "/[\n\t]+/"                                      => ' ',
+    // <head>
+    '/<head[^>]*>.*?<\/head>/i'                      => '',
+    // <script>s -- which strip_tags supposedly has problems with
+    '/<script[^>]*>.*?<\/script>/i'                  => '',
+    // <style>s -- which strip_tags supposedly has problems with
+    '/<style[^>]*>.*?<\/style>/i'                    => '',
+    // <p>
+    '/<p[^>]*>/i'                                    => "\n\n",
+    // <br>
+    '/<br[^>]*>/i'                                   => "\n",
+    // <i>
+    '/<i[^>]*>(.*?)<\/i>/i'                          => '_\\1_',
+    // <em>
+    '/<em[^>]*>(.*?)<\/em>/i'                        => '_\\1_',
+    // <ul> and </ul>
+    '/(<ul[^>]*>|<\/ul>)/i'                          => "\n\n",
+    // <ol> and </ol>
+    '/(<ol[^>]*>|<\/ol>)/i'                          => "\n\n",
+    // <dl> and </dl>
+    '/(<dl[^>]*>|<\/dl>)/i'                          => "\n\n",
+    // <li> and </li>
+    '/<li[^>]*>(.*?)<\/li>/i'                        => "* \\1\n",
+    // <dd> and </dd>
+    '/<dd[^>]*>(.*?)<\/dd>/i'                        => "\\1\n",
+    // <dt> and </dt>
+    '/<dt[^>]*>(.*?)<\/dt>/i'                        => "* \\1",
+    // <li>
+    '/<li[^>]*>/i'                                   => "\n* ",
+    // <hr>
+    '/<hr[^>]*>/i'                                   => "\n-------------------------\n",
+    // <div>
+    '/<div[^>]*>/i'                                  => "<div>\n",
+    // <table> and </table>
+    '/(<table[^>]*>|<\/table>)/i'                    => "\n\n",
+    // <tr> and </tr>
+    '/(<tr[^>]*>|<\/tr>)/i'                          => "\n",
+    // <td> and </td>
+    '/<td[^>]*>(.*?)<\/td>/i'                        => "\\1\n",
+    // <span class="_html2text_ignore">...</span>
+    '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
   );
 
   /**
-   * List of pattern replacements corresponding to patterns searched.
+   * List of preg* regular expression patterns to search / replace
    *
-   * @type array
-   * @see $search
+   * @var array
    */
-  protected $replace = array(
-      '',                              // Non-legal carriage return
-      ' ',                             // Newlines and tabs
-      '',                              // <head>
-      '',                              // <script>s -- which strip_tags supposedly has problems with
-      '',                              // <style>s -- which strip_tags supposedly has problems with
-      "\n\n",                          // <P>
-      "\n",                            // <br>
-      '_\\1_',                         // <i>
-      '_\\1_',                         // <em>
-      "\n\n",                          // <ul> and </ul>
-      "\n\n",                          // <ol> and </ol>
-      "\n\n",                          // <dl> and </dl>
-      "* \\1\n",                       // <li> and </li>
-      "\\1\n",                         // <dd> and </dd>
-      "* \\1",                         // <dt> and </dt>
-      "\n* ",                          // <li>
-      "\n-------------------------\n", // <hr>
-      "<div>\n",                       // <div>
-      "\n\n",                          // <table> and </table>
-      "\n",                            // <tr> and </tr>
-      "\\1\n",                         // <td> and </td>
-      ""                               // <span class="_html2text_ignore">...</span>
-  );
-
-  /**
-   * List of preg* regular expression patterns to search for,
-   * used in conjunction with $entReplace.
-   *
-   * @type array
-   * @see $entReplace
-   */
-  protected $entSearch = array(
-      '/&#153;/i',                                     // TM symbol in win-1252
-      '/&#151;/i',                                     // m-dash in win-1252
-      '/&(amp|#38);/i',                                // ampersand: see converter()
-      '/[ ]{2,}/',                                     // runs of spaces, post-handling
-  );
-
-  /**
-   * List of pattern replacements corresponding to patterns searched.
-   *
-   * @type array
-   * @see $entSearch
-   */
-  protected $entReplace = array(
-      '™',         // TM symbol
-      '—',         // m-dash
-      '|+|amp|+|', // ampersand: see converter()
-      ' ',         // runs of spaces, post-handling
+  protected $endSearchReplaceArray = array(
+    // TM symbol in win-1252
+    '/&#153;/i'      => '™',
+    // m-dash in win-1252
+    '/&#151;/i'      => '—',
+    // ampersand: see converter()
+    '/&(amp|#38);/i' => '|+|amp|+|',
+    // runs of spaces, post-handling
+    '/[ ]{2,}/'      => ' ',
   );
 
   /**
    * List of preg* regular expression patterns to search for
    * and replace using callback function.
    *
-   * @type array
+   * @var array
    */
   protected $callbackSearch = array(
       '/<(h)[123456]( [^>]*)?>(.*?)<\/h[123456]>/i',           // h1 - h6
@@ -146,52 +124,36 @@ class Html2Text
   );
 
   /**
-   * List of preg* regular expression patterns to search for in PRE body,
-   * used in conjunction with $preReplace.
+   * List of preg* regular expression patterns to search for in PRE body
    *
-   * @type array
-   * @see $preReplace
+   * @var array
    */
-  protected $preSearch = array(
-      "/\n/",
-      "/\t/",
-      '/ /',
-      '/<pre[^>]*>/',
-      '/<\/pre>/',
-  );
-
-  /**
-   * List of pattern replacements corresponding to patterns searched for PRE body.
-   *
-   * @type array
-   * @see $preSearch
-   */
-  protected $preReplace = array(
-      '<br>',
-      '&nbsp;&nbsp;',
-      '&nbsp;',
-      '',
-      '',
+  protected $preSearchReplaceArray = array(
+      "/\n/"         => '<br>',
+      "/\t/"         => '&nbsp;&nbsp;',
+      '/ /'          => '&nbsp;',
+      '/<pre[^>]*>/' => '',
+      '/<\/pre>/'    => '',
   );
 
   /**
    * Temporary workspace used during PRE processing.
    *
-   * @type string
+   * @var string
    */
   protected $preContent = '';
 
   /**
    * Contains the base URL that relative links should resolve to.
    *
-   * @type string
+   * @var string
    */
   protected $baseurl = '';
 
   /**
    * Indicates whether content in the $html variable has been converted yet.
    *
-   * @type boolean
+   * @var boolean
    * @see $html, $text
    */
   protected $converted = false;
@@ -199,7 +161,7 @@ class Html2Text
   /**
    * Contains URL addresses from links to be rendered in plain text.
    *
-   * @type array
+   * @var array
    * @see buildLinkList()
    */
   protected $linkList = array();
@@ -207,7 +169,7 @@ class Html2Text
   /**
    * Various configuration options (able to be set in the constructor)
    *
-   * @type array
+   * @var array
    */
   protected $options = array(
     //
@@ -362,6 +324,18 @@ class Html2Text
    */
   protected function converter(&$text)
   {
+    static $searchReplaceArrayKeys = null;
+    static $searchReplaceArrayValues = null;
+
+    static $endSearchReplaceArrayKeys = null;
+    static $endSearchReplaceArrayValues = null;
+
+    $searchReplaceArrayKeys = ($searchReplaceArrayKeys === null ? array_keys($this->searchReplaceArray) : $searchReplaceArrayKeys);
+    $searchReplaceArrayValues = ($searchReplaceArrayValues === null ? array_values($this->searchReplaceArray) : $searchReplaceArrayValues);
+
+    $endSearchReplaceArrayKeys = ($endSearchReplaceArrayKeys === null ? array_keys($this->endSearchReplaceArray) : $endSearchReplaceArrayKeys);
+    $endSearchReplaceArrayValues = ($endSearchReplaceArrayValues === null ? array_values($this->endSearchReplaceArray) : $endSearchReplaceArrayValues);
+
     // convert <BLOCKQUOTE> (before PRE!)
     $this->convertBlockquotes($text);
 
@@ -369,7 +343,7 @@ class Html2Text
     $this->convertPre($text);
 
     // run our defined tags search-and-replace
-    $text = preg_replace($this->search, $this->replace, $text);
+    $text = preg_replace($searchReplaceArrayKeys, $searchReplaceArrayValues, $text);
 
     // run our defined tags search-and-replace with callback
     $text = preg_replace_callback($this->callbackSearch, array($this, 'pregCallback'), $text);
@@ -378,7 +352,7 @@ class Html2Text
     $text = UTF8::strip_tags($text);
 
     // run our defined entities/characters search-and-replace
-    $text = preg_replace($this->entSearch, $this->entReplace, $text);
+    $text = preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
 
     // replace known html entities
     $text = UTF8::html_entity_decode($text);
@@ -474,6 +448,12 @@ class Html2Text
    */
   protected function convertPre(&$text)
   {
+    static $preSearchReplaceArrayKeys = null;
+    static $preSearchReplaceArrayVales = null;
+
+    $preSearchReplaceArrayKeys = ($preSearchReplaceArrayKeys === null ? array_keys($this->preSearchReplaceArray) : $preSearchReplaceArrayKeys);
+    $preSearchReplaceArrayVales = ($preSearchReplaceArrayVales === null ? array_values($this->preSearchReplaceArray) : $preSearchReplaceArrayVales);
+
     // get the content of PRE element
     while (preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
       $this->preContent = $matches[1];
@@ -488,7 +468,7 @@ class Html2Text
       // convert the content
       $this->preContent = sprintf(
           '<div><br>%s<br></div>',
-          preg_replace($this->preSearch, $this->preReplace, $this->preContent)
+          preg_replace($preSearchReplaceArrayKeys, $preSearchReplaceArrayVales, $this->preContent)
       );
 
       // replace the content (use callback because content can contain $0 variable)
