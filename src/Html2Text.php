@@ -279,7 +279,9 @@ class Html2Text
   {
     $this->linkList = array();
 
-    // clean the string
+    // clean the string from non-UTF8 chars
+    // & remove UTF8-BOM
+    // & normalize whitespace
     $text = UTF8::clean($this->html, true, true, false);
 
     $text = UTF8::trim(stripslashes($text));
@@ -293,7 +295,7 @@ class Html2Text
       }
     }
 
-    // normalize the string
+    // normalize whitespace, again
     $text = UTF8::normalize_whitespace($text);
 
     // don't use tabs
@@ -542,7 +544,6 @@ class Html2Text
         return $this->buildLinkList($url, $matches[5], $linkOverride);
       case 'ul':
         $items = preg_replace('/<li[^>]*>(.*?)<\/li>/i', "\t* \\1\n", $matches[3]);
-        $items = preg_replace('/<li[^>]*>/i', "\t* ", $items);
 
         return "\n\n" . $items . "\n\n";
       case 'ol':
@@ -552,12 +553,6 @@ class Html2Text
             function ($m) use (&$i) {
               return "\t" . $i++ . '. ' . $m[1] . "\n";
             }, $matches[3]
-        );
-        $items = preg_replace_callback(
-            '/<li[^>]*>/i',
-            function () use (&$i) {
-              return "\t" . $i++ . '. ';
-            }, $items
         );
 
         return "\n\n" . $items . "\n\n";

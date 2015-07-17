@@ -108,4 +108,44 @@ EOT;
 
     $this->assertEquals($expected_output, $output);
   }
+
+  public function testMultiLineUnorderedList()
+  {
+    $input = <<<EOT
+<ul>
+    <li>this is a really long line, and it should be split into two lines. let's hope it is</li>
+    <li>two</li>
+</ul>
+EOT;
+    $expected_output = <<<EOT
+* this is a really long line, and it should be split into two lines.
+let's hope it is
+* two
+EOT;
+
+    $html2text = new Html2Text($input);
+    $output = $html2text->get_text();
+
+    $this->assertEquals($expected_output, $output);
+  }
+
+  public function testMultiLineOrderedList()
+  {
+    $input = <<<EOT
+<ol>
+    <li>this is a really long line, and it should be split into two lines. let's hope it is</li>
+    <li>two</li>
+</ol>
+EOT;
+    $expected_output = <<<EOT
+1. this is a really long line, and it should be split into two
+lines. let's hope it is
+2. two
+EOT;
+
+    $html2text = new Html2Text($input);
+    $output = $html2text->get_text();
+
+    $this->assertEquals($expected_output, $output);
+  }
 }
