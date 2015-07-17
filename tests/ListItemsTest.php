@@ -41,9 +41,10 @@ EOT;
     <li>two</li>
     <li></li>
 </ol>
+<p>lall</p>
 <ol>
-    <li>one</li>
-    <li>two</li>
+    <li>foo</li>
+    <li>bar</li>
     <li></li>
 </ol>
 <ol>
@@ -51,19 +52,24 @@ EOT;
     <li>two</li>
     <li>three</li>
 </ol>
+foo
 EOT;
     $expected_output = <<<EOT
-1. one
-2. two
-3.
+* one
+* two
+*
 
-1. one
-2. two
-3.
+lall
 
-1. one
-2. two
-3. three
+* foo
+* bar
+*
+
+* one
+* two
+* three
+
+foo
 EOT;
 
     $html2text = new Html2Text($input);
@@ -72,7 +78,7 @@ EOT;
     $this->assertEquals($expected_output, $output);
   }
 
-  public function testLargeList()
+  public function testLargeOrderedList()
   {
     $input = <<<EOT
 <ol>
@@ -90,17 +96,17 @@ EOT;
 </ol>
 EOT;
     $expected_output = <<<EOT
-1. one
-2. two
-3. three
-4. four
-5. five
-6. six
-7. seven
-8. eight
-9. nine
-10. ten
-11. eleven
+* one
+* two
+* three
+* four
+* five
+* six
+* seven
+* eight
+* nine
+* ten
+* eleven
 EOT;
 
     $html2text = new Html2Text($input);
@@ -138,9 +144,47 @@ EOT;
 </ol>
 EOT;
     $expected_output = <<<EOT
-1. this is a really long line, and it should be split into two
-lines. let's hope it is
-2. two
+* this is a really long line, and it should be split into two lines.
+let's hope it is
+* two
+EOT;
+
+    $html2text = new Html2Text($input);
+    $output = $html2text->get_text();
+
+    $this->assertEquals($expected_output, $output);
+  }
+
+  public function testMultiLevelUnorderedList()
+  {
+    $input = <<<EOT
+<ul>
+  <li>Coffee</li>
+  <li>Tea
+    <ul>
+      <li>Black tea</li>
+      <li>Green tea</li>
+      <ul>
+        <li>Green tea: foo</li>
+        <li>Green tea: bar</li>
+      </ul>
+    </ul>
+  </li>
+  <li>Milk</li>
+</ul>
+EOT;
+    $expected_output = <<<EOT
+* Coffee
+
+* Tea
+
+* Black tea
+* Green tea
+
+* Green tea: foo
+* Green tea: bar
+
+* Milk
 EOT;
 
     $html2text = new Html2Text($input);
