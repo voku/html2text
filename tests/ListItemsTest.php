@@ -18,7 +18,7 @@ class ListItemsTest extends \PHPUnit_Framework_TestCase
 <ul>
     <li>one</li>
     <li>two</li>
-    <li>
+    <li></li>
 </ul>
 EOT;
     $expected_output = <<<EOT
@@ -39,7 +39,7 @@ EOT;
 <ol>
     <li>one</li>
     <li>two</li>
-    <li>
+    <li></li>
 </ol>
 <ol>
     <li>one</li>
