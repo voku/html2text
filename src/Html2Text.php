@@ -65,20 +65,12 @@ class Html2Text
     '/<i[^>]*>(.*?)<\/i>/i'                          => '_\\1_',
     // <em>
     '/<em[^>]*>(.*?)<\/em>/i'                        => '_\\1_',
-    // <ul> and </ul>
-    '/(<ul[^>]*>|<\/ul>)/i'                          => "\n\n",
-    // <ol> and </ol>
-    '/(<ol[^>]*>|<\/ol>)/i'                          => "\n\n",
     // <dl> and </dl>
     '/(<dl[^>]*>|<\/dl>)/i'                          => "\n\n",
-    // <li> and </li>
-    '/<li[^>]*>(.*?)<\/li>/i'                        => "* \\1\n",
     // <dd> and </dd>
     '/<dd[^>]*>(.*?)<\/dd>/i'                        => "\\1\n",
     // <dt> and </dt>
     '/<dt[^>]*>(.*?)<\/dt>/i'                        => "* \\1",
-    // <li>
-    '/<li[^>]*>/i'                                   => "\n* ",
     // <hr>
     '/<hr[^>]*>/i'                                   => "\n-------------------------\n",
     // <div>
@@ -120,7 +112,9 @@ class Html2Text
       '/<(b)( [^>]*)?>(.*?)<\/b>/i',                           // <b>
       '/<(strong)( [^>]*)?>(.*?)<\/strong>/i',                 // <strong>
       '/<(th)( [^>]*)?>(.*?)<\/th>/i',                         // <th> and </th>
-      '/<(a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i'  // <a href="">
+      '/<(a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i', // <a href="">
+      '/<(ul)( [^>]*)?>(.*?)<\/ul>/i',                         // <ul>
+      '/<(ol)( [^>]*)?>(.*?)<\/ol>/i',                         // <ol>
   );
 
   /**
@@ -546,6 +540,27 @@ class Html2Text
         $url = str_replace(' ', '', $matches[3]);
 
         return $this->buildLinkList($url, $matches[5], $linkOverride);
+      case 'ul':
+        $items = preg_replace('/<li[^>]*>(.*?)<\/li>/i', "\t* \\1\n", $matches[3]);
+        $items = preg_replace('/<li[^>]*>/i', "\t* ", $items);
+
+        return "\n\n" . $items . "\n\n";
+      case 'ol':
+        $i = 1;
+        $items = preg_replace_callback(
+            '/<li[^>]*>(.*?)<\/li>/i',
+            function ($m) use (&$i) {
+              return "\t" . $i++ . '. ' . $m[1] . "\n";
+            }, $matches[3]
+        );
+        $items = preg_replace_callback(
+            '/<li[^>]*>/i',
+            function () use (&$i) {
+              return "\t" . $i++ . '. ';
+            }, $items
+        );
+
+        return "\n\n" . $items . "\n\n";
     }
 
     return '';
@@ -637,7 +652,8 @@ class Html2Text
    *
    * @return string
    */
-  protected function pregPreCallback(/** @noinspection PhpUnusedParameterInspection */ $matches)
+  protected function pregPreCallback(/** @noinspection PhpUnusedParameterInspection */
+      $matches)
   {
     return $this->preContent;
   }
