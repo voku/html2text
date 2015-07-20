@@ -397,10 +397,11 @@ class Html2Text
       foreach ($matches[0] as $m) {
         if ($m[0][0] == '<' && $m[0][1] == '/') {
           $level--;
+
           if ($level < 0) {
             // malformed HTML: go to next blockquote
             $level = 0;
-          } elseif ($level > 0) {
+          } else if ($level > 0) {
             // skip inner blockquote
           } else {
             $end = $m[1];
@@ -622,9 +623,9 @@ class Html2Text
       }
 
       return $display . ' [' . ($index + 1) . ']';
-    } elseif ($linkMethod == 'nextline') {
+    } else if ($linkMethod == 'nextline') {
       return $display . "\n[" . $url . ']';
-    } elseif ($linkMethod == 'bbcode') {
+    } else if ($linkMethod == 'bbcode') {
       return '[url=' . $url . ']' . $display . '[/url]';
     } else {
       // link_method defaults to inline

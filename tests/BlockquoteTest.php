@@ -97,4 +97,43 @@ EOT;
     $html2text = new Html2Text($html);
     $this->assertEquals($expected, $html2text->getText());
   }
+
+  public function testMalformedHtmlBlockquotes()
+  {
+    $html = <<<'EOT'
+<p>Before</p>
+
+<blockquote>Foo1 foo1 foo1</lockquote>
+
+<blockquot>Foo2 foo2 foo2</blockquote>
+
+<blockquot>Bar bar bar</blockquot>
+
+<blockquot>Before-After-1</blockquote>
+
+<blockquote>Before-After-2</blockquote>
+
+<blockquote>
+  <blockquote>Before-After-3</blockquot>
+
+  Before-After-4
+</blockquote>
+
+<p>After</p>
+EOT;
+    $expected = <<<'EOT'
+Before
+
+> Foo1 foo1 foo1 Foo2 foo2 foo2
+Bar bar bar Before-After-1
+
+> Before-After-2
+Before-After-3 Before-After-4
+
+After
+EOT;
+    $html2text = new Html2Text($html);
+    $this->assertEquals($expected, $html2text->getText());
+  }
 }
+
