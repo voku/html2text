@@ -323,7 +323,7 @@ class Html2Text
   /**
    * converter
    *
-   * @param $text
+   * @param string $text
    */
   protected function converter(&$text)
   {
@@ -447,7 +447,7 @@ class Html2Text
   /**
    * convert "<pre>"-tags
    *
-   * @param $text
+   * @param string $text
    */
   protected function convertPre(&$text)
   {
@@ -589,7 +589,7 @@ class Html2Text
    *
    * @param  string $link    URL of the link
    * @param  string $display Part of the text to associate number with
-   * @param  null   $linkOverride
+   * @param  string|null   $linkOverride
    *
    * @return string
    */
