@@ -203,13 +203,13 @@ class Html2Text
    */
   public function __construct($html = '', $options = array())
   {
-    // for backwards compatibility
     if (!is_array($options)) {
-      return call_user_func_array(array($this, 'legacyConstruct'), func_get_args());
+      // for backwards compatibility
+      call_user_func_array(array($this, 'legacyConstruct'), func_get_args());
+    } else {
+      $this->html = $html;
+      $this->options = array_merge($this->options, $options);
     }
-
-    $this->html = $html;
-    $this->options = array_merge($this->options, $options);
   }
 
   /**
@@ -294,7 +294,7 @@ class Html2Text
 
     $this->converter($text);
 
-    if ($this->linkList) {
+    if (count($this->linkList) > 0) {
       $text .= "\n\nLinks:\n------\n";
       foreach ($this->linkList as $i => $url) {
         $text .= '[' . ($i + 1) . '] ' . $url . "\n";
@@ -636,12 +636,9 @@ class Html2Text
   /**
    * Callback function for preg_replace_callback use in PRE content handler.
    *
-   * @param  array $matches PREG matches
-   *
    * @return string
    */
-  protected function pregPreCallback(/** @noinspection PhpUnusedParameterInspection */
-      $matches)
+  protected function pregPreCallback()
   {
     return $this->preContent;
   }
