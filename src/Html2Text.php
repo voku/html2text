@@ -57,8 +57,8 @@ class Html2Text
     '/<script[^>]*>.*?<\/script>/i'                  => '',
     // <style>s -- which strip_tags supposedly has problems with
     '/<style[^>]*>.*?<\/style>/i'                    => '',
-    // <p>
-    '/<p[^>]*>/i'                                    => "\n\n",
+    // <p> and </p>
+    '/(<p[^>]*>|<\/p>)/i'                            => "\n\n",
     // <br>
     '/<br[^>]*>/i'                                   => "\n",
     // <i>
@@ -372,7 +372,7 @@ class Html2Text
     $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
 
     // remove leading empty lines (can be produced by eg. P tag on the beginning)
-    $text = UTF8::ltrim($text, "\n");
+    $text = UTF8::trim($text, "\n");
 
     if ($this->options['width'] > 0) {
       $text = wordwrap($text, $this->options['width']);
