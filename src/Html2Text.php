@@ -548,9 +548,9 @@ class Html2Text
         $url = str_replace(' ', '', $matches[3]);
 
         return $this->buildLinkList($url, $matches[5], $linkOverride);
+      default:
+        return '';
     }
-
-    return '';
   }
 
   /**
@@ -587,9 +587,9 @@ class Html2Text
    * appeared. Also makes an effort at identifying and handling absolute
    * and relative links.
    *
-   * @param  string $link    URL of the link
-   * @param  string $display Part of the text to associate number with
-   * @param  string|null   $linkOverride
+   * @param  string      $link    URL of the link
+   * @param  string      $display Part of the text to associate number with
+   * @param  string|null $linkOverride
    *
    * @return string
    */

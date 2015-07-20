@@ -163,6 +163,38 @@ EOT;
     $this->assertEquals($expected, $html2text->getText());
   }
 
+  public function testBaseUrlOld()
+  {
+    $html = '<a href="/relative">Link text</a>';
+    $expected = 'Link text [http://example.com/relative]';
+
+    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text->set_base_url('http://example.com');
+
+    $this->assertEquals($expected, $html2text->getText());
+  }
+
+  public function testIgnoredLinkTypes()
+  {
+    $html = '
+    <a href="javascript:alert(\'XSS\')">XSS</a>
+    <br />
+    <a href="mailto:foo.bar@example.org">Foo Bar Example, foo.bar@example.org</a>
+    <br />
+    <a href="#">Link text</a>
+    <br />
+    <a href="/">Link text</a>
+    ';
+    $expected = 'XSS
+Foo Bar Example, foo.bar@example.org
+Link text
+Link text [/]';
+
+    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+
+    $this->assertEquals($expected, $html2text->getText());
+  }
+
   public function testBaseUrlWithPlaceholder()
   {
     $html = '<a href="/relative">Link text</a>';
