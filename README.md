@@ -14,6 +14,14 @@ WARNING: this is only a Extended-Fork of "https://github.com/mtibben/html2text/"
 
 A PHP library for converting HTML to formatted plain text.
 
+## Installation
+
+The recommended installation way is through [Composer](https://getcomposer.org).
+
+```bash
+$ composer require voku/html2text
+```
+
 ## Basic Usage
 ```php
 $html = new \voku\Html2Text\Html2Text('Hello, &quot;<b>world</b>&quot;');
