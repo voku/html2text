@@ -352,7 +352,7 @@ class Html2Text
     $text = preg_replace_callback($this->callbackSearch, array($this, 'pregCallback'), $text);
 
     // strip any other HTML tags
-    $text = UTF8::strip_tags($text);
+    $text = preg_replace('/(<(\/|!)?\w+[^>]*>)|(<!--.*?-->)/s', '', $text);
 
     // run our defined entities/characters search-and-replace
     $text = preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
