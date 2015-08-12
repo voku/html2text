@@ -10,7 +10,7 @@
 
 # Html2Text
 
-WARNING: this is only a Extended-Fork of "https://github.com/mtibben/html2text/"
+WARNING: this is only a Maintained-Fork of "https://github.com/mtibben/html2text/"
 
 A PHP library for converting HTML to formatted plain text.
 
