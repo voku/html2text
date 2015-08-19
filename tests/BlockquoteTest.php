@@ -136,4 +136,3 @@ EOT;
     $this->assertEquals($expected, $html2text->getText());
   }
 }
-
