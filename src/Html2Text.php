@@ -76,7 +76,7 @@ class Html2Text
     // <dd> and </dd>
     '/<dd[^>]*>(.*?)<\/dd>/i'                        => "\\1\n",
     // <dt> and </dt>
-    '/<dt[^>]*>(.*?)<\/dt>/i'                        => "* \\1",
+    '/<dt[^>]*>(.*?)<\/dt>/i'                        => '* \\1',
     // <li>
     '/<li[^>]*>/i'                                   => "\n* ",
     // <hr>
@@ -234,7 +234,7 @@ class Html2Text
   public function set_html($html, $from_file = false)
   {
     if ($from_file) {
-      throw new \InvalidArgumentException("Argument from_file no longer supported");
+      throw new \InvalidArgumentException('Argument from_file no longer supported');
     }
 
     $this->setHtml($html);
@@ -401,7 +401,7 @@ class Html2Text
           if ($level < 0) {
             // malformed HTML: go to next blockquote
             $level = 0;
-          } else if ($level > 0) {
+          } elseif ($level > 0) {
             // skip inner blockquote
           } else {
             $end = $m[1];
@@ -623,9 +623,9 @@ class Html2Text
       }
 
       return $display . ' [' . ($index + 1) . ']';
-    } else if ($linkMethod == 'nextline') {
+    } elseif ($linkMethod == 'nextline') {
       return $display . "\n[" . $url . ']';
-    } else if ($linkMethod == 'bbcode') {
+    } elseif ($linkMethod == 'bbcode') {
       return '[url=' . $url . ']' . $display . '[/url]';
     } else {
       // link_method defaults to inline

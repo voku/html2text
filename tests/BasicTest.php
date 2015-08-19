@@ -2,7 +2,6 @@
 
 namespace voku\Html2Text\tests;
 
-use \voku\helper\UTF8;
 use \voku\Html2Text\Html2Text;
 
 /**
