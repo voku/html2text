@@ -386,7 +386,7 @@ class Html2Text
    */
   protected function convertBlockquotes(&$text)
   {
-    if (preg_match_all('/<\/*blockquote[^>]*>/ui', $text, $matches, PREG_OFFSET_CAPTURE)) {
+    if (preg_match_all('/<\/*blockquote[^>]*>/i', $text, $matches, PREG_OFFSET_CAPTURE)) {
 
       // init
       $start = 0;
