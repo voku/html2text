@@ -404,7 +404,9 @@ class Html2Text
           } elseif ($level > 0) {
             // skip inner blockquote
           } else {
-            $end = $m[1];
+            // convert preg offset from bytes to characters
+            $end = UTF8::strlen(substr($text, 0, $m[1]));
+
             $len = $end - $taglen - $start;
 
             // get blockquote content
@@ -436,7 +438,9 @@ class Html2Text
           }
         } else {
           if ($level == 0) {
-            $start = $m[1];
+            // convert preg offset from bytes to characters
+            $start = UTF8::strlen(substr($text, 0, $m[1]));
+
             $taglen = UTF8::strlen($m[0]);
           }
           $level++;
