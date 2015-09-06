@@ -581,7 +581,7 @@ class Html2Text
   protected function entityCallback(&$matches)
   {
     // Convert from HTML-ENTITIES to UTF-8
-    return mb_convert_encoding($matches[0], "UTF-8", "HTML-ENTITIES");
+    return mb_convert_encoding($matches[0], 'UTF-8', 'HTML-ENTITIES');
   }
 
   /**
