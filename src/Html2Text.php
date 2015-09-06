@@ -363,8 +363,11 @@ class Html2Text
     // replace known html entities
     $text = UTF8::html_entity_decode($text);
 
+    // replace html entities which represent UTF-8 codepoints.
+    $text = preg_replace_callback("/&#\d{2,4};/", array($this, 'entityCallback'), $text);
+
     // remove unknown/unhandled entities (this cannot be done in search-and-replace block)
-    $text = preg_replace('/&([a-zA-Z0-9]{2,6}|#\d{2,4});/', '', $text);
+    $text = preg_replace('/&[a-zA-Z0-9]{2,6};/', '', $text);
 
     // convert "|+|amp|+|" into "&", need to be done after handling of unknown entities
     // this properly handles situation of "&amp;quot;" in input string
@@ -566,6 +569,19 @@ class Html2Text
       default:
         return '';
     }
+  }
+
+  /**
+   * Callback function for preg_replace_callback use.
+   *
+   * @param  array $matches PREG matches
+   *
+   * @return string
+   */
+  protected function entityCallback(&$matches)
+  {
+    // Convert from HTML-ENTITIES to UTF-8
+    return mb_convert_encoding($matches[0], "UTF-8", "HTML-ENTITIES");
   }
 
   /**
