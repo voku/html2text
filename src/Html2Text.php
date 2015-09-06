@@ -61,10 +61,6 @@ class Html2Text
     '/(<p[^>]*>|<\/p>)/i'                            => "\n\n",
     // <br>
     '/<br[^>]*>/i'                                   => "\n",
-    // <i>
-    '/<i[^>]*>(.*?)<\/i>/i'                          => '_\\1_',
-    // <em>
-    '/<em[^>]*>(.*?)<\/em>/i'                        => '_\\1_',
     // <ul> and </ul>
     '/(<ul[^>]*>|<\/ul>)/i'                          => "\n\n",
     // <ol> and </ol>
@@ -121,6 +117,8 @@ class Html2Text
       '/<(strong)( [^>]*)?>(.*?)<\/strong>/i',                 // <strong>
       '/<(th)( [^>]*)?>(.*?)<\/th>/i',                         // <th> and </th>
       '/<(a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i', // <a href="">
+      '/<(i)( [^>]*)?>(.*?)<\/i>/i',                           // <i>
+      '/<(em)( [^>]*)?>(.*?)<\/em>/i',                         // <em>
   );
 
   /**
@@ -177,6 +175,11 @@ class Html2Text
     //
     // Convert strong and bold to uppercase?
     'do_upper' => true,
+    //
+    // "do_underscores" ------------>
+    //
+    // Surround emphasis and italics with underscores?
+    'do_underscores' => true,
     //
     // "do_links ------------>
     //
@@ -541,6 +544,13 @@ class Html2Text
         return $this->toupper($matches[3] . "\n");
       case 'h':
         return $this->toupper("\n\n" . $matches[3] . "\n\n");
+      case 'i':
+      case 'em':
+        $subject = $matches[3];
+        if ($this->options['do_underscores'] === true) {
+          $subject = '_' . $subject . '_';
+        }
+        return $subject;
       case 'a':
 
         // override the link method
