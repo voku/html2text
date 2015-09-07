@@ -61,10 +61,6 @@ class Html2Text
     '/(<p[^>]*>|<\/p>)/i'                            => "\n\n",
     // <br>
     '/<br[^>]*>/i'                                   => "\n",
-    // <i>
-    '/<i[^>]*>(.*?)<\/i>/i'                          => '_\\1_',
-    // <em>
-    '/<em[^>]*>(.*?)<\/em>/i'                        => '_\\1_',
     // <ul> and </ul>
     '/(<ul[^>]*>|<\/ul>)/i'                          => "\n\n",
     // <ol> and </ol>
@@ -121,6 +117,8 @@ class Html2Text
       '/<(strong)( [^>]*)?>(.*?)<\/strong>/i',                 // <strong>
       '/<(th)( [^>]*)?>(.*?)<\/th>/i',                         // <th> and </th>
       '/<(a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i', // <a href="">
+      '/<(i)( [^>]*)?>(.*?)<\/i>/i',                           // <i>
+      '/<(em)( [^>]*)?>(.*?)<\/em>/i',                         // <em>
   );
 
   /**
@@ -177,6 +175,11 @@ class Html2Text
     //
     // Convert strong and bold to uppercase?
     'do_upper' => true,
+    //
+    // "do_underscores" ------------>
+    //
+    // Surround emphasis and italics with underscores?
+    'do_underscores' => true,
     //
     // "do_links ------------>
     //
@@ -360,8 +363,11 @@ class Html2Text
     // replace known html entities
     $text = UTF8::html_entity_decode($text);
 
+    // replace html entities which represent UTF-8 codepoints.
+    $text = preg_replace_callback("/&#\d{2,4};/", array($this, 'entityCallback'), $text);
+
     // remove unknown/unhandled entities (this cannot be done in search-and-replace block)
-    $text = preg_replace('/&([a-zA-Z0-9]{2,6}|#\d{2,4});/', '', $text);
+    $text = preg_replace('/&[a-zA-Z0-9]{2,6};/', '', $text);
 
     // convert "|+|amp|+|" into "&", need to be done after handling of unknown entities
     // this properly handles situation of "&amp;quot;" in input string
@@ -541,6 +547,13 @@ class Html2Text
         return $this->toupper($matches[3] . "\n");
       case 'h':
         return $this->toupper("\n\n" . $matches[3] . "\n\n");
+      case 'i':
+      case 'em':
+        $subject = $matches[3];
+        if ($this->options['do_underscores'] === true) {
+          $subject = '_' . $subject . '_';
+        }
+        return $subject;
       case 'a':
 
         // override the link method
@@ -556,6 +569,19 @@ class Html2Text
       default:
         return '';
     }
+  }
+
+  /**
+   * Callback function for preg_replace_callback use.
+   *
+   * @param  array $matches PREG matches
+   *
+   * @return string
+   */
+  protected function entityCallback(&$matches)
+  {
+    // Convert from HTML-ENTITIES to UTF-8
+    return mb_convert_encoding($matches[0], 'UTF-8', 'HTML-ENTITIES');
   }
 
   /**
