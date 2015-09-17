@@ -1,37 +1,39 @@
-﻿Use this area to offer a short teaser of your email's content. Text
-here will show in the preview area of some email clients.
-Email not displaying correctly?
-View it in your browser [/*|ARCHIVE|*].
+﻿image: "Atryum - LECKER LIFESTYLE" [http://www.atryum.de]
 
-DESIGNING YOUR TEMPLATE
+[http://www.atryum.de/Rezepte/Filetsteaks-mit-Chili-Reis-und-Broccoli-Gemuese/?[[campaign_tracking]]]
 
-CREATING A GOOD-LOOKING EMAIL IS SIMPLE
+FILETSTEAKS MIT CHILI-REIS UND BROCCOLI-GEMÜSE
 
-Customize your template by clicking on the style editor tabs above.
-Set your fonts, colors, and styles. After setting your styling is all
-done you can click here in this area, delete the text, and start
-adding your own awesome content.
+Schnell und trotzdem rafiniert: Diesmal präsentieren wir euch ein
+pikantes Gericht, das in weniger als einer Stunde auf dem Tisch steht.
 
-STYLING YOUR CONTENT
 
-MAKE YOUR EMAIL EASY TO READ
+image: "Jetzt lesen"
+[http://www.atryum.de/Rezepte/Filetsteaks-mit-Chili-Reis-und-Broccoli-Gemuese/?text=1&[[campaign_tracking]]]
 
-After you enter your content, highlight the text you want to style
-and select the options you set in the style editor in the "_styles_"
-drop down box. Want to get rid of styling on a bit of text
-[http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change],
-but having trouble doing it? Just use the "_remove formatting_" button
-to strip the text of any formatting and reset your style.
+UMFRAGE - GEWINNE 1 VON 5 ATRY REIS ÜBERRASCHUNGS-PAKETEN
 
-Follow on Twitter [/*|TWITTER:PROFILEURL|*]   Friend on Facebook
-[/*|FACEBOOK:PROFILEURL|*]   Forward to Friend [/*|FORWARD|*]
+mehr
+[http://www.atryum.de/Spiel-Spass/Umfrage-gewinne-1-von-5-ATRY-Reis-Ueberraschungspaketen/?text=1]
+[http://www.atryum.de/Spiel-Spass/Umfrage-gewinne-1-von-5-ATRY-Reis-Ueberraschungspaketen/]
 
-_Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights
-reserved._
-*|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
+50 PRODUKTTESTER GESUCHT FÜR ATRY 1121 BASMATI WUNDERREIS
 
-OUR MAILING ADDRESS IS:
-*|HTML:LIST_ADDRESS_HTML|* *|END:IF|*
+mehr
+[http://www.atryum.de/Produktwelt/50-Produkttester-gesucht-fuer-ATRY-1121-Basmati-Wunderreis/?text=1]
+[http://www.atryum.de/Produktwelt/50-Produkttester-gesucht-fuer-ATRY-1121-Basmati-Wunderreis/]
 
-unsubscribe from this list [/*|UNSUB|*]   update subscription
-preferences [/*|UPDATE_PROFILE|*]
+KENNST DU AUCH SCHON UNSERE ANDEREN NEWSLETTER?
+
+Jetzt kennenlernen [http://atryum.de/tpl_profile_newsletter.php]
+
+Dieser Newsletter wurde verschickt an:
+[[email]]
+Diese Adresse abmelden [http://atryum.de/tpl_profile_newsletter.php]
+
+Impressum [http://atryum.de/Impressum/]
+
+Besuche uns auf
+
+image: "facebook" [https://www.facebook.com/pages/ATRY/352535851266]
+image: "facebook" [https://plus.google.com/117459968320134729723]
