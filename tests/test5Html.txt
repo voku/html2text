@@ -1,5 +1,4 @@
-﻿image: "Henkel Lifetimes"
-[https://www.henkel-lifetimes.de/index.php?guid={guid}]
+﻿[https://www.henkel-lifetimes.de/index.php?guid={guid}]
 MARKENWELT-NEWSLETTER
 
 Ausgabe: Juli 2015
@@ -44,7 +43,6 @@ Mehr »
 Mehr »
 [https://www.henkel-lifetimes.de/article.php?pid=2318&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=link+smallTeaserLink&utm_campaign=markenwelt]
 
-image: "Weitere Themen"
 [https://www.henkel-lifetimes.de/article_area.php?pid=6&guid={guid}&language=de]
 
 Das könnte Sie auch interessieren
@@ -73,4 +71,4 @@ NEWSLETTER ABBESTELLEN
 
 © 2015 Henkel AG & Co. KGaA
 
-image: "Henkel" [http://www.henkel.de]
+[http://www.henkel.de]

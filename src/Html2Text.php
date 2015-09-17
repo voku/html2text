@@ -86,7 +86,7 @@ class Html2Text
     // <td> and </td>
     '/<td[^>]*>(.*?)<\/td>/i'                        => "\\1\n",
     // img alt text
-    '/<img(?:.*?)(alt)=("[^"]+")(?:.*?)>/i'          => "image: \\2",
+    '/<img(?:.*?)alt=("|\')(.+?)("|\')(?:.*?)>/i'    => "image: \\1\\2\\3",
     // <span class="_html2text_ignore">...</span>
     '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
   );
