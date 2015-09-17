@@ -13,8 +13,12 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 {
   public function testShowAltText()
   {
-    $html = new Html2Text('<img id="head" class="header" src="imgs/logo.png" alt="This is our cool logo" />');
+    $html = new Html2Text('<img id="head" class="header" src="imgs/logo.png" alt="This is our cool logo" />
+    <br/>
+    <img id="head" class="header" src="imgs/logo.png" alt=\'This is our cool logo\' data-foo="bar">
+    ');
 
-    $this->assertEquals('image: "This is our cool logo"', $html->getText());
+    $this->assertEquals('image: "This is our cool logo"
+image: \'This is our cool logo\'', $html->getText());
   }
 }
