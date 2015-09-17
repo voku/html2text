@@ -85,6 +85,8 @@ class Html2Text
     '/(<tr[^>]*>|<\/tr>)/i'                          => "\n",
     // <td> and </td>
     '/<td[^>]*>(.*?)<\/td>/i'                        => "\\1\n",
+    // img alt text
+    '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => "image: \\1\\2\\3",
     // <span class="_html2text_ignore">...</span>
     '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
   );
@@ -103,6 +105,8 @@ class Html2Text
     '/&(amp|#38);/i' => '|+|amp|+|',
     // runs of spaces, post-handling
     '/[ ]{2,}/'      => ' ',
+    // prevent strange characters
+    '/&nbsp;/i'      => ' ',
   );
 
   /**
