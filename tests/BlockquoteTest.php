@@ -135,4 +135,33 @@ EOT;
     $html2text = new Html2Text($html);
     $this->assertEquals($expected, $html2text->getText());
   }
+
+  public function testBlockquoteWithAttribute()
+  {
+    $html = <<<'EOT'
+<html>
+<body>
+  <blockquote type="cite">
+    <div>
+      <span>some quoted words</span>
+    </div>
+  </blockquote>
+  <blockquote type="cite">
+    <div>
+      <span>second quote</span>
+    </div>
+  </blockquote>
+</body>
+</html>
+EOT;
+
+    $expected = <<<'EOT'
+> some quoted words
+
+> second quote
+EOT;
+
+    $html2text = new Html2Text($html);
+    $this->assertEquals($expected, $html2text->getText());
+  }
 }

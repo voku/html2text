@@ -405,6 +405,11 @@ class Html2Text
       $level = 0;
       $diff = 0;
 
+      // convert preg offsets from bytes to characters
+      foreach ($matches[0] as $index => $m) {
+        $matches[0][$index][1] = UTF8::strlen(substr($text, 0, $m[1]));
+      }
+
       foreach ($matches[0] as $m) {
         if ($m[0][0] == '<' && $m[0][1] == '/') {
           $level--;
@@ -415,8 +420,7 @@ class Html2Text
           } elseif ($level > 0) {
             // skip inner blockquote
           } else {
-            // convert preg offset from bytes to characters
-            $end = UTF8::strlen(substr($text, 0, $m[1]));
+            $end = $m[1];
 
             $len = $end - $taglen - $start;
 
@@ -449,8 +453,7 @@ class Html2Text
           }
         } else {
           if ($level == 0) {
-            // convert preg offset from bytes to characters
-            $start = UTF8::strlen(substr($text, 0, $m[1]));
+            $start = $m[1];
 
             $taglen = UTF8::strlen($m[0]);
           }
