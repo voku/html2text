@@ -5,11 +5,11 @@ namespace voku\Html2Text\tests;
 use voku\Html2Text\Html2Text;
 
 /**
- * Class NewlineTabSpaceTest
+ * Class NewlineSpaceTest
  *
  * @package voku\Html2Text\tests
  */
-class NewlineTabSpaceTest extends \PHPUnit_Framework_TestCase
+class NewlineSpaceTest extends \PHPUnit_Framework_TestCase
 {
   public function testNewlineTabSpace()
   {
