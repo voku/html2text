@@ -298,7 +298,7 @@ class Html2Text
     // & normalize whitespace
     $text = UTF8::clean($this->html, true, true, false);
 
-    $text = UTF8::trim(stripslashes($text));
+    $text = UTF8::trim($text);
 
     $this->converter($text);
 
