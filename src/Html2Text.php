@@ -599,7 +599,7 @@ class Html2Text
    *
    * @return string Converted text
    */
-  private function toupper($str)
+  protected function toupper($str)
   {
     if ($this->options['do_upper'] !== true) {
       return $str;
