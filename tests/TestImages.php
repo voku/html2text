@@ -22,6 +22,9 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 image: \'This is our cool logo\'', $html->getText());
   }
 
+  /**
+   * @return array
+   */
   public function testImageDataProvider() {
     return array(
         'Without alt tag' => array(
@@ -49,6 +52,9 @@ image: \'This is our cool logo\'', $html->getText());
 
   /**
    * @dataProvider testImageDataProvider
+   *
+   * @param string $html
+   * @param string $expected
    */
   public function testImages($html, $expected)
   {
