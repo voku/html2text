@@ -77,7 +77,7 @@ EOT;
             'expected'  => "Foo\n\nBar\n\nBaz",
         ),
         'Paragraph text with linebreak flat' => array(
-            'html'      => "<p>Foo<br/>Bar</p>",
+            'html'      => '<p>Foo<br/>Bar</p>',
             'expected'  => "Foo\nBar"
         ),
         'Paragraph text with linebreak formatted with newline' => array(

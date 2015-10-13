@@ -549,7 +549,7 @@ class Html2Text
     switch (UTF8::strtolower($matches[1])) {
       case 'p':
         // Replace newlines with spaces.
-        $para = str_replace("\n", " ", $matches[3]);
+        $para = str_replace("\n", ' ', $matches[3]);
         // Trim trailing and leading whitespace within the tag.
         $para = trim($para);
         // Add trailing newlines for this para.
