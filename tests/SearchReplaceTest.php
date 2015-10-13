@@ -30,11 +30,11 @@ class SearchReplaceTest extends \PHPUnit_Framework_TestCase
         ),
         'Header' => array(
             'html'      => '<h1>Hello, world!</h1>',
-            'expected'  => "HELLO, WORLD!",
+            'expected'  => 'HELLO, WORLD!',
         ),
         'Table Header' => array(
             'html'      => '<th>Hello, World!</th>',
-            'expected'  => "HELLO, WORLD!",
+            'expected'  => 'HELLO, WORLD!',
         ),
         'Table Header and Content' => array(
             'html'      => '<h1>foo</h1><th>Hello, World!</th><br />test1<br />test2',
