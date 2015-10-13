@@ -17,7 +17,7 @@ class HtmlCharsTest extends \PHPUnit_Framework_TestCase
     $expected = 'This library name is «Html2Text»';
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   /**
@@ -66,6 +66,6 @@ class HtmlCharsTest extends \PHPUnit_Framework_TestCase
     $expected = "$symbol signs should be UTF-8 symbols";
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 }

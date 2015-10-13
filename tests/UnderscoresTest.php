@@ -26,7 +26,7 @@ An _extremely_ important _emphasis_.
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testNoUnderscores()
@@ -44,6 +44,6 @@ An extremely important emphasis.
 EOT;
 
     $html2text = new Html2Text($html, array('do_underscores' => false));
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 }

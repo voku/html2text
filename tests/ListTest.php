@@ -28,7 +28,7 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testOrderedList()
@@ -48,6 +48,6 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 }

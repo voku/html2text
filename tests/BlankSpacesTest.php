@@ -26,7 +26,7 @@ Replace double spaces:  Continue string afterwards.
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
 
@@ -44,7 +44,7 @@ Replace double spaces:  Continue string afterwards.
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
 
@@ -62,7 +62,7 @@ Replace double spaces:  Continue string afterwards.
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
 
@@ -80,7 +80,7 @@ Replace double spaces:  Continue string afterwards.
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
 
@@ -98,7 +98,7 @@ Replace double spaces:   Continue string afterwards.
 EOT;
 
     $html2text = new Html2Text($randomSpacesString);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   /**
@@ -115,7 +115,7 @@ Replace double spaces:    Continue string afterwards.
 EOT;
 
     $html2text = new Html2Text($randomSpacesString);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
 

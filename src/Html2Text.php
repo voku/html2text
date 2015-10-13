@@ -57,10 +57,6 @@ class Html2Text
     '/<script[^>]*>.*?<\/script>/i'                  => '',
     // <style>s -- which strip_tags supposedly has problems with
     '/<style[^>]*>.*?<\/style>/i'                    => '',
-    // <p> and </p>
-    '/(<p[^>]*>|<\/p>)/i'                            => "\n\n",
-    // <br>
-    '/<br[^>]*>/i'                                   => "\n",
     // <ul> and </ul>
     '/(<ul[^>]*>|<\/ul>)/i'                          => "\n\n",
     // <ol> and </ol>
@@ -118,6 +114,8 @@ class Html2Text
    */
   protected $callbackSearch = array(
       '/<(h)[123456]( [^>]*)?>(.*?)<\/h[123456]>/i',           // h1 - h6
+      '/[ ]*<(p)( [^>]*)?>(.*?)<\/p>[ ]*/si',                  // <p> with surrounding whitespace.
+      '/<(br)[^>]*>[ ]*/i',                                    // <br> with leading whitespace after the newline.
       '/<(b)( [^>]*)?>(.*?)<\/b>/i',                           // <b>
       '/<(strong)( [^>]*)?>(.*?)<\/strong>/i',                 // <strong>
       '/<(th)( [^>]*)?>(.*?)<\/th>/i',                         // <th> and </th>
@@ -382,7 +380,8 @@ class Html2Text
     $text = preg_replace("/\n\s+\n/", "\n\n", $text);
     $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
 
-    // remove leading empty lines (can be produced by eg. P tag on the beginning)
+    // remove empty lines at the beginning and ending of the converted html
+    // e.g.: can be produced by eg. P tag on the beginning or at the ending
     $text = UTF8::trim($text, "\n");
 
     if ($this->options['width'] > 0) {
@@ -548,6 +547,15 @@ class Html2Text
   protected function pregCallback($matches)
   {
     switch (UTF8::strtolower($matches[1])) {
+      case 'p':
+        // Replace newlines with spaces.
+        $para = str_replace("\n", " ", $matches[3]);
+        // Trim trailing and leading whitespace within the tag.
+        $para = trim($para);
+        // Add trailing newlines for this para.
+        return "\n\n" . $para . "\n\n";
+      case 'br':
+        return "\n";
       case 'b':
       case 'strong':
         return $this->toupper($matches[3]);

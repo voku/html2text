@@ -13,13 +13,9 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 {
   public function testShowAltText()
   {
-    $html = new Html2Text('<img id="head" class="header" src="imgs/logo.png" alt="This is our cool logo" />
-    <br/>
-    <img id="head" class="header" src="imgs/logo.png" alt=\'This is our cool logo\' data-foo="bar">
-    ');
+    $html = new Html2Text("<img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt=\"This is our cool logo\" />\n    <br/>\n\n    <img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt='This is our cool logo' data-foo=\"bar\">");
 
-    $this->assertEquals('image: "This is our cool logo"
-image: \'This is our cool logo\'', $html->getText());
+    self::assertEquals("image: \"This is our cool logo\"\nimage: 'This is our cool logo'", $html->getText());
   }
 
   /**
@@ -61,6 +57,6 @@ image: \'This is our cool logo\'', $html->getText());
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
 
-    $this->assertEquals($expected, $output);
+    self::assertEquals($expected, $output);
   }
 }

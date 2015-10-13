@@ -35,7 +35,7 @@ Data 2
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testTableDeeper()
@@ -64,6 +64,6 @@ Data 2a
 Data 2b
 EOT;
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 }

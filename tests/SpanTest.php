@@ -24,6 +24,6 @@ EOT;
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
 
-    $this->assertEquals($expected, $output);
+    self::assertEquals($expected, $output);
   }
 }

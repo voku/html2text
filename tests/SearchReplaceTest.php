@@ -52,6 +52,6 @@ class SearchReplaceTest extends \PHPUnit_Framework_TestCase
   public function testSearchReplace($html, $expected)
   {
     $html = new Html2Text($html);
-    $this->assertEquals($expected, $html->getText());
+    self::assertEquals($expected, $html->getText());
   }
 }

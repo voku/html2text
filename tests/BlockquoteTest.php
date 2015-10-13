@@ -35,7 +35,7 @@ After
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testBlockquoteAdvanced()
@@ -71,7 +71,7 @@ lall
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testMultipleBlockquotes()
@@ -95,7 +95,7 @@ Before
 After
 EOT;
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testMalformedHtmlBlockquotes()
@@ -133,7 +133,7 @@ Before-After-3 Before-After-4
 After
 EOT;
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testBlockquoteWithAttribute()
@@ -162,6 +162,6 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 }

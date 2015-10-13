@@ -26,7 +26,7 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'table'));
     $output = $html2text->getText();
 
-    $this->assertEquals($expected, $output);
+    self::assertEquals($expected, $output);
   }
 
   public function testDoLinksInline()
@@ -38,7 +38,7 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'inline'));
     $output = $html2text->getText();
 
-    $this->assertEquals($expected, $output);
+    self::assertEquals($expected, $output);
   }
 
   public function testDoLinksBBCode()
@@ -50,7 +50,7 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'bbcode'));
     $output = $html2text->getText();
 
-    $this->assertEquals($output, $expected);
+    self::assertEquals($output, $expected);
   }
 
   public function testDoLinksNone()
@@ -62,7 +62,7 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'none'));
     $output = $html2text->getText();
 
-    $this->assertEquals($output, $expected);
+    self::assertEquals($output, $expected);
   }
 
   public function testDoLinksNextline()
@@ -75,7 +75,7 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'nextline'));
     $output = $html2text->getText();
 
-    $this->assertEquals($expected, $output);
+    self::assertEquals($expected, $output);
   }
 
   public function testDoLinksInHtmlTable()
@@ -117,7 +117,7 @@ EOT;
     $html2text = new Html2Text($html, array('do_links' => 'table'));
     $output = $html2text->getText();
 
-    $this->assertEquals($expected, $output);
+    self::assertEquals($expected, $output);
   }
 
   public function testDoLinksInHtml()
@@ -149,7 +149,7 @@ EOT;
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
 
-    $this->assertEquals($expected, $output);
+    self::assertEquals($expected, $output);
   }
 
   public function testBaseUrl()
@@ -160,7 +160,7 @@ EOT;
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
     $html2text->setBaseUrl('http://example.com');
 
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testBaseUrlOld()
@@ -171,7 +171,7 @@ EOT;
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
     $html2text->set_base_url('http://example.com');
 
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testIgnoredLinkTypes()
@@ -192,7 +192,7 @@ Link text [/]';
 
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
 
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testBaseUrlWithPlaceholder()
@@ -203,7 +203,7 @@ Link text [/]';
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
     $html2text->setBaseUrl('%baseurl%');
 
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testBoldLinks()
@@ -213,7 +213,7 @@ Link text [/]';
 
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
 
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testInvertedBoldLinks()
@@ -223,7 +223,7 @@ Link text [/]';
 
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
 
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 
   public function testJavascriptSanitizing()
@@ -233,6 +233,6 @@ Link text [/]';
 
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
 
-    $this->assertEquals($expected, $html2text->getText());
+    self::assertEquals($expected, $html2text->getText());
   }
 }

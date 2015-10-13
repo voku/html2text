@@ -16,10 +16,10 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     $html = 'Foo';
     $options = array('do_links' => 'none');
     $html2text = new Html2Text($html, $options);
-    $this->assertEquals($html, $html2text->getText());
+    self::assertEquals($html, $html2text->getText());
 
     $html2text = new Html2Text($html);
-    $this->assertEquals($html, $html2text->getText());
+    self::assertEquals($html, $html2text->getText());
   }
 
   public function testLegacyConstructor()
@@ -28,7 +28,7 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     $options = array('do_links' => 'none');
 
     $html2text = new Html2Text($html, false, $options);
-    $this->assertEquals($html, $html2text->getText());
+    self::assertEquals($html, $html2text->getText());
   }
 
   public function testLegacyConstructorThrowsExceptionWhenFromFileIsTrue()
