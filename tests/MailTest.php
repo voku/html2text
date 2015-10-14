@@ -101,4 +101,15 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     self::assertEquals(UTF8::file_get_contents(__DIR__ . '/test8Html.txt'), $text);
   }
+
+  public function testHtmlToText9()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/test9Html.html');
+
+    $html2text = new Html2Text($html, false, array('directConvert' => true));
+
+    $text = $html2text->getText();
+
+    self::assertEquals(UTF8::file_get_contents(__DIR__ . '/test9Html.txt'), $text);
+  }
 }
