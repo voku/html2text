@@ -6,8 +6,7 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/81471116-0fb1-442b-a78f-7555ee585ebe/mini.png)](https://insight.sensiolabs.com/projects/81471116-0fb1-442b-a78f-7555ee585ebe)
 [![Dependency Status](https://www.versioneye.com/user/projects/55a91f3e306535002000013c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55a91f3e306535002000013c)
 [![Reference Status](https://www.versioneye.com/php/voku:html2text/reference_badge.svg?style=flat)](https://www.versioneye.com/php/voku:html2text/references)
-[![Total Downloads](https://poser.pugx.org/voku/html2text/downloads)](https://packagist.org/packages/voku/html2text)
-[![License](https://poser.pugx.org/voku/html2text/license.svg)](https://packagist.org/packages/voku/html2text)
+[![Latest Stable Version](https://poser.pugx.org/voku/html2text/v/stable)](https://packagist.org/packages/voku/html2text) [![Total Downloads](https://poser.pugx.org/voku/html2text/downloads)](https://packagist.org/packages/voku/html2text) [![Latest Unstable Version](https://poser.pugx.org/voku/html2text/v/unstable)](https://packagist.org/packages/voku/html2text) [![License](https://poser.pugx.org/voku/html2text/license)](https://packagist.org/packages/voku/html2text)
 
 # Html2Text
 
