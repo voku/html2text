@@ -642,7 +642,12 @@ class Html2Text
    */
   protected function buildLinkList($link, $display, $linkOverride = null)
   {
-    $linkMethod = ($linkOverride) ? $linkOverride : $this->options['do_links'];
+    if ($linkOverride) {
+      $linkMethod = $linkOverride;
+    } else {
+      $linkMethod = $this->options['do_links'];
+    }
+
     if ($linkMethod == 'none') {
       return $display;
     }
