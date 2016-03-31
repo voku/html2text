@@ -52,37 +52,38 @@ class Html2Text
     // Newlines and tabs
     "/[\n\t]+/"                                      => ' ',
     // <head>
-    '/<head[^>]*>.*?<\/head>/i'                      => '',
+    '/<head\b[^>]*>.*?<\/head>/i'                    => '',
     // <script>s -- which strip_tags supposedly has problems with
-    '/<script[^>]*>.*?<\/script>/i'                  => '',
+    '/<script\b[^>]*>.*?<\/script>/i'                => '',
     // <style>s -- which strip_tags supposedly has problems with
-    '/<style[^>]*>.*?<\/style>/i'                    => '',
+    '/<style\b[^>]*>.*?<\/style>/i'                  => '',
     // <ul> and </ul>
-    '/(<ul[^>]*>|<\/ul>)/i'                          => "\n\n",
+    '/(<ul\b[^>]*>|<\/ul>)/i'                        => "\n\n",
     // <ol> and </ol>
-    '/(<ol[^>]*>|<\/ol>)/i'                          => "\n\n",
+    '/(<ol\b[^>]*>|<\/ol>)/i'                        => "\n\n",
     // <dl> and </dl>
-    '/(<dl[^>]*>|<\/dl>)/i'                          => "\n\n",
+    '/(<dl\b[^>]*>|<\/dl>)/i'                        => "\n\n",
     // <li> and </li>
-    '/<li[^>]*>(.*?)<\/li>/i'                        => "* \\1\n",
+    '/<li\b[^>]*>(.*?)<\/li>/i'                      => "* \\1\n",
     // <dd> and </dd>
-    '/<dd[^>]*>(.*?)<\/dd>/i'                        => "\\1\n",
+    '/<dd\b[^>]*>(.*?)<\/dd>/i'                      => "\\1\n",
     // <dt> and </dt>
-    '/<dt[^>]*>(.*?)<\/dt>/i'                        => '* \\1',
+    '/<dt\b[^>]*>(.*?)<\/dt>/i'                      => '* \\1',
     // <li>
-    '/<li[^>]*>/i'                                   => "\n* ",
+    '/<li\b[^>]*>/i'                                 => "\n* ",
     // <hr>
-    '/<hr[^>]*>/i'                                   => "\n-------------------------\n",
+    '/<hr\b[^>]*>/i'                                 => "\n-------------------------\n",
     // <div>
-    '/<div[^>]*>/i'                                  => "<div>\n",
+    '/<div\b[^>]*>/i'                                => "<div>\n",
     // <table> and </table>
-    '/(<table[^>]*>|<\/table>)/i'                    => "\n\n",
+    '/(<table\b[^>]*>|<\/table>)/i'                  => "\n\n",
     // <tr> and </tr>
-    '/(<tr[^>]*>|<\/tr>)/i'                          => "\n",
+    '/(<tr\b[^>]*>|<\/tr>)/i'                        => "\n",
     // <td> and </td>
-    '/<td[^>]*>(.*?)<\/td>/i'                        => "\\1\n",
+    '/<td\b[^>]*>(.*?)<\/td>/i'                      => "\\1\n",
     // img alt text
     '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => 'image: \\1\\2\\3',
+    // ... remove empty images ...
     '/image: ""/'                                    => '',
     // <span class="_html2text_ignore">...</span>
     '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
@@ -102,8 +103,6 @@ class Html2Text
     '/&(amp|#38);/i' => '|+|amp|+|',
     // runs of spaces, post-handling
     '/[ ]{2,}/'      => ' ',
-    // prevent strange characters
-    '/&nbsp;/i'      => ' ',
   );
 
   /**
@@ -130,11 +129,11 @@ class Html2Text
    * @var array
    */
   protected $preSearchReplaceArray = array(
-      "/\n/"         => '<br>',
-      "/\t/"         => '&nbsp;&nbsp;',
-      '/ /'          => '&nbsp;',
-      '/<pre[^>]*>/' => '',
-      '/<\/pre>/'    => '',
+      "/\n/"           => '<br>',
+      "/\t/"           => '&nbsp;&nbsp;',
+      '/ /'            => '&nbsp;',
+      '/<pre\b[^>]*>/' => '',
+      '/<\/pre>/'      => '',
   );
 
   /**
@@ -177,7 +176,7 @@ class Html2Text
     // "do_upper" ------------>
     //
     // Convert strong and bold to uppercase?
-    'do_upper' => true,
+    'do_upper'       => true,
     //
     // "do_underscores" ------------>
     //
@@ -191,14 +190,14 @@ class Html2Text
     // 'nextline' (show links on the next line)
     // 'table' (if a table of link URLs should be listed after the text.
     // 'bbcode' (show links as bbcode)
-    'do_links' => 'inline',
+    'do_links'       => 'inline',
     //
     // "width ------------>
     //
     //  Maximum width of the formatted text, in columns.
     //  Set this value to 0 (or less) to ignore word wrapping
     //  and not constrain text to a fixed-width column.
-    'width'    => 70,
+    'width'          => 70,
   );
 
   /**
@@ -318,6 +317,9 @@ class Html2Text
     array_walk($textArray, array('self', 'trimCallback'));
     $text = implode("\n", $textArray);
 
+    // convert "space"-replacer into space
+    $text = str_replace('|+|space|+|', ' ', $text);
+
     // remove leading/ending empty lines
     $text = UTF8::trim($text, "\n");
 
@@ -399,17 +401,17 @@ class Html2Text
     if (preg_match_all('/<\/*blockquote[^>]*>/i', $text, $matches, PREG_OFFSET_CAPTURE)) {
 
       // init
+      $originalText = $text;
       $start = 0;
       $taglen = 0;
       $level = 0;
       $diff = 0;
 
-      // convert preg offsets from bytes to characters
-      foreach ($matches[0] as $index => $m) {
-        $matches[0][$index][1] = UTF8::strlen(substr($text, 0, $m[1]));
-      }
-
       foreach ($matches[0] as $m) {
+
+        // convert preg offsets from bytes to characters
+        $m[1] = UTF8::strlen(substr($originalText, 0, $m[1]));
+
         if ($m[0][0] == '<' && $m[0][1] == '/') {
           $level--;
 
@@ -477,7 +479,8 @@ class Html2Text
 
     // get the content of PRE element
     while (preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
-      $this->preContent = $matches[1];
+      // Replace br tags with newlines to prevent the search-and-replace callback from killing whitespace.
+      $this->preContent = preg_replace('/(<br\b[^>]*>)/i', "\n", $matches[1]);
 
       // run our defined tags search-and-replace with callback
       $this->preContent = preg_replace_callback(
@@ -485,6 +488,9 @@ class Html2Text
           array($this, 'pregCallback'),
           $this->preContent
       );
+
+      // prevent html2text from trimming some spaces
+      $this->preContent = str_replace(' ', '|+|space|+|', $this->preContent);
 
       // convert the content
       $this->preContent = sprintf(
@@ -614,7 +620,7 @@ class Html2Text
     }
 
     // string can contain HTML tags
-    $chunks = preg_split('/(<[^>]*>)/', $str, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+    $chunks = preg_split('/(<[^>]*>)/', $str, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
     // convert toupper only the text between HTML tags
     foreach ($chunks as $i => &$chunk) {

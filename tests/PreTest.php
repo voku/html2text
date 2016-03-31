@@ -37,6 +37,27 @@ After
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertEquals($expected, $html2text->getText());
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+  }
+
+  public function testPreNew()
+  {
+    $html = <<<EOT
+<pre>
+some<br />  indented<br />  text<br />    on<br />    several<br />  lines<br />
+</pre>
+EOT;
+
+    $expected = <<<EOT
+some
+  indented
+  text
+    on
+    several
+  lines
+EOT;
+
+    $html2text = new Html2Text($html);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
   }
 }

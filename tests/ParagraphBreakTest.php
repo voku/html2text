@@ -29,6 +29,6 @@ After
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertEquals($expected, $html2text->getText());
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
   }
 }

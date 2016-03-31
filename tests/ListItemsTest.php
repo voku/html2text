@@ -30,7 +30,7 @@ EOT;
     $html2text = new Html2Text($input);
     $output = $html2text->get_text();
 
-    self::assertEquals($expected_output, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
 
   public function testOrderedList()
@@ -75,7 +75,7 @@ EOT;
     $html2text = new Html2Text($input);
     $output = $html2text->get_text();
 
-    self::assertEquals($expected_output, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
 
   public function testLargeOrderedList()
@@ -112,7 +112,7 @@ EOT;
     $html2text = new Html2Text($input);
     $output = $html2text->get_text();
 
-    self::assertEquals($expected_output, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
 
   public function testMultiLineUnorderedList()
@@ -132,7 +132,7 @@ EOT;
     $html2text = new Html2Text($input);
     $output = $html2text->get_text();
 
-    self::assertEquals($expected_output, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
 
   public function testMultiLineOrderedList()
@@ -152,7 +152,7 @@ EOT;
     $html2text = new Html2Text($input);
     $output = $html2text->get_text();
 
-    self::assertEquals($expected_output, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
 
   public function testMultiLevelUnorderedList()
@@ -190,6 +190,6 @@ EOT;
     $html2text = new Html2Text($input);
     $output = $html2text->get_text();
 
-    self::assertEquals($expected_output, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
 }

@@ -32,7 +32,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals(UTF8::file_get_contents(__DIR__ . '/test2Html.txt'), $text);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", UTF8::file_get_contents(__DIR__ . '/test2Html.txt')), $text);
   }
 
   public function testHtmlToText3()
@@ -43,8 +43,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals(UTF8::file_get_contents(__DIR__ . '/test3Html.txt'), $text);
-
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", UTF8::file_get_contents(__DIR__ . '/test3Html.txt')), $text);
   }
 
   public function testHtmlToText4()
@@ -99,7 +98,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals(UTF8::file_get_contents(__DIR__ . '/test8Html.txt'), $text);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", UTF8::file_get_contents(__DIR__ . '/test8Html.txt')), $text);
   }
 
   public function testHtmlToText9()
@@ -110,6 +109,6 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals(UTF8::file_get_contents(__DIR__ . '/test9Html.txt'), $text);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", UTF8::file_get_contents(__DIR__ . '/test9Html.txt')), $text);
   }
 }

@@ -26,7 +26,7 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'table'));
     $output = $html2text->getText();
 
-    self::assertEquals($expected, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
   }
 
   public function testDoLinksInline()
@@ -75,7 +75,7 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'nextline'));
     $output = $html2text->getText();
 
-    self::assertEquals($expected, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
   }
 
   public function testDoLinksInHtmlTable()
@@ -117,7 +117,7 @@ EOT;
     $html2text = new Html2Text($html, array('do_links' => 'table'));
     $output = $html2text->getText();
 
-    self::assertEquals($expected, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
   }
 
   public function testDoLinksInHtml()
@@ -149,7 +149,7 @@ EOT;
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
 
-    self::assertEquals($expected, $output);
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
   }
 
   public function testBaseUrl()
@@ -192,7 +192,7 @@ Link text [/]';
 
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
 
-    self::assertEquals($expected, $html2text->getText());
+    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
   }
 
   public function testBaseUrlWithPlaceholder()
