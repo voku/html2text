@@ -369,7 +369,7 @@ class Html2Text
     $text = UTF8::html_entity_decode($text);
 
     // replace html entities which represent UTF-8 codepoints.
-    $text = preg_replace_callback("/&#\d{2,4};/", array($this, 'entityCallback'), $text);
+    $text = preg_replace_callback("/&#\d{2,5};/", array($this, 'entityCallback'), $text);
 
     // remove unknown/unhandled entities (this cannot be done in search-and-replace block)
     $text = preg_replace('/&[a-zA-Z0-9]{2,6};/', '', $text);
