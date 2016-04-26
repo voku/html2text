@@ -353,6 +353,9 @@ class Html2Text
     // convert <PRE>
     $this->convertPre($text);
 
+    // convert special-chars like "&#39;" into plain-chars like "'"
+    $text = htmlspecialchars_decode($text, ENT_QUOTES);
+
     // run our defined tags search-and-replace
     $text = preg_replace($searchReplaceArrayKeys, $searchReplaceArrayValues, $text);
 
