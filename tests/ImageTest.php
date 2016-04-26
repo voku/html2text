@@ -21,27 +21,32 @@ class ImageTest extends \PHPUnit_Framework_TestCase
   /**
    * @return array
    */
-  public function testImageDataProvider() {
+  public function testImageDataProvider()
+  {
     return array(
-        'Without alt tag' => array(
-            'html' => '<img src="http://example.com/example.jpg">',
-            'expected'  => '',
+        'Without alt tag'                  => array(
+            'html'     => '<img src="http://example.com/example.jpg">',
+            'expected' => '',
         ),
         'Without alt tag, wrapped in text' => array(
-            'html' => 'xx<img src="http://example.com/example.jpg">xx',
-            'expected'  => 'xxxx',
+            'html'     => 'xx<img src="http://example.com/example.jpg">xx',
+            'expected' => 'xxxx',
         ),
-        'With alt tag' => array(
-            'html' => '<img src="http://example.com/example.jpg" alt="An example image">',
-            'expected'  => 'image: "An example image"',
+        'With alt tag'                     => array(
+            'html'     => '<img src="http://example.com/example.jpg" alt="An example image">',
+            'expected' => 'image: "An example image"',
         ),
-        'With alt, and title tags' => array(
-            'html' => '<img src="http://example.com/example.jpg" alt="An example image" title="Should be ignored">',
-            'expected'  => 'image: "An example image"',
+        'With alt, and title tags'         => array(
+            'html'     => '<img src="http://example.com/example.jpg" alt="An example image" title="Should be ignored">',
+            'expected' => 'image: "An example image"',
         ),
-        'With alt tag, wrapped in text' => array(
-            'html' => 'xx <img src="http://example.com/example.jpg" alt="An example image"> xx',
-            'expected'  => 'xx image: "An example image" xx',
+        'With alt tag, wrapped in text'    => array(
+            'html'     => 'xx <img src="http://example.com/example.jpg" alt="An example image"> xx',
+            'expected' => 'xx image: "An example image" xx',
+        ),
+        'With italics'                     => array(
+            'html'     => '<img src="shrek.jpg" alt="the ogrelord" /> Blah <i>blah</i> blah',
+            'expected' => 'image: "the ogrelord" Blah _blah_ blah',
         ),
     );
   }
