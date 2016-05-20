@@ -11,12 +11,18 @@ use \voku\Html2Text\Html2Text;
  */
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
-  const TEST_HTML = '<a href="http://example.com">Link text</a>';
+  const TEST_HTML = '
+  <a href="http://example.com">Link text</a>
+  <br /><br />
+  <a href="mailto:fritz.eierschale@example.org">Fritz Eierschale, fritz.eierschale@example.org</a>
+  ';
 
   public function testDoLinksAfter()
   {
     $expected = <<<EOT
 Link text [1]
+
+Fritz Eierschale, fritz.eierschale@example.org
 
 Links:
 ------
@@ -26,43 +32,49 @@ EOT;
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'table'));
     $output = $html2text->getText();
 
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
+    self::assertEquals($this->normalizeString($expected), $output);
   }
 
   public function testDoLinksInline()
   {
     $expected = <<<EOT
 Link text [http://example.com]
+
+Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'inline'));
     $output = $html2text->getText();
 
-    self::assertEquals($expected, $output);
+    self::assertEquals($this->normalizeString($expected), $output);
   }
 
   public function testDoLinksBBCode()
   {
     $expected = <<<EOT
 [url=http://example.com]Link text[/url]
+
+Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'bbcode'));
     $output = $html2text->getText();
 
-    self::assertEquals($output, $expected);
+    self::assertEquals($this->normalizeString($expected), $output);
   }
 
   public function testDoLinksNone()
   {
     $expected = <<<EOT
 Link text
+
+Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'none'));
     $output = $html2text->getText();
 
-    self::assertEquals($output, $expected);
+    self::assertEquals($this->normalizeString($expected), $output);
   }
 
   public function testDoLinksNextline()
@@ -70,12 +82,14 @@ EOT;
     $expected = <<<EOT
 Link text
 [http://example.com]
+
+Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'nextline'));
     $output = $html2text->getText();
 
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
+    self::assertEquals($this->normalizeString($expected), $output);
   }
 
   public function testDoLinksInHtmlTable()
@@ -117,7 +131,7 @@ EOT;
     $html2text = new Html2Text($html, array('do_links' => 'table'));
     $output = $html2text->getText();
 
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
+    self::assertEquals($this->normalizeString($expected), $output);
   }
 
   public function testDoLinksInHtml()
@@ -149,7 +163,7 @@ EOT;
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
 
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
+    self::assertEquals($this->normalizeString($expected), $output);
   }
 
   public function testBaseUrl()
@@ -192,7 +206,7 @@ Link text [/]';
 
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
 
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertEquals($this->normalizeString($expected), $html2text->getText());
   }
 
   public function testBaseUrlWithPlaceholder()
@@ -234,5 +248,10 @@ Link text [/]';
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
 
     self::assertEquals($expected, $html2text->getText());
+  }
+
+  protected function normalizeString($string)
+  {
+    return str_replace(array("\r\n", "\r"), "\n", $string);
   }
 }
