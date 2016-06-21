@@ -147,9 +147,9 @@ class Html2Text
     // <td> and </td>
     '/<td\b[^>]*>(.*?)<\/td>/i'                      => "\\1\n",
     // img alt text
-    '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => 'image: \\1\\2\\3',
+    '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => '[[_html2text_image]]\\1\\2\\3',
     // ... remove empty images ...
-    '/image: ""/'                                    => '',
+    '/\[\[_html2text_image\]\]""/'                 => '',
     // <span class="_html2text_ignore">...</span>
     '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
   );
@@ -197,7 +197,18 @@ class Html2Text
     '/&(amp|#38);/i' => '|+|amp|+|',
     // runs of spaces, post-handling
     '/[ ]{2,}/'      => ' ',
+    '/\[\[_html2text_image\]\]/' => 'image: '
   );
+
+  /**
+   * Replace the default "image: "-prefix for images.
+   *
+   * @param string $string
+   */
+  public function setPrefixForImages($string)
+  {
+    $this->endSearchReplaceArray['/\[\[_html2text_image\]\]/'] = $string;
+  }
 
   /**
    * List of preg* regular expression patterns to search for in PRE body
