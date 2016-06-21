@@ -41,6 +41,75 @@ class Html2Text
    */
   protected $text;
 
+  const OPTION_UPPERCASE = 'optionUppercase';
+  const OPTION_LOWERCASE = 'optionLowercase';
+  const OPTION_UCFIRST   = 'optionUcfirst';
+  const OPTION_TITLE     = 'optionTitle';
+  const OPTION_NONE      = 'optionNone';
+
+  /**
+   * @var array
+   */
+  private static $caseModeMapping = array(
+      self::OPTION_LOWERCASE => MB_CASE_LOWER,
+      self::OPTION_UPPERCASE => MB_CASE_UPPER,
+      self::OPTION_UCFIRST   => MB_CASE_LOWER,
+      self::OPTION_TITLE     => MB_CASE_TITLE,
+  );
+
+  const DEFAULT_OPTIONS = array(
+      'do_upper'       => true,
+      'do_underscores' => true,
+      'do_links'       => 'inline',
+      'width'          => 70,
+      'elements'       => array(
+          'h1'     => array(
+              'case'    => self::OPTION_UPPERCASE,
+              'prepend' => "\n\n",
+              'append'  => "\n\n",
+          ),
+          'h2'     => array(
+              'case'    => self::OPTION_UPPERCASE,
+              'prepend' => "\n\n",
+              'append'  => "\n\n",
+          ),
+          'h3'     => array(
+              'case'    => self::OPTION_UPPERCASE,
+              'prepend' => "\n\n",
+              'append'  => "\n\n",
+          ),
+          'h4'     => array(
+              'case'  => self::OPTION_UPPERCASE,
+              'colon' => false,
+          ),
+          'h5'     => array(
+              'case'    => self::OPTION_UPPERCASE,
+              'prepend' => "\n\n",
+              'append'  => "\n\n",
+          ),
+          'h6'     => array(
+              'case'    => self::OPTION_UPPERCASE,
+              'prepend' => "\n\n",
+              'append'  => "\n\n",
+          ),
+          'th'     => array(
+              'case'    => self::OPTION_UPPERCASE,
+              'prepend' => "\t\t",
+              'append'  => "\n",
+          ),
+          'strong' => array(
+              'case' => self::OPTION_UPPERCASE,
+          ),
+          'b'      => array(
+              'case' => self::OPTION_UPPERCASE,
+          ),
+          'li'     => array(
+              'prepend' => "\t* ",
+              'append'  => "\n",
+          ),
+      ),
+  );
+
   /**
    * List of preg* regular expression patterns to search / replace
    *
@@ -63,14 +132,10 @@ class Html2Text
     '/(<ol\b[^>]*>|<\/ol>)/i'                        => "\n\n",
     // <dl> and </dl>
     '/(<dl\b[^>]*>|<\/dl>)/i'                        => "\n\n",
-    // <li> and </li>
-    '/<li\b[^>]*>(.*?)<\/li>/i'                      => "* \\1\n",
     // <dd> and </dd>
     '/<dd\b[^>]*>(.*?)<\/dd>/i'                      => "\\1\n",
     // <dt> and </dt>
-    '/<dt\b[^>]*>(.*?)<\/dt>/i'                      => '* \\1',
-    // <li>
-    '/<li\b[^>]*>/i'                                 => "\n* ",
+    '/<dt\b[^>]*>(.*?)<\/dt>/i'                      => '* \\1 ',
     // <hr>
     '/<hr\b[^>]*>/i'                                 => "\n-------------------------\n",
     // <div>
@@ -90,6 +155,35 @@ class Html2Text
   );
 
   /**
+   * List of preg* regular expression patterns to search for
+   * and replace using callback function.
+   *
+   * @var array
+   */
+  protected $callbackSearch = array(
+    // h1 - h6
+    '/<(?<element>h[123456])( [^>]*)?>(?<value>.*?)<\/h[123456]>/i',
+    // <p> with surrounding whitespace.
+    '/[ ]*<(?<element>p)( [^>]*)?>(?<value>.*?)<\/p>[ ]*/si',
+    // <br> with leading whitespace after the newline.
+    '/<(?<element>br)[^>]*>[ ]*/i',
+    // <li></li>
+    '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/li>/i',
+    // <b>
+    '/<(?<element>b)( [^>]*)?>(?<value>.*?)<\/b>/i',
+    // <strong>
+    '/<(?<element>strong)( [^>]*)?>(?<value>.*?)<\/strong>/i',
+    // <th> and </th>
+    '/<(?<element>th)( [^>]*)?>(?<value>.*?)<\/th>/i',
+    // <a href="">
+    '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i',
+    // <i>
+    '/<(?<element>i)( [^>]*)?>(?<value>.*?)<\/i>/i',
+    // <em>
+    '/<(?<element>em)( [^>]*)?>(?<value>.*?)<\/em>/i',
+  );
+
+  /**
    * List of preg* regular expression patterns to search / replace
    *
    * @var array
@@ -103,24 +197,6 @@ class Html2Text
     '/&(amp|#38);/i' => '|+|amp|+|',
     // runs of spaces, post-handling
     '/[ ]{2,}/'      => ' ',
-  );
-
-  /**
-   * List of preg* regular expression patterns to search for
-   * and replace using callback function.
-   *
-   * @var array
-   */
-  protected $callbackSearch = array(
-      '/<(h)[123456]( [^>]*)?>(.*?)<\/h[123456]>/i',           // h1 - h6
-      '/[ ]*<(p)( [^>]*)?>(.*?)<\/p>[ ]*/si',                  // <p> with surrounding whitespace.
-      '/<(br)[^>]*>[ ]*/i',                                    // <br> with leading whitespace after the newline.
-      '/<(b)( [^>]*)?>(.*?)<\/b>/i',                           // <b>
-      '/<(strong)( [^>]*)?>(.*?)<\/strong>/i',                 // <strong>
-      '/<(th)( [^>]*)?>(.*?)<\/th>/i',                         // <th> and </th>
-      '/<(a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i', // <a href="">
-      '/<(i)( [^>]*)?>(.*?)<\/i>/i',                           // <i>
-      '/<(em)( [^>]*)?>(.*?)<\/em>/i',                         // <em>
   );
 
   /**
@@ -148,7 +224,7 @@ class Html2Text
    *
    * @var string
    */
-  protected $baseurl = '';
+  protected $baseUrl = '';
 
   /**
    * Indicates whether content in the $html variable has been converted yet.
@@ -169,36 +245,36 @@ class Html2Text
   /**
    * Various configuration options (able to be set in the constructor)
    *
+   *
+   * ---------------------->
+   * do_upper:
+   * Convert strong and bold to uppercase?
+   * ---------------------->
+   * do_underscores:
+   * Surround emphasis and italics with underscores?
+   * ---------------------->
+   * do_links:
+   * 'none'
+   * 'inline' (show links inline)
+   * 'nextline' (show links on the next line)
+   * 'table' (if a table of link URLs should be listed after the text.
+   * 'bbcode' (show links as bbcode)
+   * ---------------------->
+   * width:
+   * Maximum width of the formatted text, in columns.
+   * Set this value to 0 (or less) to ignore word wrapping and not constrain text to a fixed-width column.
+   * ---------------------->
+   * case:
+   * - uppercase: uppercase "SECTION TITLE"
+   * - lowercase: lowercase ucfirst "Section Title"
+   * ---------------------->
+   * colon:
+   * add a colon at the end "Section Title:"
+   * ---------------------->
+   *
    * @var array
    */
-  protected $options = array(
-    //
-    // "do_upper" ------------>
-    //
-    // Convert strong and bold to uppercase?
-    'do_upper'       => true,
-    //
-    // "do_underscores" ------------>
-    //
-    // Surround emphasis and italics with underscores?
-    'do_underscores' => true,
-    //
-    // "do_links ------------>
-    //
-    // 'none'
-    // 'inline' (show links inline)
-    // 'nextline' (show links on the next line)
-    // 'table' (if a table of link URLs should be listed after the text.
-    // 'bbcode' (show links as bbcode)
-    'do_links'       => 'inline',
-    //
-    // "width ------------>
-    //
-    //  Maximum width of the formatted text, in columns.
-    //  Set this value to 0 (or less) to ignore word wrapping
-    //  and not constrain text to a fixed-width column.
-    'width'          => 70,
-  );
+  protected $options;
 
   /**
    * __construct
@@ -213,7 +289,7 @@ class Html2Text
       call_user_func_array(array($this, 'legacyConstruct'), func_get_args());
     } else {
       $this->html = $html;
-      $this->options = array_merge($this->options, $options);
+      $this->options = array_replace_recursive(self::DEFAULT_OPTIONS, $options);
     }
   }
 
@@ -353,6 +429,9 @@ class Html2Text
     // convert <PRE>
     $this->convertPre($text);
 
+    // Collapse space between tags to avoid left over whitespace
+    $text = preg_replace('/>\s+</', '><', $text);
+
     // convert special-chars like "&#39;" into plain-chars like "'"
     $text = htmlspecialchars_decode($text, ENT_QUOTES);
 
@@ -415,7 +494,7 @@ class Html2Text
         // convert preg offsets from bytes to characters
         $m[1] = UTF8::strlen(substr($originalText, 0, $m[1]));
 
-        if ($m[0][0] == '<' && $m[0][1] == '/') {
+        if ($m[0][0] === '<' && $m[0][1] === '/') {
           $level--;
 
           if ($level < 0) {
@@ -517,23 +596,23 @@ class Html2Text
   /**
    * Sets a base URL to handle relative links.
    *
-   * @param string $baseurl
+   * @param string $baseUrl
    */
-  public function setBaseUrl($baseurl)
+  public function setBaseUrl($baseUrl)
   {
-    $this->baseurl = $baseurl;
+    $this->baseUrl = $baseUrl;
   }
 
   /**
    * set base-url
    *
-   * @param $baseurl
+   * @param $baseUrl
    *
    * @deprecated
    */
-  public function set_base_url($baseurl)
+  public function set_base_url($baseUrl)
   {
-    $this->setBaseUrl($baseurl);
+    $this->setBaseUrl($baseUrl);
   }
 
   /**
@@ -555,29 +634,25 @@ class Html2Text
    */
   protected function pregCallback($matches)
   {
-    switch (UTF8::strtolower($matches[1])) {
+    $element = UTF8::strtolower($matches['element']);
+    switch ($matches['element']) {
       case 'p':
         // Replace newlines with spaces.
-        $para = str_replace("\n", ' ', $matches[3]);
+        $para = str_replace("\n", ' ', $matches['value']);
         // Trim trailing and leading whitespace within the tag.
         $para = trim($para);
+
         // Add trailing newlines for this para.
         return "\n\n" . $para . "\n\n";
       case 'br':
         return "\n";
-      case 'b':
-      case 'strong':
-        return $this->toupper($matches[3]);
-      case 'th':
-        return $this->toupper($matches[3] . "\n");
-      case 'h':
-        return $this->toupper("\n\n" . $matches[3] . "\n\n");
       case 'i':
       case 'em':
-        $subject = $matches[3];
+        $subject = $matches['value'];
         if ($this->options['do_underscores'] === true) {
           $subject = '_' . $subject . '_';
         }
+
         return $subject;
       case 'a':
 
@@ -591,9 +666,85 @@ class Html2Text
         $url = str_replace(' ', '', $matches[3]);
 
         return $this->buildLinkList($url, $matches[5], $linkOverride);
-      default:
-        return '';
     }
+
+    if (preg_match('/h[123456]/', $matches['element'])) {
+      return $this->convertElement($matches['value'], $matches['element']);
+    }
+
+    if (array_key_exists($element, $this->options['elements'])) {
+      return $this->convertElement($matches['value'], $matches['element']);
+    }
+
+    return '';
+  }
+
+  private function getOptionsForElement($element)
+  {
+    if (!array_key_exists($element, $this->options['elements'])) {
+      throw new \InvalidArgumentException("Element '$element' has no options");
+    }
+
+    return $this->options['elements'][$element];
+  }
+
+  /**
+   * @param string $str
+   * @param string $element
+   *
+   * @return string
+   */
+  private function convertElement($str, $element)
+  {
+    $options = $this->getOptionsForElement($element);
+    if (!$options) {
+      return $str;
+    };
+
+    if (isset($options['case']) && $options['case'] != self::OPTION_NONE) {
+      $mode = self::$caseModeMapping[$options['case']];
+
+      // string can contain HTML tags
+      $chunks = preg_split('/(<[^>]*>)/', $str, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+
+      // convert only the text between HTML tags
+      foreach ($chunks as $i => $chunk) {
+        if ($chunk[0] !== '<') {
+          $chunk = UTF8::html_entity_decode($str);
+          $chunk = mb_convert_case($chunk, $mode);
+          $chunk = htmlspecialchars_decode($chunk, ENT_QUOTES);
+          $chunks[$i] = $chunk;
+        }
+      }
+
+      $str = implode($chunks);
+
+      if ($options['case'] == self::OPTION_UCFIRST) {
+        $str = UTF8::ucfirst($str);
+      }
+    }
+
+    if (isset($options['replace']) && $options['replace']) {
+
+      if (isset($options['replace'][2])) {
+        $delimiter = $options['replace'][2];
+      } else {
+        $delimiter = '@';
+      }
+
+      $str = preg_replace($delimiter . $options['replace'][0] . $delimiter, $options['replace'][1], $str);
+    }
+
+
+    if (isset($options['prepend']) && $options['prepend']) {
+      $str = $options['prepend'] . $str;
+    }
+
+    if (isset($options['append']) && $options['append']) {
+      $str = $str . $options['append'];
+    }
+
+    return $str;
   }
 
   /**
@@ -627,7 +778,7 @@ class Html2Text
 
     // convert toupper only the text between HTML tags
     foreach ($chunks as $i => &$chunk) {
-      if ($chunk[0] != '<') {
+      if ($chunk[0] !== '<') {
         $chunk = UTF8::strtoupper($chunk);
       }
     }
@@ -657,7 +808,7 @@ class Html2Text
       $linkMethod = $this->options['do_links'];
     }
 
-    if ($linkMethod == 'none') {
+    if ($linkMethod === 'none') {
       return $display;
     }
 
@@ -669,23 +820,23 @@ class Html2Text
     if (preg_match('!^([a-z][a-z0-9.+-]+:)!i', $link)) {
       $url = $link;
     } else {
-      $url = $this->baseurl;
-      if (UTF8::substr($link, 0, 1) != '/') {
+      $url = $this->baseUrl;
+      if (UTF8::substr($link, 0, 1) !== '/') {
         $url .= '/';
       }
       $url .= $link;
     }
 
-    if ($linkMethod == 'table') {
+    if ($linkMethod === 'table') {
       if (($index = array_search($url, $this->linkList, true)) === false) {
         $index = count($this->linkList);
         $this->linkList[] = $url;
       }
 
       return $display . ' [' . ($index + 1) . ']';
-    } elseif ($linkMethod == 'nextline') {
+    } elseif ($linkMethod === 'nextline') {
       return $display . "\n[" . $url . ']';
-    } elseif ($linkMethod == 'bbcode') {
+    } elseif ($linkMethod === 'bbcode') {
       return '[url=' . $url . ']' . $display . '[/url]';
     } else {
       // link_method defaults to inline
@@ -713,6 +864,6 @@ class Html2Text
   private function legacyConstruct($html = '', $fromFile = false, array $options = array())
   {
     $this->set_html($html, $fromFile);
-    $this->options = array_merge($this->options, $options);
+    $this->options = array_merge(self::DEFAULT_OPTIONS, $options);
   }
 }

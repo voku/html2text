@@ -11,9 +11,7 @@ Sie:
 image: "Aktuelle Ausgabe"
 [https://www.henkel-lifetimes.de/mail_rdir.php?rid=123456&uid=&guid=12345678]
 
-
 [https://www.henkel-lifetimes.de/mail_rdir.php?rid=123456&uid=&guid=12345678]
-
 
 Neu: Rabatt-Coupons
 
@@ -23,7 +21,6 @@ und beim nächsten Einkauf bares Geld sparen.
 Mehr »
 [https://www.henkel-lifetimes.de/mail_rdir.php?rid=123456&uid=&guid=12345678]
 
-
 Sie erhalten diese Mail aufgrund Ihrer Anmeldung bei der Frage der
 Woche auf Henkel Lifetimes. Sollten Sie nicht mehr benachrichtigt
 werden wollen, können Sie sich hier abmelden:
@@ -32,7 +29,6 @@ NEWSLETTER ABBESTELLEN
 [https://www.henkel-lifetimes.de/mail_rdir.php?rid=123456&uid=&guid=12345678]
 | IMPRESSUM
 [https://www.henkel-lifetimes.de/mail_rdir.php?rid=123456&uid=&guid=12345678]
-
 
 © 2015 Henkel AG & Co. KGaA
 

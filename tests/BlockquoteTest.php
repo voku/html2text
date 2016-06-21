@@ -124,8 +124,8 @@ EOT;
     $expected = <<<'EOT'
 Before
 
-> Foo1 foo1 foo1 Foo2 foo2 foo2
-Bar bar bar Before-After-1
+> Foo1 foo1 foo1Foo2 foo2 foo2
+Bar bar barBefore-After-1
 
 > Before-After-2
 Before-After-3 Before-After-4

@@ -54,10 +54,10 @@ EOT;
 EOT;
 
     $expected = <<<'EOT'
-Heading 1
+HEADING 1
 Data 1
 
-Heading 2
+HEADING 2
 Data 2
 EOT;
 

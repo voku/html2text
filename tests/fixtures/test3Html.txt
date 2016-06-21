@@ -26,8 +26,7 @@ to strip the text of any formatting and reset your style.
 Follow on Twitter [/*|TWITTER:PROFILEURL|*]   Friend on Facebook
 [/*|FACEBOOK:PROFILEURL|*]   Forward to Friend [/*|FORWARD|*]
 
-_Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights
-reserved._
+_Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved._
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
 
 OUR MAILING ADDRESS IS:

@@ -175,8 +175,7 @@ EOT;
 EOT;
     $expected_output = <<<EOT
 * Coffee
-
-* Tea
+Tea
 
 * Black tea
 * Green tea
