@@ -57,7 +57,7 @@ class Html2Text
       self::OPTION_TITLE     => MB_CASE_TITLE,
   );
 
-  const DEFAULT_OPTIONS = array(
+  private static $defaultOptions = array(
       'do_upper'       => true,
       'do_underscores' => true,
       'do_links'       => 'inline',
@@ -289,7 +289,7 @@ class Html2Text
       call_user_func_array(array($this, 'legacyConstruct'), func_get_args());
     } else {
       $this->html = $html;
-      $this->options = array_replace_recursive(self::DEFAULT_OPTIONS, $options);
+      $this->options = array_replace_recursive(self::$defaultOptions, $options);
     }
   }
 
@@ -864,6 +864,6 @@ class Html2Text
   private function legacyConstruct($html = '', $fromFile = false, array $options = array())
   {
     $this->set_html($html, $fromFile);
-    $this->options = array_merge(self::DEFAULT_OPTIONS, $options);
+    $this->options = array_merge(self::$defaultOptions, $options);
   }
 }
