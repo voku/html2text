@@ -88,9 +88,9 @@ EOT;
   public function getSpacesData()
   {
     return array(
-        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), "<b>Bold with space: </b>Rest of text"),
-        array($this->normalizeString("BOLD WITH SPACE: Rest of text"), " <p> <b>Bold with space: </b>Rest of text </p> "),
-        array($this->normalizeString("BOLD WITH SPACE: Rest of text"), " <p> <b>Bold    with  space:  </b>Rest  of    text  </p> "),
+        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), '<b>Bold with space: </b>Rest of text'),
+        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), ' <p> <b>Bold with space: </b>Rest of text </p> '),
+        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), ' <p> <b>Bold    with  space:  </b>Rest  of    text  </p> '),
     );
   }
 
