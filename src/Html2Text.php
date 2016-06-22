@@ -692,6 +692,13 @@ class Html2Text
     return '';
   }
 
+  /**
+   * Get options for the given element.
+   *
+   * @param $element
+   *
+   * @return array|null
+   */
   private function getOptionsForElement($element)
   {
     // init
