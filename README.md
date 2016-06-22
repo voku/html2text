@@ -33,6 +33,11 @@ $html = new \voku\Html2Text\Html2Text('Hello, &quot;<b>world</b>&quot;');
 echo $html->getText();  // Hello, "WORLD"
 ```
 
+## Live Demo
+- [HTML](https://suckup.de/2016/01/was-habe-ich-als-fachinformatiker-bisher-gelernt/) | [TEXT](https://moelleken.org/url_to_text.php?url=https://suckup.de/2016/01/was-habe-ich-als-fachinformatiker-bisher-gelernt/)
+
+- https://moelleken.org/url_to_text.php?url=https://ADD_YOUR_URL_HERE
+
 ## History
 
 This library started life on the blog of Jon Abernathy http://www.chuggnutt.com/html2text
