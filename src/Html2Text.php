@@ -645,7 +645,9 @@ class Html2Text
    */
   protected function pregCallback($matches)
   {
-    $element = UTF8::strtolower($matches['element']);
+    // init
+    $element = strtolower($matches['element']);
+
     switch ($matches['element']) {
       case 'p':
         // Replace newlines with spaces.
@@ -692,6 +694,9 @@ class Html2Text
 
   private function getOptionsForElement($element)
   {
+    // init
+    $element = strtolower($element);
+
     if (!array_key_exists($element, $this->options['elements'])) {
       throw new \InvalidArgumentException("Element '$element' has no options");
     }
