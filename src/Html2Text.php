@@ -705,7 +705,7 @@ class Html2Text
     $element = strtolower($element);
 
     if (!array_key_exists($element, $this->options['elements'])) {
-      throw new \InvalidArgumentException("Element '$element' has no options");
+      return null;
     }
 
     return $this->options['elements'][$element];
