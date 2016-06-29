@@ -58,7 +58,6 @@ class Html2Text
   );
 
   private static $defaultOptions = array(
-      'do_underscores' => true,
       'do_links'       => 'inline',
       'width'          => 70,
       'elements'       => array(
@@ -106,6 +105,14 @@ class Html2Text
               'prepend' => "\t* ",
               'append'  => "\n",
           ),
+          'i'      => array(
+              'prepend' => "_",
+              'append'  => "_",
+          ),
+          'em'     => array(
+              'prepend' => "_",
+              'append'  => "_",
+          ),
       ),
   );
 
@@ -148,7 +155,7 @@ class Html2Text
     // img alt text
     '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => '[[_html2text_image]]\\1\\2\\3',
     // ... remove empty images ...
-    '/\[\[_html2text_image\]\]""/'                 => '',
+    '/\[\[_html2text_image\]\]""/'                   => '',
     // <span class="_html2text_ignore">...</span>
     '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
   );
@@ -189,14 +196,14 @@ class Html2Text
    */
   protected $endSearchReplaceArray = array(
     // TM symbol in win-1252
-    '/&#153;/i'      => '™',
+    '/&#153;/i'                  => '™',
     // m-dash in win-1252
-    '/&#151;/i'      => '—',
+    '/&#151;/i'                  => '—',
     // ampersand: see converter()
-    '/&(amp|#38);/i' => '|+|amp|+|',
+    '/&(amp|#38);/i'             => '|+|amp|+|',
     // runs of spaces, post-handling
-    '/[ ]{2,}/'      => ' ',
-    '/\[\[_html2text_image\]\]/' => 'image: '
+    '/[ ]{2,}/'                  => ' ',
+    '/\[\[_html2text_image\]\]/' => 'image: ',
   );
 
   /**
@@ -255,25 +262,34 @@ class Html2Text
   /**
    * Various configuration options (able to be set in the constructor)
    *
+   * ----------------------
    *
-   * ---------------------->
-   * do_underscores:
-   * Surround emphasis and italics with underscores?
-   * ---------------------->
    * do_links:
+   *
    * 'none'
    * 'inline' (show links inline)
    * 'nextline' (show links on the next line)
    * 'table' (if a table of link URLs should be listed after the text.
    * 'bbcode' (show links as bbcode)
-   * ---------------------->
+   *
+   * ----------------------
+   *
    * width:
+   *
    * Maximum width of the formatted text, in columns.
    * Set this value to 0 (or less) to ignore word wrapping and not constrain text to a fixed-width column.
-   * ---------------------->
+   *
+   * ----------------------
+   *
    * case:
-   * - uppercase: uppercase "SECTION TITLE"
-   * - lowercase: lowercase ucfirst "Section Title"
+   *
+   * e.g.: "SeCtion Title"
+   *
+   * - uppercase: "SECTION TITLE" // Html2Text::OPTION_UPPERCASE
+   * - lowercase: "section title" // Html2Text::OPTION_LOWERCASE
+   * - ucfirst: "Section title" // Html2Text::OPTION_UCFIRST
+   * - title: "Section Title" // Html2Text::OPTION_TITLE
+   * - none: "SeCtion Title"  // Html2Text::OPTION_NONE
    * ---------------------->
    * colon:
    * add a colon at the end "Section Title:"
@@ -646,14 +662,6 @@ class Html2Text
         return "\n\n" . $para . "\n\n";
       case 'br':
         return "\n";
-      case 'i':
-      case 'em':
-        $subject = $matches['value'];
-        if ($this->options['do_underscores'] === true) {
-          $subject = '_' . $subject . '_';
-        }
-
-        return $subject;
       case 'a':
 
         // override the link method
@@ -721,7 +729,7 @@ class Html2Text
       foreach ($chunks as $i => $chunk) {
         if ($chunk[0] !== '<') {
           $chunk = UTF8::html_entity_decode($str);
-          $chunk = mb_convert_case($chunk, $mode);
+          $chunk = mb_convert_case($chunk, $mode, 'UTF-8');
           $chunk = htmlspecialchars_decode($chunk, ENT_QUOTES);
           $chunks[$i] = $chunk;
         }

@@ -40,10 +40,10 @@ EOT;
 EOT;
 
     $expected = <<<'EOT'
-An extremely important emphasis.
+An _extremely_ important _emphasis_.
 EOT;
 
-    $html2text = new Html2Text($html, array('do_underscores' => false));
+    $html2text = new Html2Text($html);
     self::assertEquals($expected, $html2text->getText());
   }
 }
