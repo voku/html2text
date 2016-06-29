@@ -51,14 +51,13 @@ class Html2Text
    * @var array
    */
   private static $caseModeMapping = array(
-      self::OPTION_LOWERCASE => MB_CASE_LOWER,
-      self::OPTION_UPPERCASE => MB_CASE_UPPER,
-      self::OPTION_UCFIRST   => MB_CASE_LOWER,
-      self::OPTION_TITLE     => MB_CASE_TITLE,
+      self::OPTION_LOWERCASE => \MB_CASE_LOWER,
+      self::OPTION_UPPERCASE => \MB_CASE_UPPER,
+      self::OPTION_UCFIRST   => \MB_CASE_LOWER,
+      self::OPTION_TITLE     => \MB_CASE_TITLE,
   );
 
   private static $defaultOptions = array(
-      'do_upper'       => true,
       'do_underscores' => true,
       'do_links'       => 'inline',
       'width'          => 70,
@@ -258,9 +257,6 @@ class Html2Text
    *
    *
    * ---------------------->
-   * do_upper:
-   * Convert strong and bold to uppercase?
-   * ---------------------->
    * do_underscores:
    * Surround emphasis and italics with underscores?
    * ---------------------->
@@ -422,17 +418,11 @@ class Html2Text
    */
   protected function converter(&$text)
   {
-    static $searchReplaceArrayKeys = null;
-    static $searchReplaceArrayValues = null;
+    $searchReplaceArrayKeys = array_keys($this->searchReplaceArray);
+    $searchReplaceArrayValues = array_values($this->searchReplaceArray);
 
-    static $endSearchReplaceArrayKeys = null;
-    static $endSearchReplaceArrayValues = null;
-
-    $searchReplaceArrayKeys = ($searchReplaceArrayKeys === null ? array_keys($this->searchReplaceArray) : $searchReplaceArrayKeys);
-    $searchReplaceArrayValues = ($searchReplaceArrayValues === null ? array_values($this->searchReplaceArray) : $searchReplaceArrayValues);
-
-    $endSearchReplaceArrayKeys = ($endSearchReplaceArrayKeys === null ? array_keys($this->endSearchReplaceArray) : $endSearchReplaceArrayKeys);
-    $endSearchReplaceArrayValues = ($endSearchReplaceArrayValues === null ? array_values($this->endSearchReplaceArray) : $endSearchReplaceArrayValues);
+    $endSearchReplaceArrayKeys = array_keys($this->endSearchReplaceArray);
+    $endSearchReplaceArrayValues = array_values($this->endSearchReplaceArray);
 
     // convert <BLOCKQUOTE> (before PRE!)
     $this->convertBlockquotes($text);
@@ -458,11 +448,8 @@ class Html2Text
     // run our defined entities/characters search-and-replace
     $text = preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
 
-    // replace known html entities
+    // replace known html entities + UTF-8 codepoints
     $text = UTF8::html_entity_decode($text);
-
-    // replace html entities which represent UTF-8 codepoints.
-    $text = preg_replace_callback("/&#\d{2,5};/", array($this, 'entityCallback'), $text);
 
     // remove unknown/unhandled entities (this cannot be done in search-and-replace block)
     $text = preg_replace('/&[a-zA-Z0-9]{2,6};/', '', $text);
@@ -780,33 +767,7 @@ class Html2Text
   protected function entityCallback(&$matches)
   {
     // Convert from HTML-ENTITIES to UTF-8
-    return mb_convert_encoding($matches[0], 'UTF-8', 'HTML-ENTITIES');
-  }
-
-  /**
-   * "strtoupper" function with HTML tags and entities handling.
-   *
-   * @param  string $str Text to convert
-   *
-   * @return string Converted text
-   */
-  protected function toupper($str)
-  {
-    if ($this->options['do_upper'] !== true) {
-      return $str;
-    }
-
-    // string can contain HTML tags
-    $chunks = preg_split('/(<[^>]*>)/', $str, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-
-    // convert toupper only the text between HTML tags
-    foreach ($chunks as $i => &$chunk) {
-      if ($chunk[0] !== '<') {
-        $chunk = UTF8::strtoupper($chunk);
-      }
-    }
-
-    return implode($chunks);
+    return \mb_convert_encoding($matches[0], 'UTF-8', 'HTML-ENTITIES');
   }
 
   /**
@@ -887,6 +848,6 @@ class Html2Text
   private function legacyConstruct($html = '', $fromFile = false, array $options = array())
   {
     $this->set_html($html, $fromFile);
-    $this->options = array_merge(self::$defaultOptions, $options);
+    $this->options = array_replace_recursive(self::$defaultOptions, $options);
   }
 }

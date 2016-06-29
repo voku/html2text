@@ -18,6 +18,14 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     self::assertEquals("image: \"This is our cool logo\"\nimage: 'This is our cool logo'", $html->getText());
   }
 
+  public function testEditImagePreText()
+  {
+    $html = new Html2Text("<img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt=\"This is our cool logo\" />\n    <br/>\n\n    <img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt='This is our cool logo' data-foo=\"bar\">");
+    $html->setPrefixForImages('Bild: ');
+
+    self::assertEquals("Bild: \"This is our cool logo\"\nBild: 'This is our cool logo'", $html->getText());
+  }
+
   /**
    * @return array
    */

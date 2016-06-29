@@ -66,6 +66,32 @@ EOT;
     );
 
     self::assertEquals($this->normalizeString($expected), $html2text->getText());
+
+    // -----------
+
+    $html = '<h1>Should have "AAA" changed to BBB</h1><ul><li>• Custom bullet should be removed</li></ul><img alt="The Linux Tux" src="tux.png" />';
+    $expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '- Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux"';
+
+    $html2text = new Html2Text(
+        $html,
+        array(
+            'width'    => 0,
+            'elements' => array(
+                'h1' => array(
+                    'case' => Html2Text::OPTION_UPPERCASE,
+                    'replace' => array('AAA', 'BBB')),
+                'li' => array(
+                    'case' => Html2Text::OPTION_NONE,
+                    'replace' => array('•', ''),
+                    'prepend' => "- ",
+                    'append' => " |",
+                ),
+            ),
+        )
+    );
+
+    $html2text->setPrefixForImages('[IMAGE]: ');
+    self::assertEquals($this->normalizeString($expected), $html2text->getText());
   }
 
   /**
