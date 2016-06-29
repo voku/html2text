@@ -33,6 +33,41 @@ $html = new \voku\Html2Text\Html2Text('Hello, &quot;<b>world</b>&quot;');
 echo $html->getText();  // Hello, "WORLD"
 ```
 
+## Extended Usage
+
+Each element (h1, li, div, etc) can have the following options:
+
+* 'case' => convert case (```Html2Text::OPTION_NONE, Html2Text::OPTION_UPPERCASE, Html2Text::OPTION_LOWERCASE , Html2Text::OPTION_UCFIRST, Html2Text::OPTION_TITLE```)
+* 'prepend' => prepend a string
+* 'append' => append a string
+
+For example:
+```php
+$html = '<h1>Should have "AAA" changed to BBB</h1><ul><li>• Custom bullet should be removed</li></ul><img alt="The Linux Tux" src="tux.png" />';
+$expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '- Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux"';
+
+$html2text = new Html2Text(
+    $html,
+    array(
+        'width'    => 0,
+        'elements' => array(
+            'h1' => array(
+              'case' => Html2Text::OPTION_UPPERCASE, 
+              'replace' => array('AAA', 'BBB')),
+            'li' => array(
+              'case' => Html2Text::OPTION_NONE, 
+              'replace' => array('•', ''), 
+              'prepend' => "- ",
+              'append' => " |",
+            ),
+        ),
+    )
+);
+
+$html2text->setPrefixForImages('[IMAGE]: ');
+$html2text->getText(); // === $expected
+```
+
 ## Live Demo
 - [HTML](https://suckup.de/2016/01/was-habe-ich-als-fachinformatiker-bisher-gelernt/) | [TEXT](https://moelleken.org/url_to_text.php?url=https://suckup.de/2016/01/was-habe-ich-als-fachinformatiker-bisher-gelernt/)
 
