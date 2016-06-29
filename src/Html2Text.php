@@ -106,12 +106,12 @@ class Html2Text
               'append'  => "\n",
           ),
           'i'      => array(
-              'prepend' => "_",
-              'append'  => "_",
+              'prepend' => '_',
+              'append'  => '_',
           ),
           'em'     => array(
-              'prepend' => "_",
-              'append'  => "_",
+              'prepend' => '_',
+              'append'  => '_',
           ),
       ),
   );
