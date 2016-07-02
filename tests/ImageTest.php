@@ -26,6 +26,17 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     self::assertEquals("Bild: \"This is our cool logo\"\nBild: 'This is our cool logo'", $html->getText());
   }
 
+  public function testComplexImageTagButWithoutAltContent()
+  {
+    $html = '<figure id="post-243293" class="align-none media-243293"><img src="https://css-tricks.com/wp-content/uploads/2016/07/giphy-interface.png" alt="" srcset="https://css-tricks.com/wp-content/uploads/2016/07/giphy-interface.png 668w, https://css-tricks.com/wp-content/uploads/2016/07/giphy-interface-239x300.png 239w" sizes="(max-width: 668px) 100vw, 668px"></figure>';
+    $expected = '';
+
+    $html = new Html2Text($html);
+    $html->setPrefixForImages('Bild: ');
+
+    self::assertEquals($expected, $html->getText());
+  }
+
   /**
    * @return array
    */
