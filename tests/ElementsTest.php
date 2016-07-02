@@ -83,8 +83,8 @@ EOT;
                 'li' => array(
                     'case' => Html2Text::OPTION_NONE,
                     'replace' => array('•', ''),
-                    'prepend' => "- ",
-                    'append' => " |",
+                    'prepend' => '- ',
+                    'append' => ' |',
                 ),
             ),
         )
