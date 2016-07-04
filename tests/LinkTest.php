@@ -12,6 +12,8 @@ use \voku\Html2Text\Html2Text;
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
   const TEST_HTML = '
+  <a href="http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}">Link text</a>
+  <br /><br />
   <a href="http://example.com">Link text</a>
   <br /><br />
   <a href="mailto:fritz.eierschale@example.org">Fritz Eierschale, fritz.eierschale@example.org</a>
@@ -22,11 +24,14 @@ class LinkTest extends \PHPUnit_Framework_TestCase
     $expected = <<<EOT
 Link text [1]
 
+Link text [2]
+
 Fritz Eierschale, fritz.eierschale@example.org
 
 Links:
 ------
-[1] http://example.com
+[1] http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}
+[2] http://example.com
 EOT;
 
     $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'table'));
@@ -38,6 +43,8 @@ EOT;
   public function testDoLinksInline()
   {
     $expected = <<<EOT
+Link text [http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]
+
 Link text [http://example.com]
 
 Fritz Eierschale, fritz.eierschale@example.org
@@ -52,6 +59,9 @@ EOT;
   public function testDoLinksBBCode()
   {
     $expected = <<<EOT
+[url=http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]Link
+text[/url]
+
 [url=http://example.com]Link text[/url]
 
 Fritz Eierschale, fritz.eierschale@example.org
@@ -68,6 +78,8 @@ EOT;
     $expected = <<<EOT
 Link text
 
+Link text
+
 Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
@@ -80,6 +92,9 @@ EOT;
   public function testDoLinksNextline()
   {
     $expected = <<<EOT
+Link text
+[http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]
+
 Link text
 [http://example.com]
 
