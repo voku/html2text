@@ -63,6 +63,14 @@ class ImageTest extends \PHPUnit_Framework_TestCase
             'html'     => 'xx <img src="http://example.com/example.jpg" alt="An example image"> xx',
             'expected' => 'xx image: "An example image" xx',
         ),
+        'With alt tag, wrapped in text v2'    => array(
+            'html'     => 'xx<img src="http://example.com/example.jpg" alt="An example image">xx',
+            'expected' => 'xx image: "An example image" xx',
+        ),
+        'With alt tag, wrapped in tags'    => array(
+            'html'     => '<span>xx</span><img src="http://example.com/example.jpg" alt="An example image"><span>xx</span>',
+            'expected' => 'xx image: "An example image" xx',
+        ),
         'With italics'                     => array(
             'html'     => '<img src="shrek.jpg" alt="the ogrelord" /> Blah <i>blah</i> blah',
             'expected' => 'image: "the ogrelord" Blah _blah_ blah',

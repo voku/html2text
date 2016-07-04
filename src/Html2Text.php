@@ -124,6 +124,8 @@ class Html2Text
   protected $searchReplaceArray = array(
     // Non-legal carriage return
     "/\r/"                                           => '',
+    // Windows carriage return
+    "/\r\n/"                                         => "\n",
     // Newlines and tabs
     "/[\n\t]+/"                                      => ' ',
     // <head>
@@ -153,9 +155,9 @@ class Html2Text
     // <td> and </td>
     '/<td\b[^>]*>(.*?)<\/td>/i'                      => "\\1\n",
     // img alt text
-    '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => '[[_html2text_image]]\\1\\2\\3',
+    '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => ' [[_html2text_image]]\\1\\2\\3 ',
     // ... remove empty images ...
-    '/\[\[_html2text_image\]\]""/'                   => '',
+    '/ \[\[_html2text_image\]\]"" /'                   => '',
     // <span class="_html2text_ignore">...</span>
     '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
   );
@@ -394,7 +396,7 @@ class Html2Text
     // & normalize whitespace
     $text = UTF8::clean($this->html, true, true, false);
 
-    $text = UTF8::trim($text);
+    $text = trim($text);
 
     $this->converter($text);
 
@@ -419,8 +421,8 @@ class Html2Text
     // convert "space"-replacer into space
     $text = str_replace(array('|+|space|+|', "\n\n\n\n", "\n\n\n"), array(' ', "\n\n", "\n\n"), $text);
 
-    // remove leading/ending empty lines
-    $text = trim($text, "\n");
+    // remove leading/ending empty lines/spaces
+    $text = trim($text);
 
     $this->text = $text;
 
