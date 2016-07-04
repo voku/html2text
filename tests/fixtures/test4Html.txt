@@ -1,4 +1,6 @@
-﻿image: "Atryum - LECKER LIFESTYLE" [http://www.atryum.de]
+﻿image: "Atryum - LECKER LIFESTYLE"
+[http://www.atryum.de/themes/atry//images/nl/logo.gif]
+[http://www.atryum.de]
 
 [http://www.atryum.de/Rezepte/Filetsteaks-mit-Chili-Reis-und-Broccoli-Gemuese/?[[campaign_tracking]]]
 
@@ -8,6 +10,7 @@ Schnell und trotzdem rafiniert: Diesmal präsentieren wir euch ein
 pikantes Gericht, das in weniger als einer Stunde auf dem Tisch steht.
 
 image: "Jetzt lesen"
+[http://www.atryum.de/themes/atry//images/nl/btn-lesen.gif]
 [http://www.atryum.de/Rezepte/Filetsteaks-mit-Chili-Reis-und-Broccoli-Gemuese/?text=1&[[campaign_tracking]]]
 
 UMFRAGE - GEWINNE 1 VON 5 ATRY REIS ÜBERRASCHUNGS-PAKETEN
@@ -36,5 +39,9 @@ Impressum [http://atryum.de/Impressum/]
 
 Besuche uns auf
 
-image: "facebook" [https://www.facebook.com/pages/ATRY/352535851266]
-image: "facebook" [https://plus.google.com/117459968320134729723]
+image: "facebook"
+[http://www.atryum.de/themes/atry//images/nl/facebook.gif]
+[https://www.facebook.com/pages/ATRY/352535851266]
+image: "facebook"
+[http://www.atryum.de/themes/atry//images/nl/googleplus.gif]
+[https://plus.google.com/117459968320134729723]

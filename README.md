@@ -44,7 +44,7 @@ Each element (h1, li, div, etc) can have the following options:
 For example:
 ```php
 $html = '<h1>Should have "AAA" changed to BBB</h1><ul><li>• Custom bullet should be removed</li></ul><img alt="The Linux Tux" src="tux.png" />';
-$expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '- Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux"';
+$expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '- Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux" [tux.png]';
 
 $html2text = new Html2Text(
     $html,

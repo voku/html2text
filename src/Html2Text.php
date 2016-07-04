@@ -154,10 +154,6 @@ class Html2Text
     '/(<tr\b[^>]*>|<\/tr>)/i'                        => "\n",
     // <td> and </td>
     '/<td\b[^>]*>(.*?)<\/td>/i'                      => "\\1\n",
-    // img alt text
-    '/<img(?:.*?)alt=("|\')(.*?)("|\')(?:.*?)>/i'    => ' [[_html2text_image]]\\1\\2\\3 ',
-    // ... remove empty images ...
-    '/ \[\[_html2text_image\]\]"" /'                   => '',
     // <span class="_html2text_ignore">...</span>
     '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
   );
@@ -175,6 +171,9 @@ class Html2Text
     '/[ ]*<(?<element>p)( [^>]*)?>(?<value>.*?)<\/p>[ ]*/si',
     // <br> with leading whitespace after the newline.
     '/<(?<element>br)[^>]*>[ ]*/i',
+    // img alt text
+    '/<(?<element>img)(?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)>/i',
+    '/<(?<element>img)(?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)>/i',
     // <li></li>
     '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/li>/i',
     // <b>
@@ -205,6 +204,7 @@ class Html2Text
     '/&(amp|#38);/i'             => '|+|amp|+|',
     // runs of spaces, post-handling
     '/[ ]{2,}/'                  => ' ',
+    // replace the image-placeholder-description
     '/\[\[_html2text_image\]\]/' => 'image: ',
   );
 
@@ -662,6 +662,14 @@ class Html2Text
 
         // Add trailing newlines for this para.
         return "\n\n" . $para . "\n\n";
+      case 'img':
+        if ($matches['alt'] && $matches['src'] && strpos($matches['src'], 'cid:') === false) {
+          return ' [[_html2text_image]]"' . $matches['alt'] . '" [' . $matches['src'] . '] ';
+        }
+        if ($matches['alt']) {
+          return ' [[_html2text_image]]"' . $matches['alt'] . '" ';
+        }
+        return '';
       case 'br':
         return "\n";
       case 'a':
