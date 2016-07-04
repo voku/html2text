@@ -12,7 +12,7 @@ use \voku\Html2Text\Html2Text;
 class LinkTest extends \PHPUnit_Framework_TestCase
 {
   const TEST_HTML = '
-  <a href="http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}">Link text</a>
+  <span>foo</span><a href="http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}">Link text</a><span>bar...</span>
   <br /><br />
   <a href="http://example.com">Link text</a>
   <br /><br />
@@ -22,7 +22,7 @@ class LinkTest extends \PHPUnit_Framework_TestCase
   public function testDoLinksAfter()
   {
     $expected = <<<EOT
-Link text [1]
+foo Link text [1] bar...
 
 Link text [2]
 
@@ -43,7 +43,8 @@ EOT;
   public function testDoLinksInline()
   {
     $expected = <<<EOT
-Link text [http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]
+foo Link text
+[http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
 
 Link text [http://example.com]
 
@@ -59,8 +60,9 @@ EOT;
   public function testDoLinksBBCode()
   {
     $expected = <<<EOT
+foo
 [url=http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]Link
-text[/url]
+text[/url] bar...
 
 [url=http://example.com]Link text[/url]
 
@@ -76,7 +78,7 @@ EOT;
   public function testDoLinksNone()
   {
     $expected = <<<EOT
-Link text
+foo Link text bar...
 
 Link text
 
@@ -92,8 +94,8 @@ EOT;
   public function testDoLinksNextline()
   {
     $expected = <<<EOT
-Link text
-[http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]
+foo Link text
+[http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
 
 Link text
 [http://example.com]

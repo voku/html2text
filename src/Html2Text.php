@@ -417,10 +417,10 @@ class Html2Text
     $text = implode("\n", $textArray);
 
     // convert "space"-replacer into space
-    $text = str_replace('|+|space|+|', ' ', $text);
+    $text = str_replace(array('|+|space|+|', "\n\n\n\n", "\n\n\n"), array(' ', "\n\n", "\n\n"), $text);
 
     // remove leading/ending empty lines
-    $text = UTF8::trim($text, "\n");
+    $text = trim($text, "\n");
 
     $this->text = $text;
 
@@ -800,13 +800,13 @@ class Html2Text
       $linkMethod = $this->options['do_links'];
     }
 
-    if ($linkMethod === 'none') {
-      return $display;
-    }
-
     // ignored link types
     if (preg_match('!^(javascript:|mailto:|#)!i', $link)) {
       return $display;
+    }
+
+    if ($linkMethod === 'none') {
+      return ' ' . $display . ' ';
     }
 
     if (preg_match('!^([a-z][a-z0-9.+-]+:)!i', $link)) {
@@ -825,14 +825,14 @@ class Html2Text
         $this->linkList[] = $url;
       }
 
-      return $display . ' [' . ($index + 1) . ']';
+      return ' ' . $display . ' [' . ($index + 1) . '] ';
     } elseif ($linkMethod === 'nextline') {
-      return $display . "\n[" . $url . ']';
+      return ' ' . $display . "\n" . '[' . $url . '] ';
     } elseif ($linkMethod === 'bbcode') {
-      return '[url=' . $url . ']' . $display . '[/url]';
+      return ' [url=' . $url . ']' . $display . '[/url] ';
     } else {
       // link_method defaults to inline
-      return $display . ' [' . $url . ']';
+      return ' ' . $display . ' [' . $url . '] ';
     }
   }
 
