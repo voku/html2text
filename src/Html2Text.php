@@ -215,9 +215,9 @@ class Html2Text
     // replace the image-placeholder-description
     '/\[\[_html2text_image\]\]/' => 'Image: ',
     // replace the link-list-placeholder-description
-    '/\[\[_html2text_links\]\]/' => "\n\n" . 'Links:' . "\n------\n",
+    '/\[\[_html2text_links\]\]/' => "\n\nLinks:\n------\n",
   );
-  
+
   /**
    * Replace the default "\n\n" . 'Links:' . "\n------\n"-prefix for link-lists.
    *
