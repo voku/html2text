@@ -65,6 +65,7 @@ $html2text = new Html2Text(
 );
 
 $html2text->setPrefixForImages('[IMAGE]: ');
+$html2text->setPrefixForLinks('[LINKS]: ');
 $html2text->getText(); // === $expected
 ```
 
