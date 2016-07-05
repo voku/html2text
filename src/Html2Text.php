@@ -59,7 +59,7 @@ class Html2Text
 
   private static $defaultOptions = array(
       'do_links'       => 'inline',
-      'width'          => 70,
+      'width'          => 0,
       'elements'       => array(
           'h1'     => array(
               'case'    => self::OPTION_UPPERCASE,
@@ -191,25 +191,45 @@ class Html2Text
   );
 
   /**
-   * List of preg* regular expression patterns to search / replace
+   * List of preg* regular expression patterns to search / replace | helper
+   *
+   * @var array
+   */
+  protected $helperSearchReplaceArray = array(
+    // TM symbol in win-1252
+    '/&#153;/'                   => '™',
+    // m-dash in win-1252
+    '/&#151;/'                   => '—',
+    // runs of spaces, post-handling
+    '/&nbsp;/i'                  => '|+|_html2text_space|+|',
+    // convert more spaces into one space
+    '/[ ]{2,}/'                  => ' ',
+  );
+
+  /**
+   * List of preg* regular expression patterns to search / replace | replace some placeholder at the end
    *
    * @var array
    */
   protected $endSearchReplaceArray = array(
-    // TM symbol in win-1252
-    '/&#153;/i'                  => '™',
-    // m-dash in win-1252
-    '/&#151;/i'                  => '—',
-    // ampersand: see converter()
-    '/&(amp|#38);/i'             => '|+|amp|+|',
-    // runs of spaces, post-handling
-    '/[ ]{2,}/'                  => ' ',
     // replace the image-placeholder-description
-    '/\[\[_html2text_image\]\]/' => 'image: ',
+    '/\[\[_html2text_image\]\]/' => 'Image: ',
+    // replace the link-list-placeholder-description
+    '/\[\[_html2text_links\]\]/' => "\n\n" . 'Links:' . "\n------\n",
   );
+  
+  /**
+   * Replace the default "\n\n" . 'Links:' . "\n------\n"-prefix for link-lists.
+   *
+   * @param string $string
+   */
+  public function setPrefixForLinks($string)
+  {
+    $this->endSearchReplaceArray['/\[\[_html2text_links\]\]/'] = $string;
+  }
 
   /**
-   * Replace the default "image: "-prefix for images.
+   * Replace the default "Image: "-prefix for images.
    *
    * @param string $string
    */
@@ -391,27 +411,26 @@ class Html2Text
   {
     $this->linkList = array();
 
+    $endSearchReplaceArrayKeys = array_keys($this->endSearchReplaceArray);
+    $endSearchReplaceArrayValues = array_values($this->endSearchReplaceArray);
+
     // clean the string from non-UTF8 chars
     // & remove UTF8-BOM
     // & normalize whitespace
     $text = UTF8::clean($this->html, true, true, false);
 
-    $text = trim($text);
-
     $this->converter($text);
-
-    if (count($this->linkList) > 0) {
-      $text .= "\n\nLinks:\n------\n";
-      foreach ($this->linkList as $i => $url) {
-        $text .= '[' . ($i + 1) . '] ' . $url . "\n";
-      }
-    }
 
     // normalize whitespace, again
     $text = UTF8::normalize_whitespace($text);
 
-    // don't use tabs
-    $text = preg_replace("/\t/", '  ', $text);
+    // add the link-list, if needed
+    if (count($this->linkList) > 0) {
+      $text .= '[[_html2text_links]]';
+      foreach ($this->linkList as $i => $url) {
+        $text .= '[' . ($i + 1) . '] ' . $url . "\n";
+      }
+    }
 
     // trim every line
     $textArray = explode("\n", $text);
@@ -419,10 +438,21 @@ class Html2Text
     $text = implode("\n", $textArray);
 
     // convert "space"-replacer into space
-    $text = str_replace(array('|+|space|+|', "\n\n\n\n", "\n\n\n"), array(' ', "\n\n", "\n\n"), $text);
+    $text = str_replace('|+|_html2text_space|+|', ' ', $text);
+
+    // replace some placeholder at the end
+    $text = preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
+
+    // normalise empty lines
+    $text = preg_replace("/\n\s+\n/", "\n\n", $text);
+    $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
 
     // remove leading/ending empty lines/spaces
     $text = trim($text);
+
+    if ($this->options['width'] > 0) {
+      $text = UTF8::wordwrap($text, $this->options['width']);
+    }
 
     $this->text = $text;
 
@@ -439,8 +469,8 @@ class Html2Text
     $searchReplaceArrayKeys = array_keys($this->searchReplaceArray);
     $searchReplaceArrayValues = array_values($this->searchReplaceArray);
 
-    $endSearchReplaceArrayKeys = array_keys($this->endSearchReplaceArray);
-    $endSearchReplaceArrayValues = array_values($this->endSearchReplaceArray);
+    $helperSearchReplaceArrayKeys = array_keys($this->helperSearchReplaceArray);
+    $helperSearchReplaceArrayValues = array_values($this->helperSearchReplaceArray);
 
     // convert <BLOCKQUOTE> (before PRE!)
     $this->convertBlockquotes($text);
@@ -448,7 +478,7 @@ class Html2Text
     // convert <PRE>
     $this->convertPre($text);
 
-    // Collapse space between tags to avoid left over whitespace
+    // collapse space between tags to avoid left over whitespace
     $text = preg_replace('/>\s+</', '><', $text);
 
     // convert special-chars like "&#39;" into plain-chars like "'"
@@ -464,7 +494,7 @@ class Html2Text
     $text = preg_replace('/(<(\/|!)?\w+[^>]*>)|(<!--.*?-->)/s', '', $text);
 
     // run our defined entities/characters search-and-replace
-    $text = preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
+    $text = preg_replace($helperSearchReplaceArrayKeys, $helperSearchReplaceArrayValues, $text);
 
     // replace known html entities + UTF-8 codepoints
     $text = UTF8::html_entity_decode($text);
@@ -472,21 +502,12 @@ class Html2Text
     // remove unknown/unhandled entities (this cannot be done in search-and-replace block)
     $text = preg_replace('/&[a-zA-Z0-9]{2,6};/', '', $text);
 
-    // convert "|+|amp|+|" into "&", need to be done after handling of unknown entities
-    // this properly handles situation of "&amp;quot;" in input string
-    $text = str_replace('|+|amp|+|', '&', $text);
-
     // normalise empty lines
-    $text = preg_replace("/\n\s+\n/", "\n\n", $text);
     $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
 
     // remove empty lines at the beginning and ending of the converted html
     // e.g.: can be produced by eg. P tag on the beginning or at the ending
-    $text = UTF8::trim($text, "\n");
-
-    if ($this->options['width'] > 0) {
-      $text = wordwrap($text, $this->options['width']);
-    }
+    $text = trim($text);
   }
 
   /**
@@ -588,7 +609,7 @@ class Html2Text
       );
 
       // prevent html2text from trimming some spaces
-      $this->preContent = str_replace(' ', '|+|space|+|', $this->preContent);
+      $this->preContent = str_replace(' ', '|+|_html2text_space|+|', $this->preContent);
 
       // convert the content
       $this->preContent = sprintf(
@@ -663,12 +684,29 @@ class Html2Text
         // Add trailing newlines for this para.
         return "\n\n" . $para . "\n\n";
       case 'img':
-        if ($matches['alt'] && $matches['src'] && strpos($matches['src'], 'cid:') === false) {
+
+        $useSrc = (
+            $matches['src']
+            &&
+            strpos($matches['src'], 'cid:') === false
+            &&
+            (
+                strpos($matches['src'], 'http://') === 0
+                ||
+                strpos($matches['src'], 'https://') === 0
+                ||
+                strpos($matches['src'], '//') === 0
+            )
+        );
+
+        if ($matches['alt'] && $matches['src'] && $useSrc === true) {
           return ' [[_html2text_image]]"' . $matches['alt'] . '" [' . $matches['src'] . '] ';
         }
+
         if ($matches['alt']) {
           return ' [[_html2text_image]]"' . $matches['alt'] . '" ';
         }
+
         return '';
       case 'br':
         return "\n";

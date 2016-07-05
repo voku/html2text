@@ -43,8 +43,7 @@ EOT;
   public function testDoLinksInline()
   {
     $expected = <<<EOT
-foo Link text
-[http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
+foo Link text [http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
 
 Link text [http://example.com]
 
@@ -60,9 +59,7 @@ EOT;
   public function testDoLinksBBCode()
   {
     $expected = <<<EOT
-foo
-[url=http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]Link
-text[/url] bar...
+foo [url=http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]Link text[/url] bar...
 
 [url=http://example.com]Link text[/url]
 

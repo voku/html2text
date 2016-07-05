@@ -1,30 +1,21 @@
-﻿image: "Atryum - LECKER LIFESTYLE"
-[http://www.atryum.de/themes/atry//images/nl/logo.gif]
-[http://www.atryum.de]
+﻿Image: "Atryum - LECKER LIFESTYLE" [http://www.atryum.de/themes/atry//images/nl/logo.gif] [http://www.atryum.de]
 
 [http://www.atryum.de/Rezepte/Filetsteaks-mit-Chili-Reis-und-Broccoli-Gemuese/?[[campaign_tracking]]]
 
 FILETSTEAKS MIT CHILI-REIS UND BROCCOLI-GEMÜSE
 
-Schnell und trotzdem rafiniert: Diesmal präsentieren wir euch ein
-pikantes Gericht, das in weniger als einer Stunde auf dem Tisch steht.
+Schnell und trotzdem rafiniert: Diesmal präsentieren wir euch ein pikantes Gericht, das in weniger als einer Stunde auf dem Tisch steht.
 
-image: "Jetzt lesen"
-[http://www.atryum.de/themes/atry//images/nl/btn-lesen.gif]
-[http://www.atryum.de/Rezepte/Filetsteaks-mit-Chili-Reis-und-Broccoli-Gemuese/?text=1&[[campaign_tracking]]]
+Image: "Jetzt lesen" [http://www.atryum.de/themes/atry//images/nl/btn-lesen.gif] [http://www.atryum.de/Rezepte/Filetsteaks-mit-Chili-Reis-und-Broccoli-Gemuese/?text=1&[[campaign_tracking]]]
 
 UMFRAGE - GEWINNE 1 VON 5 ATRY REIS ÜBERRASCHUNGS-PAKETEN
 
-mehr
-[http://www.atryum.de/Spiel-Spass/Umfrage-gewinne-1-von-5-ATRY-Reis-Ueberraschungspaketen/?text=1]
-
+mehr [http://www.atryum.de/Spiel-Spass/Umfrage-gewinne-1-von-5-ATRY-Reis-Ueberraschungspaketen/?text=1]
 [http://www.atryum.de/Spiel-Spass/Umfrage-gewinne-1-von-5-ATRY-Reis-Ueberraschungspaketen/]
 
 50 PRODUKTTESTER GESUCHT FÜR ATRY 1121 BASMATI WUNDERREIS
 
-mehr
-[http://www.atryum.de/Produktwelt/50-Produkttester-gesucht-fuer-ATRY-1121-Basmati-Wunderreis/?text=1]
-
+mehr [http://www.atryum.de/Produktwelt/50-Produkttester-gesucht-fuer-ATRY-1121-Basmati-Wunderreis/?text=1]
 [http://www.atryum.de/Produktwelt/50-Produkttester-gesucht-fuer-ATRY-1121-Basmati-Wunderreis/]
 
 KENNST DU AUCH SCHON UNSERE ANDEREN NEWSLETTER?
@@ -39,9 +30,5 @@ Impressum [http://atryum.de/Impressum/]
 
 Besuche uns auf
 
-image: "facebook"
-[http://www.atryum.de/themes/atry//images/nl/facebook.gif]
-[https://www.facebook.com/pages/ATRY/352535851266]
-image: "facebook"
-[http://www.atryum.de/themes/atry//images/nl/googleplus.gif]
-[https://plus.google.com/117459968320134729723]
+Image: "facebook" [http://www.atryum.de/themes/atry//images/nl/facebook.gif] [https://www.facebook.com/pages/ATRY/352535851266]
+Image: "facebook" [http://www.atryum.de/themes/atry//images/nl/googleplus.gif] [https://plus.google.com/117459968320134729723]

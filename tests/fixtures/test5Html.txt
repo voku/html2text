@@ -1,6 +1,4 @@
-﻿image: "Henkel Lifetimes"
-[https://www.henkel-lifetimes.de/themes/hlt/images/nl/header_visual_new.jpg]
-[https://www.henkel-lifetimes.de/index.php?guid={guid}]
+﻿Image: "Henkel Lifetimes" [https://www.henkel-lifetimes.de/themes/hlt/images/nl/header_visual_new.jpg] [https://www.henkel-lifetimes.de/index.php?guid={guid}]
 MARKENWELT-NEWSLETTER
 
 Ausgabe: Juli 2015
@@ -9,23 +7,17 @@ Ausgabe: Juli 2015
 
 Sie sind wieder zurück - die beliebten Prilblumen
 
-Von Juli bis September 2015 sorgt die neue limitierte Pril
-Blumen-Edition mit bunten Stickern zum Abziehen für Flower Power in
-der Küche.
+Von Juli bis September 2015 sorgt die neue limitierte Pril Blumen-Edition mit bunten Stickern zum Abziehen für Flower Power in der Küche.
 
-Mehr »
-[https://www.henkel-lifetimes.de/article.php?pid=2319&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=link+mainTeaser&utm_campaign=markenwelt]
+Mehr » [https://www.henkel-lifetimes.de/article.php?pid=2319&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=link+mainTeaser&utm_campaign=markenwelt]
 
 [https://www.henkel-lifetimes.de/teaser.php?pid=2290&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=markenwelt+image+extraTeaserImage&utm_campaign=lifetimes_Sommergewinnspiel_201506]
 
 Bis zum 1. September täglich gewinnen
 
-Sichern Sie sich 1 von 350 Tagespreisen! Unter allen Teilnehmern
-verlosen wir außerdem 20 Einkaufs-Gutscheine im Wert von insgesamt
-2.000 Euro.
+Sichern Sie sich 1 von 350 Tagespreisen! Unter allen Teilnehmern verlosen wir außerdem 20 Einkaufs-Gutscheine im Wert von insgesamt 2.000 Euro.
 
-Mehr »
-[https://www.henkel-lifetimes.de/teaser.php?pid=2290&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=markenwelt+link+extraTeaser&utm_campaign=lifetimes_Sommergewinnspiel_201506]
+Mehr » [https://www.henkel-lifetimes.de/teaser.php?pid=2290&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=markenwelt+link+extraTeaser&utm_campaign=lifetimes_Sommergewinnspiel_201506]
 
 [https://www.henkel-lifetimes.de/article.php?pid=2320&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=image+smallTeaserImage&utm_campaign=markenwelt]
 
@@ -34,48 +26,30 @@ Mehr »
 Pril Kraft-Gel Ultra ist Stiftung Warentest Sieger
 Weißer Riese 2in1 - so einfach gegen Flecken
 
-Stiftung Warentest zeichnet Pril Kraft-Gel Ultra als bestes
-Handgeschirrspülmittel mit der Gesamtnote "sehr gut" (1,3) aus.
-Entdecken Sie Weißer Riese 2in1 mit innovativer Fleckenbürste und
-der kraftvollen Formel für strahlend saubere Wäsche. Mit
-Anwendungsvideo!
+Stiftung Warentest zeichnet Pril Kraft-Gel Ultra als bestes Handgeschirrspülmittel mit der Gesamtnote "sehr gut" (1,3) aus.
+Entdecken Sie Weißer Riese 2in1 mit innovativer Fleckenbürste und der kraftvollen Formel für strahlend saubere Wäsche. Mit Anwendungsvideo!
 
-Mehr »
-[https://www.henkel-lifetimes.de/article.php?pid=2320&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=link+smallTeaserLink&utm_campaign=markenwelt]
+Mehr » [https://www.henkel-lifetimes.de/article.php?pid=2320&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=link+smallTeaserLink&utm_campaign=markenwelt]
+Mehr » [https://www.henkel-lifetimes.de/article.php?pid=2318&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=link+smallTeaserLink&utm_campaign=markenwelt]
 
-Mehr »
-[https://www.henkel-lifetimes.de/article.php?pid=2318&guid={guid}&language=de&utm_source=0_newsletter_2015_07_19_de_de&utm_medium=email&utm_content=link+smallTeaserLink&utm_campaign=markenwelt]
-
-image: "Weitere Themen"
-[https://www.henkel-lifetimes.de/themes/hlt/images/nl/201302/ratgeber_bottom_visual.jpg]
-[https://www.henkel-lifetimes.de/article_area.php?pid=6&guid={guid}&language=de]
+Image: "Weitere Themen" [https://www.henkel-lifetimes.de/themes/hlt/images/nl/201302/ratgeber_bottom_visual.jpg] [https://www.henkel-lifetimes.de/article_area.php?pid=6&guid={guid}&language=de]
 
 Das könnte Sie auch interessieren
 
 »
-NEU - RABATT-COUPONS: Sichern Sie sich Ihren Spar-Vorteil
-[https://www.henkel-lifetimes.de/rabatt-coupons?guid={guid}]
+NEU - RABATT-COUPONS: Sichern Sie sich Ihren Spar-Vorteil [https://www.henkel-lifetimes.de/rabatt-coupons?guid={guid}]
 
 »
-SCHLUSS MIT SCHLEPPEN: Unsere Produkte kommen ganz einfach zu Ihnen
-nach Hause
-[https://www.henkel-lifetimes.de/article_onlineshopping.php?guid={guid}]
+SCHLUSS MIT SCHLEPPEN: Unsere Produkte kommen ganz einfach zu Ihnen nach Hause [https://www.henkel-lifetimes.de/article_onlineshopping.php?guid={guid}]
 
 »
-UNSERE MARKEN: Unsere Waschmittel- & Reinigermarken auf einen Blick
-[https://www.henkel-lifetimes.de/article_marken.php?guid={guid}]
+UNSERE MARKEN: Unsere Waschmittel- & Reinigermarken auf einen Blick [https://www.henkel-lifetimes.de/article_marken.php?guid={guid}]
 
 »
-ANGEBOTE: Entdecken Sie unsere Produktneuheiten und Rabatt-Aktionen
-[https://www.henkel-lifetimes.de/article_angebote.php?guid={guid}]
+ANGEBOTE: Entdecken Sie unsere Produktneuheiten und Rabatt-Aktionen [https://www.henkel-lifetimes.de/article_angebote.php?guid={guid}]
 
-NEWSLETTER ABBESTELLEN
-[https://www.henkel-lifetimes.de/abbestellen.php?guid={guid}&email={email}&language=de]
-| IMPRESSUM & RECHTLICHES
-[https://www.henkel-lifetimes.de/article.php?pid=3&guid={guid}]
+NEWSLETTER ABBESTELLEN [https://www.henkel-lifetimes.de/abbestellen.php?guid={guid}&email={email}&language=de] | IMPRESSUM & RECHTLICHES [https://www.henkel-lifetimes.de/article.php?pid=3&guid={guid}]
 
 © 2015 Henkel AG & Co. KGaA
 
-image: "Henkel"
-[https://www.henkel-lifetimes.de/themes/hlt/images/nl/footer_logo.jpg]
-[http://www.henkel.de]
+Image: "Henkel" [https://www.henkel-lifetimes.de/themes/hlt/images/nl/footer_logo.jpg] [http://www.henkel.de]

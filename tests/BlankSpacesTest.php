@@ -2,7 +2,7 @@
 
 namespace voku\Html2Text\tests;
 
-use \voku\Html2Text\Html2Text;
+use voku\Html2Text\Html2Text;
 
 /**
  * Class BlankSpacesTest
@@ -17,11 +17,11 @@ class BlankSpacesTest extends \PHPUnit_Framework_TestCase
    */
   public function testMultipleBlankSpaces()
   {
-    $html =<<<'EOT'
+    $html = <<<'EOT'
 Replace double spaces:&nbsp;&nbsp;Continue string afterwards.
 EOT;
 
-    $expected =<<<'EOT'
+    $expected = <<<'EOT'
 Replace double spaces:  Continue string afterwards.
 EOT;
 
@@ -35,11 +35,11 @@ EOT;
    */
   public function testMultipleEmSpaces()
   {
-    $html =<<<'EOT'
+    $html = <<<'EOT'
 Replace double spaces:&emsp;&emsp;Continue string afterwards.
 EOT;
 
-    $expected =<<<'EOT'
+    $expected = <<<'EOT'
 Replace double spaces:  Continue string afterwards.
 EOT;
 
@@ -53,11 +53,11 @@ EOT;
    */
   public function testMultipleEnspaces()
   {
-    $html =<<<'EOT'
+    $html = <<<'EOT'
 Replace double spaces:&ensp;&ensp;Continue string afterwards.
 EOT;
 
-    $expected =<<<'EOT'
+    $expected = <<<'EOT'
 Replace double spaces:  Continue string afterwards.
 EOT;
 
@@ -71,11 +71,11 @@ EOT;
    */
   public function testMultipleThinspaces()
   {
-    $html =<<<'EOT'
+    $html = <<<'EOT'
 Replace double spaces:&thinsp;&thinsp;Continue string afterwards.
 EOT;
 
-    $expected =<<<'EOT'
+    $expected = <<<'EOT'
 Replace double spaces:  Continue string afterwards.
 EOT;
 
@@ -91,9 +91,9 @@ EOT;
   {
     $possibleSpaces = array('&nbsp;', '&emsp;', '&ensp;', '&thinsp;');
     shuffle($possibleSpaces);
-    $randomSpacesString = 'Replace double spaces:'.$possibleSpaces[0].$possibleSpaces[0].$possibleSpaces[1].'Continue string afterwards.';
+    $randomSpacesString = 'Replace double spaces:' . $possibleSpaces[0] . $possibleSpaces[0] . $possibleSpaces[1] . 'Continue string afterwards.';
 
-    $expected =<<<'EOT'
+    $expected = <<<'EOT'
 Replace double spaces:   Continue string afterwards.
 EOT;
 
@@ -102,15 +102,16 @@ EOT;
   }
 
   /**
-   * Create a random string containing 2 spaces in a row, followed by another 2 spaces in a row but of a different html entity.
+   * Create a random string containing 2 spaces in a row, followed by another 2 spaces in a row but of a different html
+   * entity.
    */
   public function testRandomSpacesDouble()
   {
     $possibleSpaces = array('&nbsp;', '&emsp;', '&ensp;', '&thinsp;');
     shuffle($possibleSpaces);
-    $randomSpacesString = 'Replace double spaces:'.$possibleSpaces[0].$possibleSpaces[0].$possibleSpaces[1].$possibleSpaces[1].'Continue string afterwards.';
+    $randomSpacesString = 'Replace double spaces:' . $possibleSpaces[0] . $possibleSpaces[0] . $possibleSpaces[1] . $possibleSpaces[1] . 'Continue string afterwards.';
 
-    $expected =<<<'EOT'
+    $expected = <<<'EOT'
 Replace double spaces:    Continue string afterwards.
 EOT;
 

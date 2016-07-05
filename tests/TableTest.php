@@ -2,7 +2,7 @@
 
 namespace voku\Html2Text\tests;
 
-use \voku\Html2Text\Html2Text;
+use voku\Html2Text\Html2Text;
 
 /**
  * Class TableTest

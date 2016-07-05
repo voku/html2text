@@ -15,7 +15,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
   {
     $html = new Html2Text("<img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt=\"This is our cool logo\" />\n    <br/>\n\n    <img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt='This is our cool logo' data-foo=\"bar\">");
 
-    self::assertEquals("image: \"This is our cool logo\" [imgs/logo.png]\nimage: \"This is our cool logo\" [imgs/logo.png]", $html->getText());
+    self::assertEquals("Image: \"This is our cool logo\"\nImage: \"This is our cool logo\"", $html->getText());
   }
 
   public function testEditImagePreText()
@@ -23,7 +23,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     $html = new Html2Text("<img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt=\"This is our cool logo\" />\n    <br/>\n\n    <img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt='This is our cool logo' data-foo=\"bar\">");
     $html->setPrefixForImages('Bild: ');
 
-    self::assertEquals("Bild: \"This is our cool logo\" [imgs/logo.png]\nBild: \"This is our cool logo\" [imgs/logo.png]", $html->getText());
+    self::assertEquals("Bild: \"This is our cool logo\"\nBild: \"This is our cool logo\"", $html->getText());
   }
 
   public function testComplexImageTagButWithoutAltContent()
@@ -53,27 +53,27 @@ class ImageTest extends \PHPUnit_Framework_TestCase
         ),
         'With alt tag'                     => array(
             'html'     => '<img src="http://example.com/example.jpg" alt="An example image">',
-            'expected' => 'image: "An example image" [http://example.com/example.jpg]',
+            'expected' => 'Image: "An example image" [http://example.com/example.jpg]',
         ),
         'With alt, and title tags'         => array(
             'html'     => '<img src="http://example.com/example.jpg" alt="An example image" title="Should be ignored">',
-            'expected' => 'image: "An example image" [http://example.com/example.jpg]',
+            'expected' => 'Image: "An example image" [http://example.com/example.jpg]',
         ),
         'With alt tag, wrapped in text'    => array(
             'html'     => 'xx <img src="http://example.com/example.jpg" alt="An example image"> xx',
-            'expected' => 'xx image: "An example image" [http://example.com/example.jpg] xx',
+            'expected' => 'xx Image: "An example image" [http://example.com/example.jpg] xx',
         ),
         'With alt tag, wrapped in text v2'    => array(
             'html'     => 'xx<img src="http://example.com/example.jpg" alt="An example image">xx',
-            'expected' => 'xx image: "An example image" [http://example.com/example.jpg] xx',
+            'expected' => 'xx Image: "An example image" [http://example.com/example.jpg] xx',
         ),
         'With alt tag, wrapped in tags'    => array(
             'html'     => '<span>xx</span><img src="http://example.com/example.jpg" alt="An example image"><span>xx</span>',
-            'expected' => 'xx image: "An example image" [http://example.com/example.jpg] xx',
+            'expected' => 'xx Image: "An example image" [http://example.com/example.jpg] xx',
         ),
         'With italics'                     => array(
             'html'     => '<img src="shrek.jpg" alt="the ogrelord" /> Blah <i>blah</i> blah',
-            'expected' => 'image: "the ogrelord" [shrek.jpg] Blah _blah_ blah',
+            'expected' => 'Image: "the ogrelord" Blah _blah_ blah',
         ),
     );
   }

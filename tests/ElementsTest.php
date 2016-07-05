@@ -70,7 +70,7 @@ EOT;
     // -----------
 
     $html = '<h1>Should have "AAA" changed to BBB</h1><ul><li>• Custom bullet should be removed</li></ul><img src="tux.png" alt="The Linux Tux" />';
-    $expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '- Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux" [tux.png]';
+    $expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '- Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux"';
 
     $html2text = new Html2Text(
         $html,
@@ -78,13 +78,14 @@ EOT;
             'width'    => 0,
             'elements' => array(
                 'h1' => array(
-                    'case' => Html2Text::OPTION_UPPERCASE,
-                    'replace' => array('AAA', 'BBB')),
+                    'case'    => Html2Text::OPTION_UPPERCASE,
+                    'replace' => array('AAA', 'BBB'),
+                ),
                 'li' => array(
-                    'case' => Html2Text::OPTION_NONE,
+                    'case'    => Html2Text::OPTION_NONE,
                     'replace' => array('•', ''),
                     'prepend' => '- ',
-                    'append' => ' |',
+                    'append'  => ' |',
                 ),
             ),
         )
@@ -114,12 +115,27 @@ EOT;
   public function getSpacesData()
   {
     return array(
-        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), '<Strong>Bold with space: </Strong>Rest of text'),
-        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), '<STRONG>Bold with space: </STRONG>Rest of text'),
-        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), '<strong>Bold with space: </strong>Rest of text'),
+        array(
+            $this->normalizeString('BOLD WITH SPACE: Rest of text'),
+            '<Strong>Bold with space: </Strong>Rest of text',
+        ),
+        array(
+            $this->normalizeString('BOLD WITH SPACE: Rest of text'),
+            '<STRONG>Bold with space: </STRONG>Rest of text',
+        ),
+        array(
+            $this->normalizeString('BOLD WITH SPACE: Rest of text'),
+            '<strong>Bold with space: </strong>Rest of text',
+        ),
         array($this->normalizeString('BOLD WITH SPACE: Rest of text'), '<b>Bold with space: </b>Rest of text'),
-        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), ' <p> <b>Bold with space: </b>Rest of text </p> '),
-        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), ' <p> <b>Bold    with  space:  </b>Rest  of    text  </p> '),
+        array(
+            $this->normalizeString('BOLD WITH SPACE: Rest of text'),
+            ' <p> <b>Bold with space: </b>Rest of text </p> ',
+        ),
+        array(
+            $this->normalizeString('BOLD WITH SPACE: Rest of text'),
+            ' <p> <b>Bold    with  space:  </b>Rest  of    text  </p> ',
+        ),
     );
   }
 

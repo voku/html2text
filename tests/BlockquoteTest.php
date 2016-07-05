@@ -202,16 +202,13 @@ EOF
             'expected' => <<<EOF
 Highlights from today’s NEWLYHIRED GAME:
 
-> SEAN: What came first, Blake’s first _Chief Architect position_ or
-> Blake’s first _girlfriend_?
+> SEAN: What came first, Blake’s first _Chief Architect position_ or Blake’s first _girlfriend_?
 
-> SEAN: Devin, Bryan spent almost five years of his life slaving away
-> for this vampire squid wrapped around the face of humanity…
+> SEAN: Devin, Bryan spent almost five years of his life slaving away for this vampire squid wrapped around the face of humanity…
 > DEVIN: Goldman Sachs?
 > SEAN: Correct!
 
-> SEAN: What was the name of the girl Zhu took to prom three months
-> ago?
+> SEAN: What was the name of the girl Zhu took to prom three months ago?
 > JOHN: What?
 > DEREK (FROM THE AUDIENCE): Destiny!
 > ZHU: Her name is Jolene. She’s nice. I like her.

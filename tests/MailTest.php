@@ -2,8 +2,8 @@
 
 namespace voku\Html2Text\tests;
 
-use \voku\helper\UTF8;
-use \voku\Html2Text\Html2Text;
+use voku\helper\UTF8;
+use voku\Html2Text\Html2Text;
 
 /**
  * Class BasicTest
@@ -112,7 +112,8 @@ class MailTest extends \PHPUnit_Framework_TestCase
     self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test9Html.txt'), $text);
   }
 
-  protected function file_get_contents($filename) {
+  protected function file_get_contents($filename)
+  {
     $string = UTF8::file_get_contents($filename);
 
     return $this->normalizeString($string);

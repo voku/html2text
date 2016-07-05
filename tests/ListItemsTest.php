@@ -124,8 +124,7 @@ EOT;
 </ul>
 EOT;
     $expected_output = <<<EOT
-* this is a really long line, and it should be split into two lines.
-let's hope it is
+* this is a really long line, and it should be split into two lines. let's hope it is
 * two
 EOT;
 
@@ -144,8 +143,7 @@ EOT;
 </ol>
 EOT;
     $expected_output = <<<EOT
-* this is a really long line, and it should be split into two lines.
-let's hope it is
+* this is a really long line, and it should be split into two lines. let's hope it is
 * two
 EOT;
 
