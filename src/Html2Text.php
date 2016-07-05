@@ -219,7 +219,7 @@ class Html2Text
   );
 
   /**
-   * Replace the default "\n\n" . 'Links:' . "\n------\n"-prefix for link-lists.
+   * Replace the default "\n\nLinks:\n------\n"-prefix for link-lists.
    *
    * @param string $string
    */
