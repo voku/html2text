@@ -35,7 +35,7 @@ Data 2
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
   }
 
   public function testNoUppercase()
@@ -62,6 +62,6 @@ Data 2
 EOT;
 
     $html2text = new Html2Text($html, array('do_upper' => false));
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
   }
 }

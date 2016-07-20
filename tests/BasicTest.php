@@ -21,7 +21,7 @@ class BasicTest extends \PHPUnit_Framework_TestCase
   {
     $html = new Html2Text('Hello, &quot;<b>world</b>&quot;');
 
-    self::assertEquals('Hello, "WORLD"', $html->getText());
+    self::assertSame('Hello, "WORLD"', $html->getText());
   }
 
   /**
@@ -36,7 +36,7 @@ EOT;
     $html2text = new Html2Text($this->inputLink, false, array('do_links' => 'inline'));
     $output = $html2text->getText();
 
-    self::assertEquals($expected_output, $output);
+    self::assertSame($expected_output, $output);
   }
 
   public function testNewLines()
@@ -55,7 +55,7 @@ AND THIS ALSO GOES FOR HEADINGS
 EOT;
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
+    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
   }
 
   /**
@@ -70,7 +70,7 @@ EOT;
     $html2text = new Html2Text($this->inputLink, false, array('do_links' => 'none'));
     $output = $html2text->getText();
 
-    self::assertEquals($output, $expected_output);
+    self::assertSame($output, $expected_output);
   }
 
   /**
@@ -124,6 +124,6 @@ EOT;
   public function testBasic($html, $expected)
   {
     $html = new Html2Text($html);
-    self::assertEquals($expected, $html->getText());
+    self::assertSame($expected, $html->getText());
   }
 }

@@ -46,7 +46,7 @@ EOT;
     );
     $output = $html2text->getText();
 
-    self::assertEquals($this->normalizeString($expected), $output);
+    self::assertSame($this->normalizeString($expected), $output);
   }
 
   protected function normalizeString($string)

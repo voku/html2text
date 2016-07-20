@@ -26,7 +26,7 @@ An _extremely_ important _emphasis_.
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertEquals($expected, $html2text->getText());
+    self::assertSame($expected, $html2text->getText());
   }
 
   public function testNoUnderscores()
@@ -44,6 +44,6 @@ An _extremely_ important _emphasis_.
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertEquals($expected, $html2text->getText());
+    self::assertSame($expected, $html2text->getText());
   }
 }

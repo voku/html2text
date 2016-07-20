@@ -37,7 +37,7 @@ After
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
   }
 
   public function testPreNew()
@@ -58,6 +58,6 @@ some
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertEquals(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
   }
 }

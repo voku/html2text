@@ -21,7 +21,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test1Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test1Html.txt'), $text);
   }
 
   public function testHtmlToText2()
@@ -32,7 +32,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test2Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test2Html.txt'), $text);
   }
 
   public function testHtmlToText3()
@@ -43,7 +43,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test3Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test3Html.txt'), $text);
   }
 
   public function testHtmlToText4()
@@ -54,7 +54,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test4Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test4Html.txt'), $text);
   }
 
   public function testHtmlToText5()
@@ -65,7 +65,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test5Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test5Html.txt'), $text);
   }
 
   public function testHtmlToText6()
@@ -76,7 +76,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test6Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test6Html.txt'), $text);
   }
 
   public function testHtmlToText7()
@@ -87,7 +87,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test7Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test7Html.txt'), $text);
   }
 
   public function testHtmlToText8()
@@ -98,7 +98,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test8Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test8Html.txt'), $text);
   }
 
   public function testHtmlToText9()
@@ -109,7 +109,7 @@ class MailTest extends \PHPUnit_Framework_TestCase
 
     $text = $html2text->getText();
 
-    self::assertEquals($this->file_get_contents(__DIR__ . '/fixtures/test9Html.txt'), $text);
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test9Html.txt'), $text);
   }
 
   protected function file_get_contents($filename)

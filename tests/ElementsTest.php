@@ -38,7 +38,7 @@ EOT;
         )
     );
 
-    self::assertEquals($this->normalizeString($expected), $html2text->getText());
+    self::assertSame($this->normalizeString($expected), $html2text->getText());
   }
 
   public function testReplace()
@@ -65,7 +65,7 @@ EOT;
         )
     );
 
-    self::assertEquals($this->normalizeString($expected), $html2text->getText());
+    self::assertSame($this->normalizeString($expected), $html2text->getText());
 
     // -----------
 
@@ -92,7 +92,7 @@ EOT;
     );
 
     $html2text->setPrefixForImages('[IMAGE]: ');
-    self::assertEquals($this->normalizeString($expected), $html2text->getText());
+    self::assertSame($this->normalizeString($expected), $html2text->getText());
   }
 
   /**
@@ -105,7 +105,7 @@ EOT;
   {
     $html2text = new Html2Text($html);
 
-    self::assertEquals($expected, $html2text->getText());
+    self::assertSame($expected, $html2text->getText());
   }
 
   /**

@@ -15,7 +15,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
   {
     $html = new Html2Text("<img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt=\"This is our cool logo\" />\n    <br/>\n\n    <img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt='This is our cool logo' data-foo=\"bar\">");
 
-    self::assertEquals("Image: \"This is our cool logo\"\nImage: \"This is our cool logo\"", $html->getText());
+    self::assertSame("Image: \"This is our cool logo\"\nImage: \"This is our cool logo\"", $html->getText());
   }
 
   public function testEditImagePreText()
@@ -23,7 +23,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     $html = new Html2Text("<img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt=\"This is our cool logo\" />\n    <br/>\n\n    <img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt='This is our cool logo' data-foo=\"bar\">");
     $html->setPrefixForImages('Bild: ');
 
-    self::assertEquals("Bild: \"This is our cool logo\"\nBild: \"This is our cool logo\"", $html->getText());
+    self::assertSame("Bild: \"This is our cool logo\"\nBild: \"This is our cool logo\"", $html->getText());
   }
 
   public function testComplexImageTagButWithoutAltContent()
@@ -34,7 +34,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     $html = new Html2Text($html);
     $html->setPrefixForImages('Bild: ');
 
-    self::assertEquals($expected, $html->getText());
+    self::assertSame($expected, $html->getText());
   }
 
   /**
@@ -89,6 +89,6 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
 
-    self::assertEquals($expected, $output);
+    self::assertSame($expected, $output);
   }
 }
