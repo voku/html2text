@@ -169,11 +169,6 @@ class Html2Text
     '/<(?<element>h[123456])( [^>]*)?>(?<value>.*?)<\/h[123456]>/i',
     // <p> with surrounding whitespace.
     '/[ ]*<(?<element>p)( [^>]*)?>(?<value>.*?)<\/p>[ ]*/si',
-    // <br> with leading whitespace after the newline.
-    '/<(?<element>br)[^>]*>[ ]*/i',
-    // img alt text
-    '/<(?<element>img)(?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)>/i',
-    '/<(?<element>img)(?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)>/i',
     // <li></li>
     '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/li>/i',
     // <b>
@@ -188,6 +183,11 @@ class Html2Text
     '/<(?<element>i)( [^>]*)?>(?<value>.*?)<\/i>/i',
     // <em>
     '/<(?<element>em)( [^>]*)?>(?<value>.*?)<\/em>/i',
+    // <br> with leading whitespace after the newline.
+    '/<(?<element>br)[^>]*>[ ]*/i',
+    // img alt text
+    '/<(?<element>img)(?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)>/i',
+    '/<(?<element>img)(?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)>/i',
   );
 
   /**

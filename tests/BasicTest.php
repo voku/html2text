@@ -112,6 +112,10 @@ EOT;
             'html'     => "\n<p>\n    Foo<br/>Bar\n</p>\nlall\n",
             'expected' => "Foo\nBar\n\nlall",
         ),
+        '<br /> within <strong> prevents <strong> from being converted'                                                               => array(
+            'html'     => '<strong>This would<br />not be converted.</strong><strong>But this would, though</strong>',
+            'expected' => "THIS WOULDNOT BE CONVERTED.\nTHIS WOULDNOT BE CONVERTED.BUT THIS WOULD, THOUGH",
+        ),
     );
   }
 
