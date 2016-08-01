@@ -20,10 +20,10 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 
   public function testShowAltTextWithUtf8()
   {
-    $html = "
-    <img src=\"/img/background.jpg\" alt=\"Computer Keyboard - Głównie JavaScript\"/>
-    <h1><a href=\"https://foobar\">Głównie JavaScript</a></h1>
-    ";
+    $html = '
+    <img src="/img/background.jpg" alt="Computer Keyboard - Głównie JavaScript"/>
+    <h1><a href="https://foobar">Głównie JavaScript</a></h1>
+    ';
 
     $expected = "Image: \"Computer Keyboard - Głównie JavaScript\"\n\nGŁÓWNIE JAVASCRIPT [https://foobar]";
 
