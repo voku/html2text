@@ -57,6 +57,11 @@ class Html2Text
       self::OPTION_TITLE     => \MB_CASE_TITLE,
   );
 
+  /**
+   * default options
+   *
+   * @var array
+   */
   private static $defaultOptions = array(
       'do_links'       => 'inline',
       'width'          => 0,
@@ -121,7 +126,7 @@ class Html2Text
    *
    * @var array
    */
-  protected $searchReplaceArray = array(
+  protected static $searchReplaceArray = array(
     // Non-legal carriage return
     "/\r/"                                           => '',
     // Windows carriage return
@@ -164,7 +169,7 @@ class Html2Text
    *
    * @var array
    */
-  protected $callbackSearch = array(
+  protected static $callbackSearch = array(
     // h1 - h6
     '/<(?<element>h[123456])( [^>]*)?>(?<value>.*?)<\/h[123456]>/i',
     // <p> with surrounding whitespace.
@@ -195,7 +200,7 @@ class Html2Text
    *
    * @var array
    */
-  protected $helperSearchReplaceArray = array(
+  protected static $helperSearchReplaceArray = array(
     // TM symbol in win-1252
     '/&#153;/'                   => '™',
     // m-dash in win-1252
@@ -243,7 +248,7 @@ class Html2Text
    *
    * @var array
    */
-  protected $preSearchReplaceArray = array(
+  protected static $preSearchReplaceArray = array(
       "/\n/"           => '<br>',
       "/\t/"           => '&nbsp;&nbsp;',
       '/ /'            => '&nbsp;',
@@ -466,11 +471,11 @@ class Html2Text
    */
   protected function converter(&$text)
   {
-    $searchReplaceArrayKeys = array_keys($this->searchReplaceArray);
-    $searchReplaceArrayValues = array_values($this->searchReplaceArray);
+    $searchReplaceArrayKeys = array_keys(self::$searchReplaceArray);
+    $searchReplaceArrayValues = array_values(self::$searchReplaceArray);
 
-    $helperSearchReplaceArrayKeys = array_keys($this->helperSearchReplaceArray);
-    $helperSearchReplaceArrayValues = array_values($this->helperSearchReplaceArray);
+    $helperSearchReplaceArrayKeys = array_keys(self::$helperSearchReplaceArray);
+    $helperSearchReplaceArrayValues = array_values(self::$helperSearchReplaceArray);
 
     // convert <BLOCKQUOTE> (before PRE!)
     $this->convertBlockquotes($text);
@@ -488,7 +493,7 @@ class Html2Text
     $text = preg_replace($searchReplaceArrayKeys, $searchReplaceArrayValues, $text);
 
     // run our defined tags search-and-replace with callback
-    $text = preg_replace_callback($this->callbackSearch, array($this, 'pregCallback'), $text);
+    $text = preg_replace_callback(self::$callbackSearch, array($this, 'pregCallback'), $text);
 
     // strip any other HTML tags
     $text = preg_replace('/(<(\/|!)?\w+[^>]*>)|(<!--.*?-->)/s', '', $text);
@@ -593,8 +598,10 @@ class Html2Text
     static $preSearchReplaceArrayKeys = null;
     static $preSearchReplaceArrayVales = null;
 
-    $preSearchReplaceArrayKeys = ($preSearchReplaceArrayKeys === null ? array_keys($this->preSearchReplaceArray) : $preSearchReplaceArrayKeys);
-    $preSearchReplaceArrayVales = ($preSearchReplaceArrayVales === null ? array_values($this->preSearchReplaceArray) : $preSearchReplaceArrayVales);
+    if ($preSearchReplaceArrayKeys === null) {
+      $preSearchReplaceArrayKeys = ($preSearchReplaceArrayKeys === null ? array_keys(self::$preSearchReplaceArray) : $preSearchReplaceArrayKeys);
+      $preSearchReplaceArrayVales = ($preSearchReplaceArrayVales === null ? array_values(self::$preSearchReplaceArray) : $preSearchReplaceArrayVales);
+    }
 
     // get the content of PRE element
     while (preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
@@ -603,7 +610,7 @@ class Html2Text
 
       // run our defined tags search-and-replace with callback
       $this->preContent = preg_replace_callback(
-          $this->callbackSearch,
+          self::$callbackSearch,
           array($this, 'pregCallback'),
           $this->preContent
       );
@@ -699,7 +706,7 @@ class Html2Text
             )
         );
 
-        if ($matches['alt'] && $matches['src'] && $useSrc === true) {
+        if ($useSrc === true && $matches['alt'] && $matches['src']) {
           return ' [[_html2text_image]]"' . $matches['alt'] . '" [' . $matches['src'] . '] ';
         }
 
@@ -765,7 +772,7 @@ class Html2Text
     $options = $this->getOptionsForElement($element);
     if (!$options) {
       return $str;
-    };
+    }
 
     if (isset($options['case']) && $options['case'] != self::OPTION_NONE) {
       $mode = self::$caseModeMapping[$options['case']];
@@ -774,12 +781,11 @@ class Html2Text
       $chunks = preg_split('/(<[^>]*>)/', $str, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 
       // convert only the text between HTML tags
-      foreach ($chunks as $i => $chunk) {
+      foreach ($chunks as $i => &$chunk) {
         if ($chunk[0] !== '<') {
           $chunk = UTF8::html_entity_decode($str);
           $chunk = mb_convert_case($chunk, $mode, 'UTF-8');
           $chunk = htmlspecialchars_decode($chunk, ENT_QUOTES);
-          $chunks[$i] = $chunk;
         }
       }
 
@@ -807,23 +813,10 @@ class Html2Text
     }
 
     if (isset($options['append']) && $options['append']) {
-      $str = $str . $options['append'];
+      $str .= $options['append'];
     }
 
     return $str;
-  }
-
-  /**
-   * Callback function for preg_replace_callback use.
-   *
-   * @param  array $matches PREG matches
-   *
-   * @return string
-   */
-  protected function entityCallback(&$matches)
-  {
-    // Convert from HTML-ENTITIES to UTF-8
-    return \mb_convert_encoding($matches[0], 'UTF-8', 'HTML-ENTITIES');
   }
 
   /**

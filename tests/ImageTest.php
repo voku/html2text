@@ -18,6 +18,20 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     self::assertSame("Image: \"This is our cool logo\"\nImage: \"This is our cool logo\"", $html->getText());
   }
 
+  public function testShowAltTextWithUtf8()
+  {
+    $html = "
+    <img src=\"/img/background.jpg\" alt=\"Computer Keyboard - Głównie JavaScript\"/>
+    <h1><a href=\"https://foobar\">Głównie JavaScript</a></h1>
+    ";
+
+    $expected = "Image: \"Computer Keyboard - Głównie JavaScript\"\n\nGŁÓWNIE JAVASCRIPT [https://foobar]";
+
+    $html = new Html2Text($html);
+
+    self::assertSame($expected, $html->getText());
+  }
+
   public function testEditImagePreText()
   {
     $html = new Html2Text("<img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt=\"This is our cool logo\" />\n    <br/>\n\n    <img id=\"head\" class=\"header\" src=\"imgs/logo.png\" alt='This is our cool logo' data-foo=\"bar\">");
