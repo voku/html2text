@@ -37,6 +37,7 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     $options = array('do_links' => 'none');
 
     $this->setExpectedException('InvalidArgumentException');
+    /** @noinspection PhpUnusedLocalVariableInspection */
     $html2text = new Html2Text($html, true, $options);
   }
 }

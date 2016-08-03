@@ -49,6 +49,11 @@ EOT;
     self::assertSame($this->normalizeString($expected), $output);
   }
 
+  /**
+   * @param string $string
+   *
+   * @return string
+   */
   protected function normalizeString($string)
   {
     return str_replace(array("\r\n", "\r"), "\n", $string);

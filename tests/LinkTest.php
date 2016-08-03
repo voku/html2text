@@ -264,6 +264,11 @@ Link text [/]';
     self::assertSame($expected, $html2text->getText());
   }
 
+  /**
+   * @param string $string
+   *
+   * @return string
+   */
   protected function normalizeString($string)
   {
     return str_replace(array("\r\n", "\r"), "\n", $string);

@@ -4,6 +4,11 @@ namespace Html2Text;
 
 use voku\Html2Text\Html2Text;
 
+/**
+ * Class ElementsTest
+ *
+ * @package Html2Text
+ */
 class ElementsTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -139,6 +144,11 @@ EOT;
     );
   }
 
+  /**
+   * @param $string
+   *
+   * @return string
+   */
   protected function normalizeString($string)
   {
     return str_replace(array("\r\n", "\r"), "\n", $string);

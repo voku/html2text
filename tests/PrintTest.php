@@ -14,6 +14,11 @@ class PrintTest extends \PHPUnit_Framework_TestCase
   const TEST_HTML = 'Hello, &quot;<b>world</b>&quot;';
   const EXPECTED  = 'Hello, "WORLD"';
 
+  /**
+   * @var Html2Text
+   */
+  protected $html;
+
   public function setUp()
   {
     $this->html = new Html2Text(self::TEST_HTML);

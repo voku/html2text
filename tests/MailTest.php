@@ -112,6 +112,11 @@ class MailTest extends \PHPUnit_Framework_TestCase
     self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test9Html.txt'), $text);
   }
 
+  /**
+   * @param string $filename
+   *
+   * @return string
+   */
   protected function file_get_contents($filename)
   {
     $string = UTF8::file_get_contents($filename);
@@ -119,6 +124,11 @@ class MailTest extends \PHPUnit_Framework_TestCase
     return $this->normalizeString($string);
   }
 
+  /**
+   * @param string $string
+   *
+   * @return string
+   */
   protected function normalizeString($string)
   {
     return str_replace(array("\r\n", "\r"), "\n", $string);
