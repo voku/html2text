@@ -663,7 +663,7 @@ class Html2Text
    *
    * @return string
    */
-  protected function pregCallback(&$matches)
+  protected function pregCallback($matches)
   {
     // init
     $element = strtolower($matches['element']);
