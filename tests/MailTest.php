@@ -112,6 +112,36 @@ class MailTest extends \PHPUnit_Framework_TestCase
     self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test9Html.txt'), $text);
   }
 
+  public function testHtmlToText10()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test10Html.html');
+
+    $html2text = new Html2Text(
+        $html,
+        false,
+        array(
+            'directConvert' => true,
+            'do_links' => 'markdown',
+            'do_links_ignore' => 'javascript:|mailto:',
+            'elements'        => array(
+                'pre'    => array(
+                    'prepend' => '```php' . "\n",
+                    'append'  => "\n" . '```',
+                ),
+                'h5'     => array(
+                    'case'    => Html2Text::OPTION_NONE,
+                    'prepend' => "\n\n",
+                    'append'  => "\n\n",
+                ),
+            )
+        )
+    );
+
+    $text = $html2text->getText();
+
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test10Html.txt'), $text);
+  }
+
   /**
    * @param string $filename
    *

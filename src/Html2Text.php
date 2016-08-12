@@ -63,9 +63,10 @@ class Html2Text
    * @var array
    */
   private static $defaultOptions = array(
-      'do_links'       => 'inline',
-      'width'          => 0,
-      'elements'       => array(
+      'do_links'        => 'inline',
+      'do_links_ignore' => 'javascript:|mailto:|#',
+      'width'           => 0,
+      'elements'        => array(
           'h1'     => array(
               'case'    => self::OPTION_UPPERCASE,
               'prepend' => "\n\n",
@@ -118,6 +119,10 @@ class Html2Text
               'prepend' => '_',
               'append'  => '_',
           ),
+          'pre'    => array(
+              'prepend' => '',
+              'append'  => '',
+          )
       ),
   );
 
@@ -295,6 +300,7 @@ class Html2Text
    *
    * 'none'
    * 'inline' (show links inline)
+   * 'markdown' (show links as markdown)
    * 'nextline' (show links on the next line)
    * 'table' (if a table of link URLs should be listed after the text.
    * 'bbcode' (show links as bbcode)
@@ -600,8 +606,12 @@ class Html2Text
 
     // Get the content of PRE element.
     while (preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
+
       // Replace br tags with newlines to prevent the search-and-replace callback from killing whitespace.
       $this->preContent = preg_replace('/(<br\b[^>]*>)/i', "\n", $matches[1]);
+
+      // Use options (append, prepend, ...) for the current "pre"-tag.
+      $this->preContent = $this->convertElement('<pre>' . $this->preContent . '</pre>', 'pre');
 
       // Run our defined tags search-and-replace with callback.
       $this->preContent = preg_replace_callback(
@@ -617,7 +627,7 @@ class Html2Text
       );
 
       // replace the content
-      $text = preg_replace('/<pre[^>]*>.*<\/pre>/ismU', $this->preContent, $text, 1);
+      $text = str_replace($matches[0], $this->preContent, $text);
 
       // free some memory
       $this->preContent = '';
@@ -827,7 +837,7 @@ class Html2Text
     }
 
     // ignored link types
-    if (preg_match('!^(javascript:|mailto:|#)!i', $link)) {
+    if (preg_match('!^(' . $this->options['do_links_ignore'] . ')!i', $link)) {
       return $display;
     }
 
@@ -846,19 +856,44 @@ class Html2Text
     }
 
     if ($linkMethod === 'table') {
+
+      //
+      // table
+      //
       if (($index = array_search($url, $this->linkList, true)) === false) {
         $index = count($this->linkList);
         $this->linkList[] = $url;
       }
-
       return ' ' . $display . ' [' . ($index + 1) . '] ';
+
     } elseif ($linkMethod === 'nextline') {
+
+      //
+      // nextline
+      //
       return ' ' . $display . "\n" . '[' . $url . '] ';
+
+    } elseif ($linkMethod === 'markdown') {
+
+      //
+      // markdown
+      //
+      return ' [' . $display . '](' . $url . ') ';
+
     } elseif ($linkMethod === 'bbcode') {
+
+      //
+      // bbcode
+      //
       return ' [url=' . $url . ']' . $display . '[/url] ';
+
     } else {
-      // link_method defaults to inline
+
+      //
+      // inline (default)
+      //
       return ' ' . $display . ' [' . $url . '] ';
+
     }
   }
 

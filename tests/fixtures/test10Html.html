@@ -1,0 +1,883 @@
+<div id="readme" class="readme blob instapaper_body">
+  <article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-portable-utf-8--api" class="anchor" href="#portable-utf-8--api" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Portable UTF-8 | API</h1>
+
+    <p>The API from the "UTF8"-Class is written as small static methods that will match the default PHP-API e.g.</p>
+
+    <h2><a id="user-content-methods" class="anchor" href="#methods" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Methods</h2>
+
+    <h5><a id="user-content-accessstring-str-int-pos" class="anchor" href="#accessstring-str-int-pos" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>access(string $str, int $pos)</h5>
+
+    <p>Return the character at the specified position: $str[1] like functionality.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>access(<span class="pl-s"><span class="pl-pds">'</span>fòô<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>); <span class="pl-c">// 'ô'</span></span></pre></div>
+
+    <h5><a id="user-content-add_bom_to_stringstring-str" class="anchor" href="#add_bom_to_stringstring-str" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>add_bom_to_string(string $str)</h5>
+
+    <p>Prepends UTF-8 BOM character to the string and returns the whole string.</p>
+
+    <p>If BOM already existed there, the Input string is returned.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>add_bom_to_string(<span class="pl-s"><span class="pl-pds">'</span>fòô<span class="pl-pds">'</span></span>); <span class="pl-c">// "\xEF\xBB\xBF" . 'fòô'</span></span></pre></div>
+
+    <h5><a id="user-content-binary_to_strmixed-bin" class="anchor" href="#binary_to_strmixed-bin" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>binary_to_str(mixed $bin)</h5>
+
+    <p>Convert binary into an string.</p>
+
+    <p>INFO: opposite to UTF8::str_to_binary()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>binary_to_str(<span class="pl-s"><span class="pl-pds">'</span>11110000100111111001100010000011<span class="pl-pds">'</span></span>); <span class="pl-c">// '😃'</span></span></pre></div>
+
+    <h5><a id="user-content-bom" class="anchor" href="#bom" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bom()</h5>
+
+    <p>Returns the UTF-8 Byte Order Mark Character.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>bom(); <span class="pl-c">// "\xEF\xBB\xBF"</span></span></pre></div>
+
+    <h5><a id="user-content-chrint-code_point--string" class="anchor" href="#chrint-code_point--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chr(int $code_point) : string</h5>
+
+    <p>Generates a UTF-8 encoded character from the given code point.</p>
+
+    <p>INFO: opposite to UTF8::ord()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>chr(<span class="pl-c1">666</span>); <span class="pl-c">// 'ʚ'</span></span></pre></div>
+
+    <h5><a id="user-content-chr_mapstringarray-callback-string-str--array" class="anchor" href="#chr_mapstringarray-callback-string-str--array" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chr_map(string|array $callback, string $str) : array</h5>
+
+    <p>Applies callback to all characters of a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>chr_map([<span class="pl-s"><span class="pl-pds">'</span>voku\helper\UTF8<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>strtolower<span class="pl-pds">'</span></span>], <span class="pl-s"><span class="pl-pds">'</span>Κόσμε<span class="pl-pds">'</span></span>); <span class="pl-c">// ['κ','ό', 'σ', 'μ', 'ε']</span></span></pre></div>
+
+    <h5><a id="user-content-chr_size_liststring-str--array" class="anchor" href="#chr_size_liststring-str--array" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chr_size_list(string $str) : array</h5>
+
+    <p>Generates a UTF-8 encoded character from the given code point.</p>
+
+    <p>1 byte =&gt; U+0000  - U+007F
+      2 byte =&gt; U+0080  - U+07FF
+      3 byte =&gt; U+0800  - U+FFFF
+      4 byte =&gt; U+10000 - U+10FFFF</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>chr_size_list(<span class="pl-s"><span class="pl-pds">'</span>中文空白-test<span class="pl-pds">'</span></span>); <span class="pl-c">// [3, 3, 3, 3, 1, 1, 1, 1, 1]</span></span></pre></div>
+
+    <h5><a id="user-content-chr_to_decimalstring-chr--int" class="anchor" href="#chr_to_decimalstring-chr--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chr_to_decimal(string $chr) : int</h5>
+
+    <p>Get a decimal code representation of a specific character.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>chr_to_decimal(<span class="pl-s"><span class="pl-pds">'</span>§<span class="pl-pds">'</span></span>); <span class="pl-c">// 0xa7</span></span></pre></div>
+
+    <h5><a id="user-content-chr_to_hexstring-chr-string-pfix--u" class="anchor" href="#chr_to_hexstring-chr-string-pfix--u" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chr_to_hex(string $chr, string $pfix = 'U+')</h5>
+
+    <p>Get hexadecimal code point (U+xxxx) of a UTF-8 encoded character.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>chr_to_hex(<span class="pl-s"><span class="pl-pds">'</span>§<span class="pl-pds">'</span></span>); <span class="pl-c">// 0xa7</span></span></pre></div>
+
+    <h5><a id="user-content-chunk_splitstring-body-int-chunklen--76-string-end--rn--string" class="anchor" href="#chunk_splitstring-body-int-chunklen--76-string-end--rn--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>chunk_split(string $body, int $chunklen = 76, string $end = "\r\n") : string</h5>
+
+    <p>Splits a string into smaller chunks and multiple lines, using the specified line ending character.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>chunk_split(<span class="pl-s"><span class="pl-pds">'</span>ABC-ÖÄÜ-中文空白-κόσμε<span class="pl-pds">'</span></span>, <span class="pl-c1">3</span>); <span class="pl-c">// "ABC\r\n-ÖÄ\r\nÜ-中\r\n文空白\r\n-κό\r\nσμε"</span></span></pre></div>
+
+    <h5><a id="user-content-cleanstring-str-bool-remove_bom--false-bool-normalize_whitespace--false-bool-normalize_msword--false-bool-keep_non_breaking_space--false--string" class="anchor" href="#cleanstring-str-bool-remove_bom--false-bool-normalize_whitespace--false-bool-normalize_msword--false-bool-keep_non_breaking_space--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>clean(string $str, bool $remove_bom = false, bool $normalize_whitespace = false, bool $normalize_msword = false, bool $keep_non_breaking_space = false) : string</h5>
+
+    <p>Accepts a string and removes all non-UTF-8 characters from it + extras if needed.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>clean(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">\xEF\xBB\xBF</span>„Abcdef<span class="pl-c1">\xc2\xa0\x20</span>…” — 😃 - DÃ¼sseldorf<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>, <span class="pl-c1">true</span>); <span class="pl-c">// '„Abcdef&nbsp; …” — 😃 - DÃ¼sseldorf'</span></span></pre></div>
+
+    <h5><a id="user-content-cleanupstring-str--string" class="anchor" href="#cleanupstring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cleanup(string $str) : string</h5>
+
+    <p>Clean-up a and show only printable UTF-8 chars at the end + fix UTF-8 encoding.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>cleanup(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">\xEF\xBB\xBF</span>„Abcdef<span class="pl-c1">\xc2\xa0\x20</span>…” — 😃 - DÃ¼sseldorf<span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>, <span class="pl-c1">true</span>); <span class="pl-c">// '„Abcdef&nbsp; …” — 😃 - Düsseldorf'</span></span></pre></div>
+
+    <h5><a id="user-content-codepointsmixed-arg-bool-u_style--false--array" class="anchor" href="#codepointsmixed-arg-bool-u_style--false--array" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>codepoints(mixed $arg, bool $u_style = false) : array</h5>
+
+    <p>Accepts a string and returns an array of Unicode code points.</p>
+
+    <p>INFO: opposite to UTF8::string()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>codepoints(<span class="pl-s"><span class="pl-pds">'</span>κöñ<span class="pl-pds">'</span></span>); <span class="pl-c">// array(954, 246, 241)</span></span>
+<span class="pl-s1"><span class="pl-c">// ... OR ...</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>codepoints(<span class="pl-s"><span class="pl-pds">'</span>κöñ<span class="pl-pds">'</span></span>, <span class="pl-c1">true</span>); <span class="pl-c">// array('U+03ba', 'U+00f6', 'U+00f1')</span></span></pre></div>
+
+    <h5><a id="user-content-count_charsstring-str-bool-cleanutf8--false--array" class="anchor" href="#count_charsstring-str-bool-cleanutf8--false--array" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>count_chars(string $str, bool $cleanUtf8 = false) : array</h5>
+
+    <p>Returns count of characters used in a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>count_chars(<span class="pl-s"><span class="pl-pds">'</span>κaκbκc<span class="pl-pds">'</span></span>); <span class="pl-c">// array('κ' =&gt; 3, 'a' =&gt; 1, 'b' =&gt; 1, 'c' =&gt; 1)</span></span></pre></div>
+
+    <h5><a id="user-content-encodestring-encoding-string-str-bool-force--true--string" class="anchor" href="#encodestring-encoding-string-str-bool-force--true--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>encode(string $encoding, string $str, bool $force = true) : string</h5>
+
+    <p>Encode a string with a new charset-encoding.</p>
+
+    <p>INFO:  The different to "UTF8::utf8_encode()" is that this function, try to fix also broken / double encoding,
+      so you can call this function also on a UTF-8 String and you don't mess the string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>encode(<span class="pl-s"><span class="pl-pds">'</span>ISO-8859-1<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>-ABC-中文空白-<span class="pl-pds">'</span></span>); <span class="pl-c">// '-ABC-????-'</span></span>
+<span class="pl-s1"><span class="pl-c">//</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>encode(<span class="pl-s"><span class="pl-pds">'</span>UTF-8<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>-ABC-中文空白-<span class="pl-pds">'</span></span>); <span class="pl-c">// '-ABC-中文空白-'</span></span></pre></div>
+
+    <h5><a id="user-content-file_get_contentsstring-filename-intnull-flags--null-resourcenull-context--null-intnull-offset--null-intnull-maxlen--null-int-timeout--10-bool-converttoutf8--true--string" class="anchor" href="#file_get_contentsstring-filename-intnull-flags--null-resourcenull-context--null-intnull-offset--null-intnull-maxlen--null-int-timeout--10-bool-converttoutf8--true--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>file_get_contents(string $filename, int|null $flags = null, resource|null $context = null, int|null $offset = null, int|null $maxlen = null, int $timeout = 10, bool $convertToUtf8 = true) : string</h5>
+
+    <p>Reads entire file into a string.</p>
+
+    <p>WARNING: do not use UTF-8 Option ($convertToUtf8) for binary-files (e.g.: images) !!!</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>file_get_contents(<span class="pl-s"><span class="pl-pds">'</span>utf16le.txt<span class="pl-pds">'</span></span>); <span class="pl-c">// ...</span></span></pre></div>
+
+    <h5><a id="user-content-file_has_bomstring-file_path--bool" class="anchor" href="#file_has_bomstring-file_path--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>file_has_bom(string $file_path) : bool</h5>
+
+    <p>Checks if a file starts with BOM (Byte Order Mark) character.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>file_has_bom(<span class="pl-s"><span class="pl-pds">'</span>utf8_with_bom.txt<span class="pl-pds">'</span></span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-filtermixed-var-int-normalization_form--4-string-leading_combining----mixed" class="anchor" href="#filtermixed-var-int-normalization_form--4-string-leading_combining----mixed" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filter(mixed $var, int $normalization_form = 4, string $leading_combining = '◌') : mixed</h5>
+
+    <p>Normalizes to UTF-8 NFC, converting from WINDOWS-1252 when needed.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>filter(<span class="pl-c1">array</span>(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">\xE9</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">'</span>à<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>a<span class="pl-pds">'</span></span>)); <span class="pl-c">// array('é', 'à', 'a')</span></span></pre></div>
+
+    <h5><a id="user-content-filter_inputint-type-string-var-int-filter--filter_default-nullarray-option--null--string" class="anchor" href="#filter_inputint-type-string-var-int-filter--filter_default-nullarray-option--null--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filter_input(int $type, string $var, int $filter = FILTER_DEFAULT, null|array $option = null) : string</h5>
+
+    <p>"filter_input()"-wrapper with normalizes to UTF-8 NFC, converting from WINDOWS-1252 when needed.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c">// _GET['foo'] = 'bar';</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>filter_input(<span class="pl-c1">INPUT_GET</span>, <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>, <span class="pl-c1">FILTER_SANITIZE_STRING</span>)); <span class="pl-c">// 'bar'</span></span></pre></div>
+
+    <h5><a id="user-content-filter_input_arrayint-type-mixed-definition--null-bool-add_empty--true--mixed" class="anchor" href="#filter_input_arrayint-type-mixed-definition--null-bool-add_empty--true--mixed" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filter_input_array(int $type, mixed $definition = null, bool $add_empty = true) : mixed</h5>
+
+    <p>"filter_input_array()"-wrapper with normalizes to UTF-8 NFC, converting from WINDOWS-1252 when needed.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c">// _GET['foo'] = 'bar';</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>filter_input_array(<span class="pl-c1">INPUT_GET</span>, <span class="pl-c1">array</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>FILTER_SANITIZE_STRING<span class="pl-pds">'</span></span>)); <span class="pl-c">// array('bar')</span></span></pre></div>
+
+    <h5><a id="user-content-filter_varstring-var-int-filter--filter_default-array-option--null--string" class="anchor" href="#filter_varstring-var-int-filter--filter_default-array-option--null--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filter_var(string $var, int $filter = FILTER_DEFAULT, array $option = null) : string</h5>
+
+    <p>"filter_var()"-wrapper with normalizes to UTF-8 NFC, converting from WINDOWS-1252 when needed.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>filter_var(<span class="pl-s"><span class="pl-pds">'</span>-ABC-中文空白-<span class="pl-pds">'</span></span>, <span class="pl-c1">FILTER_VALIDATE_URL</span>); <span class="pl-c">// false</span></span></pre></div>
+
+    <h5><a id="user-content-filter_var_arrayarray-data-mixed-definition--null-bool-add_empty--true--mixed" class="anchor" href="#filter_var_arrayarray-data-mixed-definition--null-bool-add_empty--true--mixed" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>filter_var_array(array $data, mixed $definition = null, bool $add_empty = true) : mixed</h5>
+
+    <p>"filter_var_array()"-wrapper with normalizes to UTF-8 NFC, converting from WINDOWS-1252 when needed.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$filters</span> <span class="pl-k">=</span> [ </span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>  <span class="pl-k">=&gt;</span> [<span class="pl-s"><span class="pl-pds">'</span>filter<span class="pl-pds">'</span></span>  <span class="pl-k">=&gt;</span> <span class="pl-c1">FILTER_CALLBACK</span>, <span class="pl-s"><span class="pl-pds">'</span>options<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [<span class="pl-s"><span class="pl-pds">'</span>voku\helper\UTF8<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>ucwords<span class="pl-pds">'</span></span>]],</span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>age<span class="pl-pds">'</span></span>   <span class="pl-k">=&gt;</span> [<span class="pl-s"><span class="pl-pds">'</span>filter<span class="pl-pds">'</span></span>  <span class="pl-k">=&gt;</span> <span class="pl-c1">FILTER_VALIDATE_INT</span>, <span class="pl-s"><span class="pl-pds">'</span>options<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [<span class="pl-s"><span class="pl-pds">'</span>min_range<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">'</span>max_range<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">120</span>]],</span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>email<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">FILTER_VALIDATE_EMAIL</span>,</span>
+<span class="pl-s1">];</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$data</span> <span class="pl-k">=</span> [</span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>κόσμε<span class="pl-pds">'</span></span>, </span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>age<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>18<span class="pl-pds">'</span></span>, </span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>email<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>foo@bar.de<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">];</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>filter_var_array(<span class="pl-smi">$data</span>, <span class="pl-smi">$filters</span>, <span class="pl-c1">true</span>); <span class="pl-c">// ['name' =&gt; 'Κόσμε', 'age' =&gt; 18, 'email' =&gt; 'foo@bar.de']</span></span></pre></div>
+
+    <h5><a id="user-content-fits_insidestring-str-int-box_size--bool" class="anchor" href="#fits_insidestring-str-int-box_size--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fits_inside(string $str, int $box_size) : bool</h5>
+
+    <p>Check if the number of unicode characters are not more than the specified integer.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>fits_inside(<span class="pl-s"><span class="pl-pds">'</span>κόσμε<span class="pl-pds">'</span></span>, <span class="pl-c1">6</span>); <span class="pl-c">// false</span></span></pre></div>
+
+    <h5><a id="user-content-fix_simple_utf8string-str--string" class="anchor" href="#fix_simple_utf8string-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fix_simple_utf8(string $str) : string</h5>
+
+    <p>Try to fix simple broken UTF-8 strings.</p>
+
+    <p>INFO: Take a look at "UTF8::fix_utf8()" if you need a more advanced fix for broken UTF-8 strings.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>fix_simple_utf8(<span class="pl-s"><span class="pl-pds">'</span>DÃ¼sseldorf<span class="pl-pds">'</span></span>); <span class="pl-c">// 'Düsseldorf'</span></span></pre></div>
+
+    <h5><a id="user-content-fix_utf8stringstring-str--mixed" class="anchor" href="#fix_utf8stringstring-str--mixed" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fix_utf8(string|string[] $str) : mixed</h5>
+
+    <p>Fix a double (or multiple) encoded UTF8 string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>fix_utf8(<span class="pl-s"><span class="pl-pds">'</span>FÃÂÂÂÂ©dÃÂÂÂÂ©ration<span class="pl-pds">'</span></span>); <span class="pl-c">// 'Fédération'</span></span></pre></div>
+
+    <h5><a id="user-content-getchardirectionstring-char--string-rtl-or-ltr" class="anchor" href="#getchardirectionstring-char--string-rtl-or-ltr" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>getCharDirection(string $char) : string ('RTL' or 'LTR')</h5>
+
+    <p>Get character of a specific character.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>getCharDirection(<span class="pl-s"><span class="pl-pds">'</span>ا<span class="pl-pds">'</span></span>); <span class="pl-c">// 'RTL'</span></span></pre></div>
+
+    <h5><a id="user-content-getchardirectionstring-char--string-rtl-or-ltr-1" class="anchor" href="#getchardirectionstring-char--string-rtl-or-ltr-1" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>getCharDirection(string $char) : string ('RTL' or 'LTR')</h5>
+
+    <p>Get character of a specific character.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>getCharDirection(<span class="pl-s"><span class="pl-pds">'</span>ا<span class="pl-pds">'</span></span>); <span class="pl-c">// 'RTL'</span></span></pre></div>
+
+    <h5><a id="user-content-hex_to_intstring-str--intfalse" class="anchor" href="#hex_to_intstring-str--intfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>hex_to_int(string $str) : int|false</h5>
+
+    <p>Converts hexadecimal U+xxxx code point representation to integer.</p>
+
+    <p>INFO: opposite to UTF8::int_to_hex()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>hex_to_int(<span class="pl-s"><span class="pl-pds">'</span>U+00f1<span class="pl-pds">'</span></span>); <span class="pl-c">// 241</span></span></pre></div>
+
+    <h5><a id="user-content-html_encodestring-str-bool-keepasciichars--false-string-encoding--utf-8--string" class="anchor" href="#html_encodestring-str-bool-keepasciichars--false-string-encoding--utf-8--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>html_encode(string $str, bool $keepAsciiChars = false, string $encoding = 'UTF-8') : string</h5>
+
+    <p>Converts a UTF-8 string to a series of HTML numbered entities.</p>
+
+    <p>INFO: opposite to UTF8::html_decode()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>html_encode(<span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span>); <span class="pl-c">// '&amp;#20013;&amp;#25991;&amp;#31354;&amp;#30333;'</span></span></pre></div>
+
+    <h5><a id="user-content-html_entity_decodestring-str-int-flags--null-string-encoding--utf-8--string" class="anchor" href="#html_entity_decodestring-str-int-flags--null-string-encoding--utf-8--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>html_entity_decode(string $str, int $flags = null, string $encoding = 'UTF-8') : string</h5>
+
+    <p>UTF-8 version of html_entity_decode()</p>
+
+    <p>The reason we are not using html_entity_decode() by itself is because
+      while it is not technically correct to leave out the semicolon
+      at the end of an entity most browsers will still interpret the entity
+      correctly. html_entity_decode() does not convert entities without
+      semicolons, so we are left with our own little solution here. Bummer.</p>
+
+    <p>Convert all HTML entities to their applicable characters</p>
+
+    <p>INFO: opposite to UTF8::html_encode()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>html_encode(<span class="pl-s"><span class="pl-pds">'</span>&amp;#20013;&amp;#25991;&amp;#31354;&amp;#30333;<span class="pl-pds">'</span></span>); <span class="pl-c">// '中文空白' </span></span></pre></div>
+
+    <h5><a id="user-content-htmlentitiesstring-str-int-flags--ent_compat-string-encoding--utf-8-bool-double_encode--true--string" class="anchor" href="#htmlentitiesstring-str-int-flags--ent_compat-string-encoding--utf-8-bool-double_encode--true--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>htmlentities(string $str, int $flags = ENT_COMPAT, string $encoding = 'UTF-8', bool $double_encode = true) : string</h5>
+
+    <p>Convert all applicable characters to HTML entities: UTF-8 version of htmlentities()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>htmlentities(<span class="pl-s"><span class="pl-pds">'</span>&lt;白-öäü&gt;<span class="pl-pds">'</span></span>); <span class="pl-c">// '&amp;lt;&amp;#30333;-&amp;ouml;&amp;auml;&amp;uuml;&amp;gt;'</span></span></pre></div>
+
+    <h5><a id="user-content-htmlspecialcharsstring-str-int-flags--ent_compat-string-encoding--utf-8-bool-double_encode--true--string" class="anchor" href="#htmlspecialcharsstring-str-int-flags--ent_compat-string-encoding--utf-8-bool-double_encode--true--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>htmlspecialchars(string $str, int $flags = ENT_COMPAT, string $encoding = 'UTF-8', bool $double_encode = true) : string</h5>
+
+    <p>Convert only special characters to HTML entities: UTF-8 version of htmlspecialchars()</p>
+
+    <p>INFO: Take a look at "UTF8::htmlentities()"</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>htmlspecialchars(<span class="pl-s"><span class="pl-pds">'</span>&lt;白-öäü&gt;<span class="pl-pds">'</span></span>); <span class="pl-c">// '&amp;lt;白-öäü&amp;gt;'</span></span></pre></div>
+
+    <h5><a id="user-content-int_to_hexint-int-string-pfix--u--str" class="anchor" href="#int_to_hexint-int-string-pfix--u--str" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>int_to_hex(int $int, string $pfix = 'U+') : str</h5>
+
+    <p>Converts Integer to hexadecimal U+xxxx code point representation.</p>
+
+    <p>INFO: opposite to UTF8::hex_to_int()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>int_to_hex(<span class="pl-c1">241</span>); <span class="pl-c">// 'U+00f1'</span></span></pre></div>
+
+    <h5><a id="user-content-is_asciistring-str--bool" class="anchor" href="#is_asciistring-str--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_ascii(string $str) : bool</h5>
+
+    <p>Checks if a string is 7 bit ASCII.</p>
+
+    <p>alias: UTF8::isAscii()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_ascii(<span class="pl-s"><span class="pl-pds">'</span>白<span class="pl-pds">'</span></span>); <span class="pl-c">// false</span></span></pre></div>
+
+    <h5><a id="user-content-is_base64string-str--bool" class="anchor" href="#is_base64string-str--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_base64(string $str) : bool</h5>
+
+    <p>Returns true if the string is base64 encoded, false otherwise.</p>
+
+    <p>alias: UTF8::isBase64()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_base64(<span class="pl-s"><span class="pl-pds">'</span>4KSu4KWL4KSo4KS/4KSa<span class="pl-pds">'</span></span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-is_binarymixed-input--bool" class="anchor" href="#is_binarymixed-input--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_binary(mixed $input) : bool</h5>
+
+    <p>Check if the input is binary... (is look like a hack).</p>
+
+    <p>alias: UTF8::isBinary()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_binary(<span class="pl-c1">01</span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-is_binary_filestring-file--bool" class="anchor" href="#is_binary_filestring-file--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_binary_file(string $file) : bool</h5>
+
+    <p>Check if the file is binary.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_binary(<span class="pl-s"><span class="pl-pds">'</span>./utf32.txt<span class="pl-pds">'</span></span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-is_bomstring-str--bool" class="anchor" href="#is_bomstring-str--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_bom(string $str) : bool</h5>
+
+    <p>Checks if the given string is equal to any "Byte Order Mark".</p>
+
+    <p>WARNING: Use "UTF8::string_has_bom()" if you will check BOM in a string.</p>
+
+    <p>alias: UTF8::isBom()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_bom(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">\xef\xbb\xbf</span><span class="pl-pds">"</span></span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-is_jsonstring-str--bool" class="anchor" href="#is_jsonstring-str--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_json(string $str) : bool</h5>
+
+    <p>Try to check if "$str" is an json-string.</p>
+
+    <p>alias: UTF8::isJson()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_json(<span class="pl-s"><span class="pl-pds">'</span>{"array":[1,"¥","ä"]}<span class="pl-pds">'</span></span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-is_htmlstring-str--bool" class="anchor" href="#is_htmlstring-str--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_html(string $str) : bool</h5>
+
+    <p>Check if the string contains any html-tags .</p>
+
+    <p>alias: UTF8::isHtml()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_html(<span class="pl-s"><span class="pl-pds">'</span>&lt;b&gt;lall&lt;/b&gt;<span class="pl-pds">'</span></span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-is_utf16string-str--intfalse" class="anchor" href="#is_utf16string-str--intfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_utf16(string $str) : int|false</h5>
+
+    <p>Check if the string is UTF-16: This function will return  false if is't not UTF-16, 1 for UTF-16LE, 2 for UTF-16BE.</p>
+
+    <p>alias: UTF8::isUtf16()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf16(<span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>utf-16-le.txt<span class="pl-pds">'</span></span>)); <span class="pl-c">// 1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf16(<span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>utf-16-be.txt<span class="pl-pds">'</span></span>)); <span class="pl-c">// 2</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf16(<span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>utf-8.txt<span class="pl-pds">'</span></span>)); <span class="pl-c">// false</span></span></pre></div>
+
+    <h5><a id="user-content-is_utf32string-str--intfalse" class="anchor" href="#is_utf32string-str--intfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_utf32(string $str) : int|false</h5>
+
+    <p>Check if the string is UTF-32: This function will return  false if is't not UTF-32, 1 for UTF-32LE, 2 for UTF-32BE.</p>
+
+    <p>alias: UTF8::isUtf16()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf32(<span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>utf-32-le.txt<span class="pl-pds">'</span></span>)); <span class="pl-c">// 1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf32(<span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>utf-32-be.txt<span class="pl-pds">'</span></span>)); <span class="pl-c">// 2</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf32(<span class="pl-c1">file_get_contents</span>(<span class="pl-s"><span class="pl-pds">'</span>utf-8.txt<span class="pl-pds">'</span></span>)); <span class="pl-c">// false</span></span></pre></div>
+
+    <h5><a id="user-content-is_utf8string-str-bool-strict--false--bool" class="anchor" href="#is_utf8string-str-bool-strict--false--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>is_utf8(string $str, bool $strict = false) : bool</h5>
+
+    <p>Checks whether the passed string contains only byte sequences that appear valid UTF-8 characters.</p>
+
+    <p>alias: UTF8::isUtf8()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf8(<span class="pl-s"><span class="pl-pds">'</span>Iñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>); <span class="pl-c">// true</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>is_utf8(<span class="pl-s"><span class="pl-pds">"</span>Iñtërnâtiônàlizætiøn<span class="pl-c1">\xA0\xA1</span><span class="pl-pds">"</span></span>); <span class="pl-c">// false</span></span></pre></div>
+
+    <h5><a id="user-content-json_decodestring-json-bool-assoc--false-int-depth--512-int-options--0--mixed" class="anchor" href="#json_decodestring-json-bool-assoc--false-int-depth--512-int-options--0--mixed" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>json_decode(string $json, bool $assoc = false, int $depth = 512, int $options = 0) : mixed</h5>
+
+    <p>Decodes a JSON string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>json_decode(<span class="pl-s"><span class="pl-pds">'</span>[1,"\u00a5","\u00e4"]<span class="pl-pds">'</span></span>); <span class="pl-c">// array(1, '¥', 'ä')</span></span></pre></div>
+
+    <h5><a id="user-content-json_encodemixed-value-int-options--0-int-depth--512--string" class="anchor" href="#json_encodemixed-value-int-options--0-int-depth--512--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>json_encode(mixed $value, int $options = 0, int $depth = 512) : string</h5>
+
+    <p>Returns the JSON representation of a value.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>json_enocde(<span class="pl-c1">array</span>(<span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">'</span>¥<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>ä<span class="pl-pds">'</span></span>)); <span class="pl-c">// '[1,"\u00a5","\u00e4"]'</span></span></pre></div>
+
+    <h5><a id="user-content-lcfirststring-str--string" class="anchor" href="#lcfirststring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>lcfirst(string $str) : string</h5>
+
+    <p>Makes string's first char lowercase.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>lcfirst(<span class="pl-s"><span class="pl-pds">'</span>ÑTËRNÂTIÔNÀLIZÆTIØN<span class="pl-pds">'</span></span>); <span class="pl-c">// ñTËRNÂTIÔNÀLIZÆTIØN </span></span></pre></div>
+
+    <h5><a id="user-content-maxmixed-arg--string" class="anchor" href="#maxmixed-arg--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>max(mixed $arg) : string</h5>
+
+    <p>Returns the UTF-8 character with the maximum code point in the given data.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>max(<span class="pl-s"><span class="pl-pds">'</span>abc-äöü-中文空白<span class="pl-pds">'</span></span>); <span class="pl-c">// 'ø'</span></span></pre></div>
+
+    <h5><a id="user-content-max_chr_widthstring-str--int" class="anchor" href="#max_chr_widthstring-str--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>max_chr_width(string $str) : int</h5>
+
+    <p>Calculates and returns the maximum number of bytes taken by any
+      UTF-8 encoded character in the given string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>max_chr_width(<span class="pl-s"><span class="pl-pds">'</span>Intërnâtiônàlizætiøn<span class="pl-pds">'</span></span>); <span class="pl-c">// 2</span></span></pre></div>
+
+    <h5><a id="user-content-minmixed-arg--string" class="anchor" href="#minmixed-arg--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>min(mixed $arg) : string</h5>
+
+    <p>Returns the UTF-8 character with the minimum code point in the given data.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>min(<span class="pl-s"><span class="pl-pds">'</span>abc-äöü-中文空白<span class="pl-pds">'</span></span>); <span class="pl-c">// '-'</span></span></pre></div>
+
+    <h5><a id="user-content-normalize_encodingstring-encoding--string" class="anchor" href="#normalize_encodingstring-encoding--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>normalize_encoding(string $encoding) : string</h5>
+
+    <p>Normalize the encoding-"name" input.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>normalize_encoding(<span class="pl-s"><span class="pl-pds">'</span>UTF8<span class="pl-pds">'</span></span>); <span class="pl-c">// 'UTF-8'</span></span></pre></div>
+
+    <h5><a id="user-content-normalize_mswordstring-str--string" class="anchor" href="#normalize_mswordstring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>normalize_msword(string $str) : string</h5>
+
+    <p>Normalize some MS Word special characters.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>normalize_msword(<span class="pl-s"><span class="pl-pds">'</span>„Abcdef…”<span class="pl-pds">'</span></span>); <span class="pl-c">// '"Abcdef..."'</span></span></pre></div>
+
+    <h5><a id="user-content-normalize_whitespacestring-str-bool-keepnonbreakingspace--false-bool-keepbidiunicodecontrols--false--string" class="anchor" href="#normalize_whitespacestring-str-bool-keepnonbreakingspace--false-bool-keepbidiunicodecontrols--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>normalize_whitespace(string $str, bool $keepNonBreakingSpace = false, bool $keepBidiUnicodeControls = false) : string</h5>
+
+    <p>Normalize the whitespace.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>normalize_whitespace(<span class="pl-s"><span class="pl-pds">"</span>abc-<span class="pl-c1">\xc2\xa0</span>-öäü-<span class="pl-c1">\xe2\x80\xaf</span>-<span class="pl-c1">\xE2\x80\xAC</span><span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>); <span class="pl-c">// "abc-\xc2\xa0-öäü- -"</span></span></pre></div>
+
+    <h5><a id="user-content-ordstring-chr--int" class="anchor" href="#ordstring-chr--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ord(string $chr) : int</h5>
+
+    <p>Calculates Unicode code point of the given UTF-8 encoded character.</p>
+
+    <p>INFO: opposite to UTF8::chr()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>ord(<span class="pl-s"><span class="pl-pds">'</span>中<span class="pl-pds">'</span></span>); <span class="pl-c">// 20013</span></span></pre></div>
+
+    <h5><a id="user-content-parse_strstring-str-result--bool" class="anchor" href="#parse_strstring-str-result--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>parse_str(string $str, &amp;$result) : bool</h5>
+
+    <p>Parses the string into an array (into the the second parameter).</p>
+
+    <p>WARNING: Instead of "parse_str()" this method do not (re-)placing variables in the current scope,
+      if the second parameter is not set!</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>parse_str(<span class="pl-s"><span class="pl-pds">'</span>Iñtërnâtiônéàlizætiøn=測試&amp;arr[]=foo+測試&amp;arr[]=ການທົດສອບ<span class="pl-pds">'</span></span>, <span class="pl-smi">$array</span>);</span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$array</span>[<span class="pl-s"><span class="pl-pds">'</span>Iñtërnâtiônéàlizætiøn<span class="pl-pds">'</span></span>]; <span class="pl-c">// '測試'</span></span></pre></div>
+
+    <h5><a id="user-content-rangemixed-var1-mixed-var2--array" class="anchor" href="#rangemixed-var1-mixed-var2--array" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>range(mixed $var1, mixed $var2) : array</h5>
+
+    <p>Create an array containing a range of UTF-8 characters.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>range(<span class="pl-s"><span class="pl-pds">'</span>κ<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>ζ<span class="pl-pds">'</span></span>); <span class="pl-c">// array('κ', 'ι', 'θ', 'η', 'ζ',)</span></span></pre></div>
+
+    <h5><a id="user-content-remove_bomstring-str--string" class="anchor" href="#remove_bomstring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>remove_bom(string $str) : string</h5>
+
+    <p>Remove the BOM from UTF-8 / UTF-16 / UTF-32 strings.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>remove_bom(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">\xEF\xBB\xBF</span>Μπορώ να<span class="pl-pds">"</span></span>); <span class="pl-c">// 'Μπορώ να'</span></span></pre></div>
+
+    <h5><a id="user-content-remove_duplicatesstring-str-stringarray-what-----string" class="anchor" href="#remove_duplicatesstring-str-stringarray-what-----string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>remove_duplicates(string $str, string|array $what = ' ') : string</h5>
+
+    <p>Removes duplicate occurrences of a string in another string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>remove_duplicates(<span class="pl-s"><span class="pl-pds">'</span>öäü-κόσμεκόσμε-äöü<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>κόσμε<span class="pl-pds">'</span></span>); <span class="pl-c">// 'öäü-κόσμε-äöü'</span></span></pre></div>
+
+    <h5><a id="user-content-remove_invisible_charactersstring-str-bool-url_encoded--true-string-replacement----string" class="anchor" href="#remove_invisible_charactersstring-str-bool-url_encoded--true-string-replacement----string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>remove_invisible_characters(string $str, bool $url_encoded = true, string $replacement = '') : string</h5>
+
+    <p>Remove invisible characters from a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>remove_duplicates(<span class="pl-s"><span class="pl-pds">"</span>κόσ<span class="pl-c1">\0</span>με<span class="pl-pds">"</span></span>); <span class="pl-c">// 'κόσμε'</span></span></pre></div>
+
+    <h5><a id="user-content-replace_diamond_question_markstring-str-string-unknown----string" class="anchor" href="#replace_diamond_question_markstring-str-string-unknown----string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>replace_diamond_question_mark(string $str, string $unknown = '?') : string</h5>
+
+    <p>Replace the diamond question mark (�) with the replacement.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>replace_diamond_question_mark(<span class="pl-s"><span class="pl-pds">'</span>中文空白�<span class="pl-pds">'</span></span>); <span class="pl-c">// '中文空白'</span></span></pre></div>
+
+    <h5><a id="user-content-trimstring-str---string-chars--inf--string" class="anchor" href="#trimstring-str---string-chars--inf--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>trim(string $str = '', string $chars = INF) : string</h5>
+
+    <p>Strip whitespace or other characters from beginning or end of a UTF-8 string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>rtrim(<span class="pl-s"><span class="pl-pds">'</span>   -ABC-中文空白-  <span class="pl-pds">'</span></span>); <span class="pl-c">// '-ABC-中文空白-'</span></span></pre></div>
+
+    <h5><a id="user-content-rtrimstring-str---string-chars--inf--string" class="anchor" href="#rtrimstring-str---string-chars--inf--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>rtrim(string $str = '', string $chars = INF) : string</h5>
+
+    <p>Strip whitespace or other characters from end of a UTF-8 string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>rtrim(<span class="pl-s"><span class="pl-pds">'</span>-ABC-中文空白-  <span class="pl-pds">'</span></span>); <span class="pl-c">// '-ABC-中文空白-'</span></span></pre></div>
+
+    <h5><a id="user-content-ltrimstring-str-string-chars--inf--string" class="anchor" href="#ltrimstring-str-string-chars--inf--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ltrim(string $str, string $chars = INF) : string</h5>
+
+    <p>Strip whitespace or other characters from beginning of a UTF-8 string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>ltrim(<span class="pl-s"><span class="pl-pds">'</span>　中文空白　 <span class="pl-pds">'</span></span>); <span class="pl-c">// '中文空白　 '</span></span></pre></div>
+
+    <h5><a id="user-content-single_chr_html_encodestring-char-bool-keepasciichars--false--string" class="anchor" href="#single_chr_html_encodestring-char-bool-keepasciichars--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>single_chr_html_encode(string $char, bool $keepAsciiChars = false) : string</h5>
+
+    <p>Converts a UTF-8 character to HTML Numbered Entity like "{".</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>single_chr_html_encode(<span class="pl-s"><span class="pl-pds">'</span>κ<span class="pl-pds">'</span></span>); <span class="pl-c">// '&amp;#954;'</span></span></pre></div>
+
+    <h5><a id="user-content-splitstring-str-int-length--1-bool-cleanutf8--false--array" class="anchor" href="#splitstring-str-int-length--1-bool-cleanutf8--false--array" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>split(string $str, int $length = 1, bool $cleanUtf8 = false) : array</h5>
+
+    <p>Convert a string to an array of Unicode characters.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>split(<span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span>); <span class="pl-c">// array('中', '文', '空', '白')</span></span></pre></div>
+
+    <h5><a id="user-content-str_detect_encodingstring-str--string" class="anchor" href="#str_detect_encodingstring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_detect_encoding(string $str) : string</h5>
+
+    <p>Optimized "\mb_detect_encoding()"-function -&gt; with support for UTF-16 and UTF-32.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_detect_encoding(<span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span>); <span class="pl-c">// 'UTF-8'</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_detect_encoding(<span class="pl-s"><span class="pl-pds">'</span>Abc<span class="pl-pds">'</span></span>); <span class="pl-c">// 'ASCII'</span></span></pre></div>
+
+    <h5><a id="user-content-str_ireplacemixed-search-mixed-replace-mixed-subject-int-count--null--mixed" class="anchor" href="#str_ireplacemixed-search-mixed-replace-mixed-subject-int-count--null--mixed" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_ireplace(mixed $search, mixed $replace, mixed $subject, int &amp;$count = null) : mixed</h5>
+
+    <p>Case-insensitive and UTF-8 safe version of str_replace.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_ireplace(<span class="pl-s"><span class="pl-pds">'</span>lIzÆ<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>lise<span class="pl-pds">'</span></span>, <span class="pl-c1">array</span>(<span class="pl-s"><span class="pl-pds">'</span>Iñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>)); <span class="pl-c">// array('Iñtërnâtiônàlisetiøn')</span></span></pre></div>
+
+    <h5><a id="user-content-str_limit_after_wordstring-str-int-length--100-stirng-straddon----string" class="anchor" href="#str_limit_after_wordstring-str-int-length--100-stirng-straddon----string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_limit_after_word(string $str, int $length = 100, stirng $strAddOn = '...') : string</h5>
+
+    <p>Limit the number of characters in a string, but also after the next word.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_limit_after_word(<span class="pl-s"><span class="pl-pds">'</span>fòô bàř fòô<span class="pl-pds">'</span></span>, <span class="pl-c1">8</span>, <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>); <span class="pl-c">// 'fòô bàř'</span></span></pre></div>
+
+    <h5><a id="user-content-str_padstring-str-int-pad_length-string-pad_string----int-pad_type--str_pad_right--string" class="anchor" href="#str_padstring-str-int-pad_length-string-pad_string----int-pad_type--str_pad_right--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_pad(string $str, int $pad_length, string $pad_string = ' ', int $pad_type = STR_PAD_RIGHT) : string</h5>
+
+    <p>Pad a UTF-8 string to given length with another string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_pad(<span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span>, <span class="pl-c1">10</span>, <span class="pl-s"><span class="pl-pds">'</span>_<span class="pl-pds">'</span></span>, <span class="pl-c1">STR_PAD_BOTH</span>); <span class="pl-c">// '___中文空白___'</span></span></pre></div>
+
+    <h5><a id="user-content-str_padstring-str-int-pad_length-string-pad_string----int-pad_type--str_pad_right--string-1" class="anchor" href="#str_padstring-str-int-pad_length-string-pad_string----int-pad_type--str_pad_right--string-1" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_pad(string $str, int $pad_length, string $pad_string = ' ', int $pad_type = STR_PAD_RIGHT) : string</h5>
+
+    <p>Pad a UTF-8 string to given length with another string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_pad(<span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span>, <span class="pl-c1">10</span>, <span class="pl-s"><span class="pl-pds">'</span>_<span class="pl-pds">'</span></span>, <span class="pl-c1">STR_PAD_BOTH</span>); <span class="pl-c">// '___中文空白___'</span></span></pre></div>
+
+    <h5><a id="user-content-str_repeatstring-str-int-multiplier--string" class="anchor" href="#str_repeatstring-str-int-multiplier--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_repeat(string $str, int $multiplier) : string</h5>
+
+    <p>Repeat a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_repeat(<span class="pl-s"><span class="pl-pds">"</span>°~<span class="pl-c1">\xf0\x90\x28\xbc</span><span class="pl-pds">"</span></span>, <span class="pl-c1">2</span>); <span class="pl-c">// '°~ð�(¼°~ð�(¼'</span></span></pre></div>
+
+    <h5><a id="user-content-str_shufflestring-str--string" class="anchor" href="#str_shufflestring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_shuffle(string $str) : string</h5>
+
+    <p>Shuffles all the characters in the string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_shuffle(<span class="pl-s"><span class="pl-pds">'</span>fòô bàř fòô<span class="pl-pds">'</span></span>); <span class="pl-c">// 'àòôřb ffòô '</span></span></pre></div>
+
+    <h5><a id="user-content-str_sortstring-str-bool-unique--false-bool-desc--false--string" class="anchor" href="#str_sortstring-str-bool-unique--false-bool-desc--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_sort(string $str, bool $unique = false, bool $desc = false) : string</h5>
+
+    <p>Sort all characters according to code points.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_sort(<span class="pl-s"><span class="pl-pds">'</span>  -ABC-中文空白-  <span class="pl-pds">'</span></span>); <span class="pl-c">// '    ---ABC中文白空'</span></span></pre></div>
+
+    <h5><a id="user-content-str_splitstring-str-int-len--1--array" class="anchor" href="#str_splitstring-str-int-len--1--array" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_split(string $str, int $len = 1) : array</h5>
+
+    <p>Split a string into an array.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>split(<span class="pl-s"><span class="pl-pds">'</span>déjà<span class="pl-pds">'</span></span>, <span class="pl-c1">2</span>); <span class="pl-c">// array('dé', 'jà')</span></span></pre></div>
+
+    <h5><a id="user-content-str_to_binarystring-str--string" class="anchor" href="#str_to_binarystring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_to_binary(string $str) : string</h5>
+
+    <p>Get a binary representation of a specific string.</p>
+
+    <p>INFO: opposite to UTF8::binary_to_str()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_to_binary(<span class="pl-s"><span class="pl-pds">'</span>😃<span class="pl-pds">'</span></span>); <span class="pl-c">// '11110000100111111001100010000011'</span></span></pre></div>
+
+    <h5><a id="user-content-str_word_countstring-str-int-format--0-string-charlist----string" class="anchor" href="#str_word_countstring-str-int-format--0-string-charlist----string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>str_word_count(string $str, int $format = 0, string $charlist = '') : string</h5>
+
+    <p>Get a binary representation of a specific string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c">// format: 0 -&gt; return only word count (int)</span></span>
+<span class="pl-s1"><span class="pl-c">//</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_word_count(<span class="pl-s"><span class="pl-pds">'</span>中文空白 öäü abc#c<span class="pl-pds">'</span></span>); <span class="pl-c">// 4</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_word_count(<span class="pl-s"><span class="pl-pds">'</span>中文空白 öäü abc#c<span class="pl-pds">'</span></span>, <span class="pl-c1">0</span>, <span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span>); <span class="pl-c">// 3</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">// format: 1 -&gt; return words (array) </span></span>
+<span class="pl-s1"><span class="pl-c">//</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_word_count(<span class="pl-s"><span class="pl-pds">'</span>中文空白 öäü abc#c<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>); <span class="pl-c">// array('中文空白', 'öäü', 'abc', 'c')</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_word_count(<span class="pl-s"><span class="pl-pds">'</span>中文空白 öäü abc#c<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>, <span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span>); <span class="pl-c">// array('中文空白', 'öäü', 'abc#c')</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">// format: 2 -&gt; return words with offset (array) </span></span>
+<span class="pl-s1"><span class="pl-c">//</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_word_count(<span class="pl-s"><span class="pl-pds">'</span>中文空白 öäü ab#c<span class="pl-pds">'</span></span>, <span class="pl-c1">2</span>); <span class="pl-c">// array(0 =&gt; '中文空白', 5 =&gt; 'öäü', 9 =&gt; 'abc', 13 =&gt; 'c')</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>str_word_count(<span class="pl-s"><span class="pl-pds">'</span>中文空白 öäü ab#c<span class="pl-pds">'</span></span>, <span class="pl-c1">2</span>, <span class="pl-s"><span class="pl-pds">'</span>#<span class="pl-pds">'</span></span>); <span class="pl-c">// array(0 =&gt; '中文空白', 5 =&gt; 'öäü', 9 =&gt; 'abc#c')</span></span></pre></div>
+
+    <h5><a id="user-content-strcmpstring-str1-string-str2--int" class="anchor" href="#strcmpstring-str1-string-str2--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strcmp(string $str1, string $str2) : int</h5>
+
+    <p>Case-insensitive string comparison: &lt; 0 if str1 is less than str2;
+      &gt; 0 if str1 is greater than str2,
+      0 if they are equal.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcmp(<span class="pl-s"><span class="pl-pds">"</span>iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn<span class="pl-pds">"</span></span>); <span class="pl-c">// 0</span></span></pre></div>
+
+    <h5><a id="user-content-strnatcmpstring-str1-string-str2--int" class="anchor" href="#strnatcmpstring-str1-string-str2--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strnatcmp(string $str1, string $str2) : int</h5>
+
+    <p>Case sensitive string comparisons using a "natural order" algorithm: &lt; 0 if str1 is less than str2;
+      &gt; 0 if str1 is greater than str2,
+      0 if they are equal.</p>
+
+    <p>INFO: natural order version of UTF8::strcmp()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strnatcmp(<span class="pl-s"><span class="pl-pds">'</span>2Hello world 中文空白!<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>10Hello WORLD 中文空白!<span class="pl-pds">'</span></span>); <span class="pl-c">// -1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcmp(<span class="pl-s"><span class="pl-pds">'</span>2Hello world 中文空白!<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>10Hello WORLD 中文空白!<span class="pl-pds">'</span></span>); <span class="pl-c">// 1</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strnatcmp(<span class="pl-s"><span class="pl-pds">'</span>10Hello world 中文空白!<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2Hello WORLD 中文空白!<span class="pl-pds">'</span></span>); <span class="pl-c">// 1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcmp(<span class="pl-s"><span class="pl-pds">'</span>10Hello world 中文空白!<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2Hello WORLD 中文空白!<span class="pl-pds">'</span></span>)); <span class="pl-c">// -1</span></span></pre></div>
+
+    <h5><a id="user-content-strcasecmpstring-str1-string-str2--int" class="anchor" href="#strcasecmpstring-str1-string-str2--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strcasecmp(string $str1, string $str2) : int</h5>
+
+    <p>Case-insensitive string comparison: &lt; 0 if str1 is less than str2;
+      &gt; 0 if str1 is greater than str2,
+      0 if they are equal.</p>
+
+    <p>INFO: Case-insensitive version of UTF8::strcmp()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcasecmp(<span class="pl-s"><span class="pl-pds">"</span>iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn<span class="pl-pds">"</span></span>); <span class="pl-c">// 0</span></span></pre></div>
+
+    <h5><a id="user-content-strnatcasecmpstring-str1-string-str2--int" class="anchor" href="#strnatcasecmpstring-str1-string-str2--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strnatcasecmp(string $str1, string $str2) : int</h5>
+
+    <p>Case insensitive string comparisons using a "natural order" algorithm: &lt; 0 if str1 is less than str2;
+      &gt; 0 if str1 is greater than str2,
+      0 if they are equal.</p>
+
+    <p>INFO: natural order version of UTF8::strcasecmp()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strnatcasecmp(<span class="pl-s"><span class="pl-pds">'</span>2<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>10Hello WORLD 中文空白!<span class="pl-pds">'</span></span>); <span class="pl-c">// -1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcasecmp(<span class="pl-s"><span class="pl-pds">'</span>2Hello world 中文空白!<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>10Hello WORLD 中文空白!<span class="pl-pds">'</span></span>); <span class="pl-c">// 1</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strnatcasecmp(<span class="pl-s"><span class="pl-pds">'</span>10Hello world 中文空白!<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2Hello WORLD 中文空白!<span class="pl-pds">'</span></span>); <span class="pl-c">// 1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcasecmp(<span class="pl-s"><span class="pl-pds">'</span>10Hello world 中文空白!<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>2Hello WORLD 中文空白!<span class="pl-pds">'</span></span>); <span class="pl-c">// -1</span></span></pre></div>
+
+    <h5><a id="user-content-strncasecmpstring-str1-string-str2-int-len--int" class="anchor" href="#strncasecmpstring-str1-string-str2-int-len--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strncasecmp(string $str1, string $str2, int $len) : int</h5>
+
+    <p>Case-insensitive string comparison of the first n characters.:
+      &lt; 0 if str1 is less than str2;
+      &gt; 0 if str1 is greater than str2,
+      0 if they are equal.</p>
+
+    <p>INFO: Case-insensitive version of UTF8::strncmp()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcasecmp(<span class="pl-s"><span class="pl-pds">"</span>iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn321<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn123<span class="pl-pds">"</span></span>, <span class="pl-c1">5</span>); <span class="pl-c">// 0</span></span></pre></div>
+
+    <h5><a id="user-content-strncasecmpstring-str1-string-str2-int-len--int-1" class="anchor" href="#strncasecmpstring-str1-string-str2-int-len--int-1" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strncasecmp(string $str1, string $str2, int $len) : int</h5>
+
+    <p>Case-insensitive string comparison of the first n characters.:
+      &lt; 0 if str1 is less than str2;
+      &gt; 0 if str1 is greater than str2,
+      0 if they are equal.</p>
+
+    <p>INFO: Case-insensitive version of UTF8::strncmp()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strcasecmp(<span class="pl-s"><span class="pl-pds">"</span>iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn321<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn123<span class="pl-pds">"</span></span>, <span class="pl-c1">5</span>); <span class="pl-c">// 0</span></span></pre></div>
+
+    <h5><a id="user-content-strncmpstring-str1-string-str2-int-len--int" class="anchor" href="#strncmpstring-str1-string-str2-int-len--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strncmp(string $str1, string $str2, int $len) : int</h5>
+
+    <p>Case-sensitive string comparison of the first n characters.:
+      &lt; 0 if str1 is less than str2;
+      &gt; 0 if str1 is greater than str2,
+      0 if they are equal.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strncmp(<span class="pl-s"><span class="pl-pds">"</span>Iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn321<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Iñtërnâtiôn<span class="pl-cce">\n</span>àlizætiøn123<span class="pl-pds">"</span></span>, <span class="pl-c1">5</span>); <span class="pl-c">// 0</span></span></pre></div>
+
+    <h5><a id="user-content-stringstring-str1-string-str2--int" class="anchor" href="#stringstring-str1-string-str2--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>string(string $str1, string $str2) : int</h5>
+
+    <p>Create a UTF-8 string from code points.</p>
+
+    <p>INFO: opposite to UTF8::codepoints()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>string(<span class="pl-c1">array</span>(<span class="pl-c1">246</span>, <span class="pl-c1">228</span>, <span class="pl-c1">252</span>)); <span class="pl-c">// 'öäü'</span></span></pre></div>
+
+    <h5><a id="user-content-string_has_bomstring-str--bool" class="anchor" href="#string_has_bomstring-str--bool" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>string_has_bom(string $str) : bool</h5>
+
+    <p>Checks if string starts with "BOM" (Byte Order Mark Character) character.</p>
+
+    <p>alias: UTF8::hasBom()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>string_has_bom(<span class="pl-s"><span class="pl-pds">"</span><span class="pl-c1">\xef\xbb\xbf</span> foobar<span class="pl-pds">"</span></span>); <span class="pl-c">// true</span></span></pre></div>
+
+    <h5><a id="user-content-strip_tagsstring-str-stingnull-allowable_tags--null--string" class="anchor" href="#strip_tagsstring-str-stingnull-allowable_tags--null--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strip_tags(string $str, sting|null $allowable_tags = null) : string</h5>
+
+    <p>Strip HTML and PHP tags from a string + clean invalid UTF-8.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strip_tags(<span class="pl-s"><span class="pl-pds">"</span>&lt;span&gt;κόσμε<span class="pl-c1">\xa0\xa1</span>&lt;/span&gt;<span class="pl-pds">"</span></span>); <span class="pl-c">// 'κόσμε'</span></span></pre></div>
+
+    <h5><a id="user-content-strlenstring-str-string-encoding--utf-8-bool-cleanutf8--false--int" class="anchor" href="#strlenstring-str-string-encoding--utf-8-bool-cleanutf8--false--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strlen(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int</h5>
+
+    <p>Get the string length, not the byte-length!</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strlen(<span class="pl-s"><span class="pl-pds">"</span>Iñtërnâtiôn<span class="pl-c1">\xE9</span>àlizætiøn<span class="pl-pds">"</span></span>)); <span class="pl-c">// 20</span></span></pre></div>
+
+    <h5><a id="user-content-strwidthstring-str-string-encoding--utf-8-bool-cleanutf8--false--int" class="anchor" href="#strwidthstring-str-string-encoding--utf-8-bool-cleanutf8--false--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strwidth(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int</h5>
+
+    <p>Return the width of a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strwidth(<span class="pl-s"><span class="pl-pds">"</span>Iñtërnâtiôn<span class="pl-c1">\xE9</span>àlizætiøn<span class="pl-pds">"</span></span>)); <span class="pl-c">// 21</span></span></pre></div>
+
+    <h5><a id="user-content-strpbrkstring-haystack-string-char_list--string" class="anchor" href="#strpbrkstring-haystack-string-char_list--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strpbrk(string $haystack, string $char_list) : string</h5>
+
+    <p>Search a string for any of a set of characters.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strpbrk(<span class="pl-s"><span class="pl-pds">'</span>-中文空白-<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>白<span class="pl-pds">'</span></span>); <span class="pl-c">// '白-'</span></span></pre></div>
+
+    <h5><a id="user-content-strposstring-haystack-string-char_list--intfalse" class="anchor" href="#strposstring-haystack-string-char_list--intfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strpos(string $haystack, string $char_list) : int|false</h5>
+
+    <p>Find position of first occurrence of string in a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strpos(<span class="pl-s"><span class="pl-pds">'</span>ABC-ÖÄÜ-中文空白-中文空白<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>中<span class="pl-pds">'</span></span>); <span class="pl-c">// 8</span></span></pre></div>
+
+    <h5><a id="user-content-striposstr-needle-before_needle--false--intfalse" class="anchor" href="#striposstr-needle-before_needle--false--intfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>stripos($str, $needle, $before_needle = false) : int|false</h5>
+
+    <p>Finds position of first occurrence of a string within another, case insensitive.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strpos(<span class="pl-s"><span class="pl-pds">'</span>ABC-ÖÄÜ-中文空白-中文空白<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>中<span class="pl-pds">'</span></span>); <span class="pl-c">// 8</span></span></pre></div>
+
+    <h5><a id="user-content-strrposstring-haystack-string-needle-int-offset--0-bool-cleanutf8--false--stringfalse" class="anchor" href="#strrposstring-haystack-string-needle-int-offset--0-bool-cleanutf8--false--stringfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strrpos(string $haystack, string $needle, int $offset = 0, bool $cleanUtf8 = false) : string|false</h5>
+
+    <p>Find position of last occurrence of a string in a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strrpos(<span class="pl-s"><span class="pl-pds">'</span>ABC-ÖÄÜ-中文空白-中文空白<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>中<span class="pl-pds">'</span></span>); <span class="pl-c">// 13</span></span></pre></div>
+
+    <h5><a id="user-content-strriposstring-haystack-string-needle-int-offset--0-bool-cleanutf8--false--stringfalse" class="anchor" href="#strriposstring-haystack-string-needle-int-offset--0-bool-cleanutf8--false--stringfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strripos(string $haystack, string $needle, int $offset = 0, bool $cleanUtf8 = false) : string|false</h5>
+
+    <p>Find position of last occurrence of a case-insensitive string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strripos(<span class="pl-s"><span class="pl-pds">'</span>ABC-ÖÄÜ-中文空白-中文空白<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>中<span class="pl-pds">'</span></span>); <span class="pl-c">// 13</span></span></pre></div>
+
+    <h5><a id="user-content-strrchrstring-haystack-string-needle-bool-part--false-string-encoding--stringfalse" class="anchor" href="#strrchrstring-haystack-string-needle-bool-part--false-string-encoding--stringfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strrchr(string $haystack, string $needle, bool $part = false, string $encoding) : string|false</h5>
+
+    <p>Finds the last occurrence of a character in a string within another.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strrchr(<span class="pl-s"><span class="pl-pds">'</span>κόσμεκόσμε-äöü<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>κόσμε<span class="pl-pds">'</span></span>); <span class="pl-c">// 'κόσμε-äöü'</span></span></pre></div>
+
+    <h5><a id="user-content-strrichrstring-haystack-string-needle-bool-part--false-string-encoding--stringfalse" class="anchor" href="#strrichrstring-haystack-string-needle-bool-part--false-string-encoding--stringfalse" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strrichr(string $haystack, string $needle, bool $part = false, string $encoding) : string|false</h5>
+
+    <p>Finds the last occurrence of a character in a string within another, case insensitive.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strrichr(<span class="pl-s"><span class="pl-pds">'</span>Aκόσμεκόσμε-äöü<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>aκόσμε<span class="pl-pds">'</span></span>); <span class="pl-c">// 'Aκόσμεκόσμε-äöü'</span></span></pre></div>
+
+    <h5><a id="user-content-strrevstring-str--string" class="anchor" href="#strrevstring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strrev(string $str) : string</h5>
+
+    <p>Reverses characters order in the string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strrev(<span class="pl-s"><span class="pl-pds">'</span>κ-öäü<span class="pl-pds">'</span></span>); <span class="pl-c">// 'üäö-κ'</span></span></pre></div>
+
+    <h5><a id="user-content-strspnstring-str-string-mask-int-offset--0-int-length--2147483647--string" class="anchor" href="#strspnstring-str-string-mask-int-offset--0-int-length--2147483647--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strspn(string $str, string $mask, int $offset = 0, int $length = 2147483647) : string</h5>
+
+    <p>Finds the length of the initial segment of a string consisting entirely of characters contained within a given mask.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strspn(<span class="pl-s"><span class="pl-pds">'</span>iñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>itñ<span class="pl-pds">'</span></span>); <span class="pl-c">// '3'</span></span></pre></div>
+
+    <h5><a id="user-content-strstrstring-str-string-needle-bool-before_needle--false--string" class="anchor" href="#strstrstring-str-string-needle-bool-before_needle--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strstr(string $str, string $needle, bool $before_needle = false) : string</h5>
+
+    <p>Returns part of haystack string from the first occurrence of needle to the end of haystack.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$str</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>iñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$search</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>nât<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strstr(<span class="pl-smi">$str</span>, <span class="pl-smi">$search</span>)); <span class="pl-c">// 'nâtiônàlizætiøn'</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strstr(<span class="pl-smi">$str</span>, <span class="pl-smi">$search</span>, <span class="pl-c1">true</span>)); <span class="pl-c">// 'iñtër'</span></span></pre></div>
+
+    <h5><a id="user-content-stristrstring-str-string-needle-bool-before_needle--false--string" class="anchor" href="#stristrstring-str-string-needle-bool-before_needle--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>stristr(string $str, string $needle, bool $before_needle = false) : string</h5>
+
+    <p>Returns all of haystack starting from and including the first occurrence of needle to the end.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$str</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>iñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$search</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>NÂT<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>stristr(<span class="pl-smi">$str</span>, <span class="pl-smi">$search</span>)); <span class="pl-c">// 'nâtiônàlizætiøn'</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>stristr(<span class="pl-smi">$str</span>, <span class="pl-smi">$search</span>, <span class="pl-c1">true</span>)); <span class="pl-c">// 'iñtër'</span></span></pre></div>
+
+    <h5><a id="user-content-strtocasefoldstring-str-bool-full--true--string" class="anchor" href="#strtocasefoldstring-str-bool-full--true--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strtocasefold(string $str, bool $full = true) : string</h5>
+
+    <p>Unicode transformation for case-less matching.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strtocasefold(<span class="pl-s"><span class="pl-pds">'</span>ǰ◌̱<span class="pl-pds">'</span></span>); <span class="pl-c">// 'ǰ◌̱'</span></span></pre></div>
+
+    <h5><a id="user-content-strtolowerstring-str-string-encoding--utf-8--string" class="anchor" href="#strtolowerstring-str-string-encoding--utf-8--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strtolower(string $str, string $encoding = 'UTF-8') : string</h5>
+
+    <p>Make a string lowercase.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strtolower(<span class="pl-s"><span class="pl-pds">'</span>DÉJÀ Σσς Iıİi<span class="pl-pds">'</span></span>); <span class="pl-c">// 'déjà σσς iıii'</span></span></pre></div>
+
+    <h5><a id="user-content-strtoupperstring-str-string-encoding--utf-8--string" class="anchor" href="#strtoupperstring-str-string-encoding--utf-8--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strtoupper(string $str, string $encoding = 'UTF-8') : string</h5>
+
+    <p>Make a string uppercase.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strtoupper(<span class="pl-s"><span class="pl-pds">'</span>Déjà Σσς Iıİi<span class="pl-pds">'</span></span>); <span class="pl-c">// 'DÉJÀ ΣΣΣ IIİI'</span></span></pre></div>
+
+    <h5><a id="user-content-strtrstring-str-stringarray-from-stringarray-to--inf--string" class="anchor" href="#strtrstring-str-stringarray-from-stringarray-to--inf--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>strtr(string $str, string|array $from, string|array $to = INF) : string</h5>
+
+    <p>Translate characters or replace sub-strings.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$arr</span> <span class="pl-k">=</span> <span class="pl-c1">array</span>(</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>Hello<span class="pl-pds">'</span></span>   <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>○●◎<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>earth<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">);</span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>strtr(<span class="pl-s"><span class="pl-pds">'</span>Hello 中文空白<span class="pl-pds">'</span></span>, <span class="pl-smi">$arr</span>); <span class="pl-c">// '○●◎ earth'</span></span></pre></div>
+
+    <h5><a id="user-content-substrstring-str-int-start--0-int-length--null-string-encoding--utf-8-bool-cleanutf8--false--string" class="anchor" href="#substrstring-str-int-start--0-int-length--null-string-encoding--utf-8-bool-cleanutf8--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>substr(string $str, int $start = 0, int $length = null, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : string</h5>
+
+    <p>Get part of a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>substr(<span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>); <span class="pl-c">// '文空'</span></span></pre></div>
+
+    <h5><a id="user-content-substr_comparestring-main_str-string-str-int-offset-int-length--2147483647-bool-case_insensitivity--false--int" class="anchor" href="#substr_comparestring-main_str-string-str-int-offset-int-length--2147483647-bool-case_insensitivity--false--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>substr_compare(string $main_str, string $str, int $offset, int $length = 2147483647, bool $case_insensitivity = false) : int</h5>
+
+    <p>Binary safe comparison of two strings from an offset, up to length characters.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>substr_compare(<span class="pl-s"><span class="pl-pds">"</span>○●◎<span class="pl-cce">\r</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">'</span>●◎<span class="pl-pds">'</span></span>, <span class="pl-c1">0</span>, <span class="pl-c1">2</span>); <span class="pl-c">// -1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>substr_compare(<span class="pl-s"><span class="pl-pds">"</span>○●◎<span class="pl-cce">\r</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">'</span>◎●<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>); <span class="pl-c">// 1</span></span>
+<span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>substr_compare(<span class="pl-s"><span class="pl-pds">"</span>○●◎<span class="pl-cce">\r</span><span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">'</span>●◎<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>); <span class="pl-c">// 0</span></span></pre></div>
+
+    <h5><a id="user-content-substr_countstring-haystack-string-needle-int-offset--0-int-length--null-string-encoding--utf-8--int" class="anchor" href="#substr_countstring-haystack-string-needle-int-offset--0-int-length--null-string-encoding--utf-8--int" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>substr_count(string $haystack, string $needle, int $offset = 0, int $length = null, string $encoding = 'UTF-8') : int</h5>
+
+    <p>Count the number of substring occurrences.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>substr_count(<span class="pl-s"><span class="pl-pds">'</span>中文空白<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>文空<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>); <span class="pl-c">// 1</span></span></pre></div>
+
+    <h5><a id="user-content-substr_replacestringstring-str-stringstring-replacement-intint-start-intint-length--null--stringarray" class="anchor" href="#substr_replacestringstring-str-stringstring-replacement-intint-start-intint-length--null--stringarray" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>substr_replace(string|string[] $str, string|string[] $replacement, int|int[] $start, int|int[] $length = null) : string|array</h5>
+
+    <p>Replace text within a portion of a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>substr_replace(<span class="pl-c1">array</span>(<span class="pl-s"><span class="pl-pds">'</span>Iñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>), <span class="pl-s"><span class="pl-pds">'</span>æ<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>); <span class="pl-c">// array('Iæñtërnâtiônàlizætiøn', 'fæoo')</span></span></pre></div>
+
+    <h5><a id="user-content-swapcasestring-str-string-string-encoding--utf-8--string" class="anchor" href="#swapcasestring-str-string-string-encoding--utf-8--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>swapCase(string $str, string string $encoding = 'UTF-8') : string</h5>
+
+    <p>Returns a case swapped version of the string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>swapCase(<span class="pl-s"><span class="pl-pds">'</span>déJÀ σσς iıII<span class="pl-pds">'</span></span>); <span class="pl-c">// 'DÉjà ΣΣΣ IIii'</span></span></pre></div>
+
+    <h5><a id="user-content-swapcasestring-str-string-string-encoding--utf-8--string-1" class="anchor" href="#swapcasestring-str-string-string-encoding--utf-8--string-1" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>swapCase(string $str, string string $encoding = 'UTF-8') : string</h5>
+
+    <p>Returns a case swapped version of the string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>swapCase(<span class="pl-s"><span class="pl-pds">'</span>déJÀ σσς iıII<span class="pl-pds">'</span></span>); <span class="pl-c">// 'DÉjà ΣΣΣ IIii'</span></span></pre></div>
+
+    <h5><a id="user-content-to_asciistring-str-string-unknown----string" class="anchor" href="#to_asciistring-str-string-unknown----string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>to_ascii(string $str, string $unknown = '?') : string</h5>
+
+    <p>Convert a string into ASCII.</p>
+
+    <p>alias: UTF8::toAscii()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>to_ascii(<span class="pl-s"><span class="pl-pds">'</span>déjà σσς iıii<span class="pl-pds">'</span></span>); <span class="pl-c">// 'deja sss iiii'</span></span></pre></div>
+
+    <h5><a id="user-content-to_utf8stringstring-str--stringstring" class="anchor" href="#to_utf8stringstring-str--stringstring" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>to_utf8(string|string[] $str) : string|string[]</h5>
+
+    <p>This function leaves UTF8 characters alone, while converting almost all non-UTF8 to UTF8.</p>
+
+    <p>alias: UTF8::toUtf8()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>to_utf8(<span class="pl-s"><span class="pl-pds">"</span>\u0063\u0061\u0074<span class="pl-pds">"</span></span>); <span class="pl-c">// 'cat'</span></span></pre></div>
+
+    <h5><a id="user-content-to_iso8859stringstring-str--stringstring" class="anchor" href="#to_iso8859stringstring-str--stringstring" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>to_iso8859(string|string[] $str) : string|string[]</h5>
+
+    <p>Convert a string into "ISO-8859"-encoding (Latin-1).</p>
+
+    <p>alias: UTF8::toIso8859()
+      alias: UTF8::to_latin1()
+      alias: UTF8::toLatin1()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>to_utf8(<span class="pl-c1">UTF8</span><span class="pl-k">::</span>to_latin1(<span class="pl-s"><span class="pl-pds">'</span>  -ABC-中文空白-  <span class="pl-pds">'</span></span>)); <span class="pl-c">// '  -ABC-????-  ' </span></span></pre></div>
+
+    <h5><a id="user-content-ucfirststring-str--string" class="anchor" href="#ucfirststring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ucfirst(string $str) : string</h5>
+
+    <p>Makes string's first char uppercase.</p>
+
+    <p>alias: UTF8::ucword()</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>ucfirst(<span class="pl-s"><span class="pl-pds">'</span>ñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>); <span class="pl-c">// 'Ñtërnâtiônàlizætiøn'</span></span></pre></div>
+
+    <h5><a id="user-content-ucwordsstring-str--string" class="anchor" href="#ucwordsstring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ucwords(string $str) : string</h5>
+
+    <p>Uppercase for all words in the string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>ucwords(<span class="pl-s"><span class="pl-pds">'</span>iñt ërn âTi ônà liz æti øn<span class="pl-pds">'</span></span>); <span class="pl-c">// 'Iñt Ërn ÂTi Ônà Liz Æti Øn'</span></span></pre></div>
+
+    <h5><a id="user-content-urldecodestring-str--string" class="anchor" href="#urldecodestring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>urldecode(string $str) : string</h5>
+
+    <p>Multi decode html entity &amp; fix urlencoded-win1252-chars.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>urldecode(<span class="pl-s"><span class="pl-pds">'</span>tes%20öäü%20\u00edtest<span class="pl-pds">'</span></span>); <span class="pl-c">// 'tes öäü ítest'</span></span></pre></div>
+
+    <h5><a id="user-content-utf8_decodestring-str--string" class="anchor" href="#utf8_decodestring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>utf8_decode(string $str) : string</h5>
+
+    <p>Decodes an UTF-8 string to ISO-8859-1.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>encode(<span class="pl-s"><span class="pl-pds">'</span>UTF-8<span class="pl-pds">'</span></span>, <span class="pl-c1">UTF8</span><span class="pl-k">::</span>utf8_decode(<span class="pl-s"><span class="pl-pds">'</span>-ABC-中文空白-<span class="pl-pds">'</span></span>)); <span class="pl-c">// '-ABC-????-'</span></span></pre></div>
+
+    <h5><a id="user-content-utf8_encodestring-str--string" class="anchor" href="#utf8_encodestring-str--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>utf8_encode(string $str) : string</h5>
+
+    <p>Encodes an ISO-8859-1 string to UTF-8.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>utf8_decode(<span class="pl-c1">UTF8</span><span class="pl-k">::</span>utf8_encode(<span class="pl-s"><span class="pl-pds">'</span>-ABC-中文空白-<span class="pl-pds">'</span></span>)); <span class="pl-c">// '-ABC-中文空白-'</span></span></pre></div>
+
+    <h5><a id="user-content-words_limitstring-str-int-words--100-string-straddon----string" class="anchor" href="#words_limitstring-str-int-words--100-string-straddon----string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>words_limit(string $str, int $words = 100, string $strAddOn = '...') : string</h5>
+
+    <p>Limit the number of words in a string.</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>words_limit(<span class="pl-s"><span class="pl-pds">'</span>fòô bàř fòô<span class="pl-pds">'</span></span>, <span class="pl-c1">2</span>, <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>); <span class="pl-c">// 'fòô bàř'</span></span></pre></div>
+
+    <h5><a id="user-content-wordwrapstring-str-int-width--75-string-break--n-bool-cut--false--string" class="anchor" href="#wordwrapstring-str-int-width--75-string-break--n-bool-cut--false--string" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>wordwrap(string $str, int $width = 75, string $break = "\n", bool $cut = false) : string</h5>
+
+    <p>Wraps a string to a given number of characters</p>
+
+    <div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">UTF8</span><span class="pl-k">::</span>wordwrap(<span class="pl-s"><span class="pl-pds">'</span>Iñtërnâtiônàlizætiøn<span class="pl-pds">'</span></span>, <span class="pl-c1">10</span>, <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\n</span><span class="pl-pds">"</span></span>, <span class="pl-c1">true</span>)); <span class="pl-c">// 'Iñ&lt;br&gt;të&lt;br&gt;rn&lt;br&gt;ât&lt;br&gt;iô&lt;br&gt;nà&lt;br&gt;li&lt;br&gt;zæ&lt;br&gt;ti&lt;br&gt;øn'</span></span></pre></div>
+  </article>
+</div>
