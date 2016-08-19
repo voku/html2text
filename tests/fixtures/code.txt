@@ -1,0 +1,5 @@
+```$var = false;```
+
+~~this is a old comment, delete this?~~
+
+``` if ($var === false) { echo "test | öäü"; } ```

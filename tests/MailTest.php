@@ -175,6 +175,17 @@ class MailTest extends \PHPUnit_Framework_TestCase
     self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.txt'), $text);
   }
 
+  public function testHtmlToTextCode()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/code.html');
+
+    $html2text = new Html2Text($html, false, array('directConvert' => true));
+
+    $text = $html2text->getText();
+
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/code.txt'), $text);
+  }
+
   public function testHtmlToTextTable()
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/table.html');

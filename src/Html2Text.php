@@ -107,6 +107,14 @@ class Html2Text
           'b'      => array(
               'case' => self::OPTION_UPPERCASE,
           ),
+          'code'   => array(
+              'prepend' => "\n\n```",
+              'append'  => "```\n\n",
+          ),
+          'del'    => array(
+              'prepend' => "~~",
+              'append'  => "~~",
+          ),
           'li'     => array(
               'prepend' => "\t* ",
               'append'  => "\n",
@@ -193,6 +201,10 @@ class Html2Text
     '/<(?<element>i)( [^>]*)?>(?<value>.*?)<\/i>/i',
     // <em>
     '/<(?<element>em)( [^>]*)?>(?<value>.*?)<\/em>/i',
+    // <del>
+    '/<(?<element>del)( [^>]*)?>(?<value>.*?)<\/del>/i',
+    // <code>
+    '/<(?<element>code)( [^>]*)?>(?<value>.*?)<\/code>/i',
     // <br> with leading whitespace after the newline.
     '/<(?<element>br)[^>]*>[ ]*/i',
     // img alt text
