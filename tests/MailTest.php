@@ -142,6 +142,50 @@ class MailTest extends \PHPUnit_Framework_TestCase
     self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test10Html.txt'), $text);
   }
 
+  public function testHtmlToTextMsOffice()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/msoffice.html');
+
+    $html2text = new Html2Text($html, false, array('directConvert' => true));
+
+    $text = $html2text->getText();
+
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/msoffice.txt'), $text);
+  }
+
+  public function testHtmlToTextNbsp()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/nbsp.html');
+
+    $html2text = new Html2Text($html, false, array('directConvert' => true));
+
+    $text = $html2text->getText();
+
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/nbsp.txt'), $text);
+  }
+
+  public function testHtmlToTextNonBreakingSpace()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.html');
+
+    $html2text = new Html2Text($html, false, array('directConvert' => true));
+
+    $text = $html2text->getText();
+
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.txt'), $text);
+  }
+
+  public function testHtmlToTextTable()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/table.html');
+
+    $html2text = new Html2Text($html, false, array('directConvert' => true));
+
+    $text = $html2text->getText();
+
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/table.txt'), $text);
+  }
+
   /**
    * @param string $filename
    *

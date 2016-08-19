@@ -1,0 +1,15 @@
+Dear html2text,
+
+This is an example email that can be used to test html2text conversion of outlook / exchange emails.
+
+The addition of tags is very annoying!
+
+This is a single line return
+
+THIS IS BOLD
+
+_This is italic_
+
+This is underline
+
+Andrew
