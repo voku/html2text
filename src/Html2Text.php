@@ -107,6 +107,15 @@ class Html2Text
           'b'      => array(
               'case' => self::OPTION_UPPERCASE,
           ),
+          'dt' => array(
+              'case' => self::OPTION_UPPERCASE,
+              'prepend' => "\n\n",
+              'append'  => "\n",
+          ),
+          'dd'     => array(
+              'prepend' => "\t* ",
+              'append'  => "\n",
+          ),
           'code'   => array(
               'prepend' => "\n\n```",
               'append'  => "```\n\n",
@@ -156,12 +165,6 @@ class Html2Text
     '/(<ul\b[^>]*>|<\/ul>)/i'                        => "\n\n",
     // <ol> and </ol>
     '/(<ol\b[^>]*>|<\/ol>)/i'                        => "\n\n",
-    // <dl> and </dl>
-    '/(<dl\b[^>]*>|<\/dl>)/i'                        => "\n\n",
-    // <dd> and </dd>
-    '/<dd\b[^>]*>(.*?)<\/dd>/i'                      => "\\1\n",
-    // <dt> and </dt>
-    '/<dt\b[^>]*>(.*?)<\/dt>/i'                      => '* \\1 ',
     // <hr>
     '/<hr\b[^>]*>/i'                                 => "\n-------------------------\n",
     // <div>
@@ -193,7 +196,11 @@ class Html2Text
     '/<(?<element>b)( [^>]*)?>(?<value>.*?)<\/b>/i',
     // <strong>
     '/<(?<element>strong)( [^>]*)?>(?<value>.*?)<\/strong>/i',
-    // <th> and </th>
+    // <dt>
+    '/<(?<element>dt)( [^>]*)?>(?<value>.*?)<\/dt>/i',
+    // <dd>
+    '/<(?<element>dd)( [^>]*)?>(?<value>.*?)<\/dd>/i',
+    // <th>
     '/<(?<element>th)( [^>]*)?>(?<value>.*?)<\/th>/i',
     // <a href="">
     '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i',

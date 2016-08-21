@@ -197,6 +197,17 @@ class MailTest extends \PHPUnit_Framework_TestCase
     self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/table.txt'), $text);
   }
 
+  public function testHtmlToTextDl()
+  {
+    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.html');
+
+    $html2text = new Html2Text($html, false, array('directConvert' => true));
+
+    $text = $html2text->getText();
+
+    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.txt'), $text);
+  }
+
   /**
    * @param string $filename
    *

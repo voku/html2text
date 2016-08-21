@@ -20,12 +20,23 @@ class DefinitionListTest extends \PHPUnit_Framework_TestCase
 </dl>
 EOT;
     $expected = <<<EOT
-* Definition Term: Definition Description
+DEFINITION TERM:
+Definition Description
 EOT;
 
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
 
-    self::assertSame($expected, $output);
+    self::assertSame($this->normalizeString($expected), $output);
+  }
+
+  /**
+   * @param string $string
+   *
+   * @return string
+   */
+  protected function normalizeString($string)
+  {
+    return str_replace(array("\r\n", "\r"), "\n", $string);
   }
 }
