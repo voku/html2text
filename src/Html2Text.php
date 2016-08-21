@@ -121,8 +121,8 @@ class Html2Text
               'append'  => "```\n\n",
           ),
           'del'    => array(
-              'prepend' => "~~",
-              'append'  => "~~",
+              'prepend' => '~~',
+              'append'  => '~~',
           ),
           'li'     => array(
               'prepend' => "\t* ",
