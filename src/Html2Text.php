@@ -165,6 +165,8 @@ class Html2Text
     '/(<ul\b[^>]*>|<\/ul>)/i'                        => "\n\n",
     // <ol> and </ol>
     '/(<ol\b[^>]*>|<\/ol>)/i'                        => "\n\n",
+    // <dl> and </dl>
+    '/(<dl\b[^>]*>|<\/dl>)/i'                        => "\n\n",
     // <hr>
     '/<hr\b[^>]*>/i'                                 => "\n-------------------------\n",
     // <div>
@@ -186,36 +188,37 @@ class Html2Text
    * @var array
    */
   protected static $callbackSearch = array(
-    // h1 - h6
+    // <h1> / <h2> / <h3> / <h4> / <h5> / <h6> and </h1> / </h2> / </h3> / </h4> / </h5> / </h6>
     '/<(?<element>h[123456])( [^>]*)?>(?<value>.*?)<\/h[123456]>/i',
-    // <p> with surrounding whitespace.
+    // <p> and </p> with surrounding whitespace.
     '/[ ]*<(?<element>p)( [^>]*)?>(?<value>.*?)<\/p>[ ]*/si',
-    // <li></li>
+    // <li> and </li>
     '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/li>/i',
-    // <b>
+    // <b> and </b>
     '/<(?<element>b)( [^>]*)?>(?<value>.*?)<\/b>/i',
-    // <strong>
+    // <strong> and </strong>
     '/<(?<element>strong)( [^>]*)?>(?<value>.*?)<\/strong>/i',
-    // <dt>
+    // <dt> and </dt>
     '/<(?<element>dt)( [^>]*)?>(?<value>.*?)<\/dt>/i',
-    // <dd>
+    // <dd> and </dd>
     '/<(?<element>dd)( [^>]*)?>(?<value>.*?)<\/dd>/i',
-    // <th>
+    // <th> and </th>
     '/<(?<element>th)( [^>]*)?>(?<value>.*?)<\/th>/i',
-    // <a href="">
+    // <a href=""> and </a>
     '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i',
-    // <i>
+    // <i> and </i>
     '/<(?<element>i)( [^>]*)?>(?<value>.*?)<\/i>/i',
-    // <em>
+    // <em> and </em>
     '/<(?<element>em)( [^>]*)?>(?<value>.*?)<\/em>/i',
-    // <del>
+    // <del> and </del>
     '/<(?<element>del)( [^>]*)?>(?<value>.*?)<\/del>/i',
-    // <code>
+    // <code> and </code>
     '/<(?<element>code)( [^>]*)?>(?<value>.*?)<\/code>/i',
     // <br> with leading whitespace after the newline.
     '/<(?<element>br)[^>]*>[ ]*/i',
-    // img alt text
+    // <img alt="" src="">
     '/<(?<element>img)(?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)>/i',
+    // <img src="" alt="">
     '/<(?<element>img)(?:.*?)src=["|\'](?<src>.*?)["|\'](?:.*?)alt=["|\'](?<alt>.*?)["|\'](?:.*?)>/i',
   );
 
