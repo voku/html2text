@@ -189,31 +189,31 @@ class Html2Text
    */
   protected static $callbackSearch = array(
     // <h1> / <h2> / <h3> / <h4> / <h5> / <h6> and </h1> / </h2> / </h3> / </h4> / </h5> / </h6>
-    '/<(?<element>h[123456])( [^>]*)?>(?<value>.*?)<\/h[123456]>/i',
+    '/<(?<element>h[123456])(:? [^>]*)?>(?<value>.*?)<\/h[123456]>/i',
     // <p> and </p> with surrounding whitespace.
-    '/[ ]*<(?<element>p)( [^>]*)?>(?<value>.*?)<\/p>[ ]*/si',
+    '/[ ]*<(?<element>p)(:? [^>]*)?>(?<value>.*?)<\/p>[ ]*/si',
     // <li> and </li>
     '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/li>/i',
     // <b> and </b>
-    '/<(?<element>b)( [^>]*)?>(?<value>.*?)<\/b>/i',
+    '/<(?<element>b)(:? [^>]*)?>(?<value>.*?)<\/b>/i',
     // <strong> and </strong>
-    '/<(?<element>strong)( [^>]*)?>(?<value>.*?)<\/strong>/i',
+    '/<(?<element>strong)(:? [^>]*)?>(?<value>.*?)<\/strong>/i',
     // <dt> and </dt>
-    '/<(?<element>dt)( [^>]*)?>(?<value>.*?)<\/dt>/i',
+    '/<(?<element>dt)(:? [^>]*)?>(?<value>.*?)<\/dt>/i',
     // <dd> and </dd>
-    '/<(?<element>dd)( [^>]*)?>(?<value>.*?)<\/dd>/i',
+    '/<(?<element>dd)(:? [^>]*)?>(?<value>.*?)<\/dd>/i',
     // <th> and </th>
-    '/<(?<element>th)( [^>]*)?>(?<value>.*?)<\/th>/i',
+    '/<(?<element>th)(:? [^>]*)?>(?<value>.*?)<\/th>/i',
     // <a href=""> and </a>
     '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i',
     // <i> and </i>
-    '/<(?<element>i)( [^>]*)?>(?<value>.*?)<\/i>/i',
+    '/<(?<element>i)(:? [^>]*)?>(?<value>.*?)<\/i>/i',
     // <em> and </em>
-    '/<(?<element>em)( [^>]*)?>(?<value>.*?)<\/em>/i',
+    '/<(?<element>em)(:? [^>]*)?>(?<value>.*?)<\/em>/i',
     // <del> and </del>
-    '/<(?<element>del)( [^>]*)?>(?<value>.*?)<\/del>/i',
+    '/<(?<element>del)(:? [^>]*)?>(?<value>.*?)<\/del>/i',
     // <code> and </code>
-    '/<(?<element>code)( [^>]*)?>(?<value>.*?)<\/code>/i',
+    '/<(?<element>code)(:? [^>]*)?>(?<value>.*?)<\/code>/i',
     // <br> with leading whitespace after the newline.
     '/<(?<element>br)[^>]*>[ ]*/i',
     // <img alt="" src="">
@@ -522,7 +522,7 @@ class Html2Text
     $text = preg_replace_callback(self::$callbackSearch, array($this, 'pregCallback'), $text);
 
     // Strip any other HTML tags.
-    $text = preg_replace('/(<(\/|!)?\w+[^>]*>)|(<!--.*?-->)/s', '', $text);
+    $text = preg_replace('/<(:?\/|!)?\w+[^>]*>|<!--.*?-->/s', '', $text);
 
     // Run our defined entities/characters search-and-replace.
     $text = preg_replace($helperSearchReplaceArrayKeys, $helperSearchReplaceArrayValues, $text);
@@ -585,7 +585,7 @@ class Html2Text
             $this->converter($body);
 
             // add citation markers
-            $body = preg_replace('/((^|\n)>*)/', '\\1> ', $body);
+            $body = preg_replace('/((:?^|\n)>*)/', '\\1> ', $body);
 
             // create PRE block
             $body = '<pre>' . UTF8::htmlspecialchars($body) . '</pre>';
@@ -859,7 +859,7 @@ class Html2Text
     }
 
     // ignored link types
-    if (preg_match('!^(' . $this->options['do_links_ignore'] . ')!i', $link)) {
+    if (preg_match('!^(:?' . $this->options['do_links_ignore'] . ')!i', $link)) {
       return $display;
     }
 
@@ -867,7 +867,7 @@ class Html2Text
       return ' ' . $display . ' ';
     }
 
-    if (preg_match('!^([a-z][a-z0-9.+-]+:)!i', $link)) {
+    if (preg_match('!^(:?[a-z][a-z0-9.+-]+:)!i', $link)) {
       $url = $link;
     } else {
       $url = $this->baseUrl;
