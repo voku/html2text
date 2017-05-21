@@ -107,8 +107,8 @@ class Html2Text
           'b'      => array(
               'case' => self::OPTION_UPPERCASE,
           ),
-          'dt' => array(
-              'case' => self::OPTION_UPPERCASE,
+          'dt'     => array(
+              'case'    => self::OPTION_UPPERCASE,
               'prepend' => "\n\n",
               'append'  => "\n",
           ),
@@ -139,7 +139,7 @@ class Html2Text
           'pre'    => array(
               'prepend' => '',
               'append'  => '',
-          )
+          ),
       ),
   );
 
@@ -229,13 +229,13 @@ class Html2Text
    */
   protected static $helperSearchReplaceArray = array(
     // TM symbol in win-1252
-    '/&#153;/'                   => '™',
+    '/&#153;/'  => '™',
     // m-dash in win-1252
-    '/&#151;/'                   => '—',
+    '/&#151;/'  => '—',
     // runs of spaces, post-handling
-    '/&nbsp;/i'                  => '|+|_html2text_space|+|',
+    '/&nbsp;/i' => '|+|_html2text_space|+|',
     // convert more spaces into one space
-    '/[ ]{2,}/'                  => ' ',
+    '/[ ]{2,}/' => ' ',
   );
 
   /**
@@ -886,37 +886,52 @@ class Html2Text
         $index = count($this->linkList);
         $this->linkList[] = $url;
       }
+
       return ' ' . $display . ' [' . ($index + 1) . '] ';
 
-    } elseif ($linkMethod === 'nextline') {
+    }
+
+    if ($linkMethod === 'nextline') {
+
+      // Shorten output when "target url" and "display url" match.
+      if ($url === $display) {
+        return ' ' . $url . ' ';
+      }
 
       //
       // nextline
       //
       return ' ' . $display . "\n" . '[' . $url . '] ';
 
-    } elseif ($linkMethod === 'markdown') {
+    }
+
+    if ($linkMethod === 'markdown') {
 
       //
       // markdown
       //
       return ' [' . $display . '](' . $url . ') ';
 
-    } elseif ($linkMethod === 'bbcode') {
+    }
+
+    if ($linkMethod === 'bbcode') {
 
       //
       // bbcode
       //
       return ' [url=' . $url . ']' . $display . '[/url] ';
 
-    } else {
-
-      //
-      // inline (default)
-      //
-      return ' ' . $display . ' [' . $url . '] ';
-
     }
+
+    // Shorten output when "target url" and "display url" match.
+    if ($url === $display) {
+      return ' ' . $url . ' ';
+    }
+
+    //
+    // inline (default)
+    //
+    return ' ' . $display . ' [' . $url . '] ';
   }
 
   /**
