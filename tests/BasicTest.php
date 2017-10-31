@@ -45,6 +45,10 @@ EOT;
 <p>Between this and</p>
 <p>this paragraph there should be only one newline</p>
 <h1>and this also goes for headings</h1>
+<h1 style="color: red;">test</h1>
+test
+<br>
+lall
 EOT;
     $expected = <<<EOT
 Between this and
@@ -52,6 +56,11 @@ Between this and
 this paragraph there should be only one newline
 
 AND THIS ALSO GOES FOR HEADINGS
+
+TEST
+
+test
+lall
 EOT;
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
