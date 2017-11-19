@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class SpaceTest extends \PHPUnit_Framework_TestCase
+class SpaceTest extends \PHPUnit\Framework\TestCase
 {
   public function testSpaces()
   {

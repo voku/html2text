@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class PrintTest extends \PHPUnit_Framework_TestCase
+class PrintTest extends \PHPUnit\Framework\TestCase
 {
   const TEST_HTML = 'Hello, &quot;<b>world</b>&quot;';
   const EXPECTED  = 'Hello, "WORLD"';
@@ -25,13 +25,8 @@ class PrintTest extends \PHPUnit_Framework_TestCase
     $this->expectOutputString(self::EXPECTED);
   }
 
-  public function testP()
-  {
-    $this->html->p();
-  }
-
   public function testPrint_text()
   {
-    $this->html->print_text();
+    echo $this->html->getText();
   }
 }

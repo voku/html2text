@@ -6,7 +6,7 @@ use voku\Html2Text\Html2Text;
 /**
  * @copyright ResearchGate GmbH
  */
-class HeadingsTest extends \PHPUnit_Framework_TestCase
+class HeadingsTest extends \PHPUnit\Framework\TestCase
 {
 
   public function testHeadings()

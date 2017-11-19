@@ -9,7 +9,7 @@ use \voku\Html2Text\Html2Text;
  *
  * @package voku\Html2Text\tests
  */
-class SearchReplaceTest extends \PHPUnit_Framework_TestCase
+class SearchReplaceTest extends \PHPUnit\Framework\TestCase
 {
   /**
    * @return array

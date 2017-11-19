@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package voku\Html2Text\tests
  */
-class BlankSpacesTest extends \PHPUnit_Framework_TestCase
+class BlankSpacesTest extends \PHPUnit\Framework\TestCase
 {
 
   /**

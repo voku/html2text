@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package voku\Html2Text\tests
  */
-class ListItemsTest extends \PHPUnit_Framework_TestCase
+class ListItemsTest extends \PHPUnit\Framework\TestCase
 {
 
   public function testUnorderedList()
@@ -28,7 +28,7 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($input);
-    $output = $html2text->get_text();
+    $output = $html2text->getText();
 
     self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
@@ -73,7 +73,7 @@ foo
 EOT;
 
     $html2text = new Html2Text($input);
-    $output = $html2text->get_text();
+    $output = $html2text->getText();
 
     self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
@@ -110,7 +110,7 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($input);
-    $output = $html2text->get_text();
+    $output = $html2text->getText();
 
     self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
@@ -129,7 +129,7 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($input);
-    $output = $html2text->get_text();
+    $output = $html2text->getText();
 
     self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
@@ -148,7 +148,7 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($input);
-    $output = $html2text->get_text();
+    $output = $html2text->getText();
 
     self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }
@@ -185,7 +185,7 @@ Tea
 EOT;
 
     $html2text = new Html2Text($input);
-    $output = $html2text->get_text();
+    $output = $html2text->getText();
 
     self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected_output), $output);
   }

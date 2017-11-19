@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class HtmlCharsTest extends \PHPUnit_Framework_TestCase
+class HtmlCharsTest extends \PHPUnit\Framework\TestCase
 {
   public function testLaquoAndRaquo()
   {

@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class UppercaseTest extends \PHPUnit_Framework_TestCase
+class UppercaseTest extends \PHPUnit\Framework\TestCase
 {
   public function testUppercase()
   {

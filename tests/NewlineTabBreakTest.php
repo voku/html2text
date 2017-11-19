@@ -9,7 +9,7 @@ use \voku\Html2Text\Html2Text;
  *
  * @package voku\Html2Text\tests
  */
-class NewlineTabBreakTest extends \PHPUnit_Framework_TestCase
+class NewlineTabBreakTest extends \PHPUnit\Framework\TestCase
 {
   public function testNewlineTabBreak()
   {

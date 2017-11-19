@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class BasicTest extends \PHPUnit_Framework_TestCase
+class BasicTest extends \PHPUnit\Framework\TestCase
 {
 
   /**
@@ -33,7 +33,7 @@ class BasicTest extends \PHPUnit_Framework_TestCase
 Link text [http://example.com]
 EOT;
 
-    $html2text = new Html2Text($this->inputLink, false, array('do_links' => 'inline'));
+    $html2text = new Html2Text($this->inputLink, array('do_links' => 'inline'));
     $output = $html2text->getText();
 
     self::assertSame($expected_output, $output);
@@ -76,7 +76,7 @@ EOT;
 Link text
 EOT;
 
-    $html2text = new Html2Text($this->inputLink, false, array('do_links' => 'none'));
+    $html2text = new Html2Text($this->inputLink, array('do_links' => 'none'));
     $output = $html2text->getText();
 
     self::assertSame($output, $expected_output);

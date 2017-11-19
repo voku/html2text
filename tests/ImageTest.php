@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class ImageTest extends \PHPUnit_Framework_TestCase
+class ImageTest extends \PHPUnit\Framework\TestCase
 {
   public function testShowAltText()
   {
@@ -54,7 +54,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
   /**
    * @return array
    */
-  public function testImageDataProvider()
+  public function imageDataProvider()
   {
     return array(
         'Without alt tag'                  => array(
@@ -93,7 +93,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
   }
 
   /**
-   * @dataProvider testImageDataProvider
+   * @dataProvider imageDataProvider
    *
    * @param string $html
    * @param string $expected

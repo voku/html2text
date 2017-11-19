@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class StrToUpperTest extends \PHPUnit_Framework_TestCase
+class StrToUpperTest extends \PHPUnit\Framework\TestCase
 {
   public function testToUpper()
   {

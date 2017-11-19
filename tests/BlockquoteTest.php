@@ -9,7 +9,7 @@ use \voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class BlockquoteTest extends \PHPUnit_Framework_TestCase
+class BlockquoteTest extends \PHPUnit\Framework\TestCase
 {
   public function testBlockquote()
   {

@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class ConstructorTest extends \PHPUnit_Framework_TestCase
+class ConstructorTest extends \PHPUnit\Framework\TestCase
 {
   public function testConstructor()
   {
@@ -27,17 +27,8 @@ class ConstructorTest extends \PHPUnit_Framework_TestCase
     $html = 'Foo';
     $options = array('do_links' => 'none');
 
-    $html2text = new Html2Text($html, false, $options);
+    $html2text = new Html2Text($html, $options);
     self::assertSame($html, $html2text->getText());
   }
 
-  public function testLegacyConstructorThrowsExceptionWhenFromFileIsTrue()
-  {
-    $html = 'Foo';
-    $options = array('do_links' => 'none');
-
-    $this->setExpectedException('InvalidArgumentException');
-    /** @noinspection PhpUnusedLocalVariableInspection */
-    $html2text = new Html2Text($html, true, $options);
-  }
 }

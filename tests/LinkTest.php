@@ -9,7 +9,7 @@ use voku\Html2Text\Html2Text;
  *
  * @package Html2Text
  */
-class LinkTest extends \PHPUnit_Framework_TestCase
+class LinkTest extends \PHPUnit\Framework\TestCase
 {
   const TEST_HTML = '
   <span>foo</span><a href="http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}">Link text</a><span>bar...</span>
@@ -197,7 +197,7 @@ EOT;
     $expected = 'Link text [http://example.com/relative]';
 
     $html2text = new Html2Text($html, array('do_links' => 'inline'));
-    $html2text->set_base_url('http://example.com');
+    $html2text->setBaseUrl('http://example.com');
 
     self::assertSame($expected, $html2text->getText());
   }
