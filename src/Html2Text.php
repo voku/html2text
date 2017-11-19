@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace voku\Html2Text;
 
 use voku\helper\UTF8;
