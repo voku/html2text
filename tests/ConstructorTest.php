@@ -14,7 +14,7 @@ class ConstructorTest extends \PHPUnit\Framework\TestCase
   public function testConstructor()
   {
     $html = 'Foo';
-    $options = array('do_links' => 'none');
+    $options = ['do_links' => 'none'];
     $html2text = new Html2Text($html, $options);
     self::assertSame($html, $html2text->getText());
 
@@ -25,7 +25,7 @@ class ConstructorTest extends \PHPUnit\Framework\TestCase
   public function testLegacyConstructor()
   {
     $html = 'Foo';
-    $options = array('do_links' => 'none');
+    $options = ['do_links' => 'none'];
 
     $html2text = new Html2Text($html, $options);
     self::assertSame($html, $html2text->getText());

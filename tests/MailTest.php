@@ -17,7 +17,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test1Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -28,7 +28,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test2Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -39,7 +39,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test3Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -50,7 +50,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test4Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -61,7 +61,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test5Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -72,7 +72,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test6Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -83,7 +83,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test7Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -94,7 +94,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test8Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -105,7 +105,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test9Html.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -118,22 +118,22 @@ class MailTest extends \PHPUnit\Framework\TestCase
 
     $html2text = new Html2Text(
         $html,
-        array(
-            'directConvert' => true,
-            'do_links' => 'markdown',
+        [
+            'directConvert'   => true,
+            'do_links'        => 'markdown',
             'do_links_ignore' => 'javascript:|mailto:',
-            'elements'        => array(
-                'pre'    => array(
+            'elements'        => [
+                'pre' => [
                     'prepend' => '```php' . "\n",
                     'append'  => "\n" . '```',
-                ),
-                'h5'     => array(
+                ],
+                'h5'  => [
                     'case'    => Html2Text::OPTION_NONE,
                     'prepend' => "\n\n",
                     'append'  => "\n\n",
-                ),
-            )
-        )
+                ],
+            ],
+        ]
     );
 
     $text = $html2text->getText();
@@ -145,7 +145,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/msoffice.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -156,7 +156,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/nbsp.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -167,7 +167,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -178,7 +178,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/code.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -189,7 +189,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/table.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -200,7 +200,7 @@ class MailTest extends \PHPUnit\Framework\TestCase
   {
     $html = UTF8::file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.html');
 
-    $html2text = new Html2Text($html, array('directConvert' => true));
+    $html2text = new Html2Text($html, ['directConvert' => true]);
 
     $text = $html2text->getText();
 
@@ -226,6 +226,6 @@ class MailTest extends \PHPUnit\Framework\TestCase
    */
   protected function normalizeString($string)
   {
-    return str_replace(array("\r\n", "\r"), "\n", $string);
+    return str_replace(["\r\n", "\r"], "\n", $string);
   }
 }

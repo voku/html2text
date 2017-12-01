@@ -2,7 +2,7 @@
 
 namespace voku\Html2Text\tests;
 
-use \voku\Html2Text\Html2Text;
+use voku\Html2Text\Html2Text;
 
 /**
  * Class BlockquoteTest
@@ -35,7 +35,7 @@ After
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 
   public function testBlockquoteAdvanced()
@@ -71,7 +71,7 @@ lall
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 
   public function testMultipleBlockquotes()
@@ -95,7 +95,7 @@ Before
 After
 EOT;
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 
   public function testMalformedHtmlBlockquotes()
@@ -133,7 +133,7 @@ Before-After-3 Before-After-4
 After
 EOT;
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 
   public function testBlockquoteWithAttribute()
@@ -162,7 +162,7 @@ EOT;
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 
   /**
@@ -170,8 +170,8 @@ EOT;
    */
   public function blockquoteDataProvider()
   {
-    return array(
-        'Basic blockquote' => array(
+    return [
+        'Basic blockquote' => [
             'html' => <<<EOT
 <p>Before</p>
 <blockquote>
@@ -193,8 +193,8 @@ Before
 After
 EOT
             ,
-        ),
-        'Multiple blockquotes in text' => array(
+        ],
+        'Multiple blockquotes in text' => [
             'html' => <<<EOF
 <p>Highlights from today&rsquo;s <strong>Newlyhired Game</strong>:</p><blockquote><p><strong>Sean:</strong> What came first, Blake&rsquo;s first <em>Chief Architect position</em> or Blake&rsquo;s first <em>girlfriend</em>?</p> </blockquote> <blockquote> <p><strong>Sean:</strong> Devin, Bryan spent almost five years of his life slaving away for this vampire squid wrapped around the face of humanity&hellip;<br/><strong>Devin:</strong> Goldman Sachs?<br/><strong>Sean:</strong> Correct!</p> </blockquote> <blockquote> <p><strong>Sean:</strong> What was the name of the girl Zhu took to prom three months ago?<br/><strong>John:</strong> What?<br/><strong>Derek (from the audience):</strong> Destiny!<br/><strong>Zhu:</strong> Her name is Jolene. She&rsquo;s nice. I like her.</p></blockquote><p>I think the audience is winning.&nbsp; - Derek</p>
 EOF
@@ -215,8 +215,8 @@ Highlights from today’s NEWLYHIRED GAME:
 
 I think the audience is winning.  - Derek
 EOF
-        ),
-        'Multibyte strings before blockquote' => array(
+        ],
+        'Multibyte strings before blockquote' => [
             'html' => <<<EOF
 “Hello”
 
@@ -229,8 +229,8 @@ EOF
 
 > goodbye
 EOF
-        )
-    );
+        ]
+    ];
   }
 
   /**
@@ -239,8 +239,9 @@ EOF
    * @param string $html
    * @param string $expected
    */
-  public function testBlockquoteViaDataProvider($html, $expected) {
+  public function testBlockquoteViaDataProvider($html, $expected)
+  {
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 }

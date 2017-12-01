@@ -2,7 +2,7 @@
 
 namespace voku\Html2Text\tests;
 
-use \voku\Html2Text\Html2Text;
+use voku\Html2Text\Html2Text;
 
 /**
  * Class NewlineTabBreakTest
@@ -13,7 +13,7 @@ class NewlineTabBreakTest extends \PHPUnit\Framework\TestCase
 {
   public function testNewlineTabBreak()
   {
-    $html =<<<EOT
+    $html = <<<EOT
 <p>Will be a line</p>
 <p>Will be 
 a line</p>
@@ -27,7 +27,7 @@ a line</p>
  </p>
 <p>This is some text<br/>with a break in the middle but no indent</p>
 EOT;
-    $expected =<<<EOT
+    $expected = <<<EOT
 Will be a line
 
 Will be a line
@@ -42,6 +42,6 @@ with a break in the middle but no indent
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 }

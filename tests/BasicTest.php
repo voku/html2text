@@ -33,7 +33,7 @@ class BasicTest extends \PHPUnit\Framework\TestCase
 Link text [http://example.com]
 EOT;
 
-    $html2text = new Html2Text($this->inputLink, array('do_links' => 'inline'));
+    $html2text = new Html2Text($this->inputLink, ['do_links' => 'inline']);
     $output = $html2text->getText();
 
     self::assertSame($expected_output, $output);
@@ -64,7 +64,7 @@ lall
 EOT;
     $html2text = new Html2Text($html);
     $output = $html2text->getText();
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $output);
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $output);
   }
 
   /**
@@ -76,7 +76,7 @@ EOT;
 Link text
 EOT;
 
-    $html2text = new Html2Text($this->inputLink, array('do_links' => 'none'));
+    $html2text = new Html2Text($this->inputLink, ['do_links' => 'none']);
     $output = $html2text->getText();
 
     self::assertSame($output, $expected_output);
@@ -87,45 +87,45 @@ EOT;
    */
   public function basicDataProvider()
   {
-    return array(
-        'Readme usage'                                                                 => array(
+    return [
+        'Readme usage'                                                                 => [
             'html'     => 'Hello, &quot;<b>world</b>&quot;',
             'expected' => 'Hello, "WORLD"',
-        ),
-        'No stripslashes on HTML content'                                              => array(
+        ],
+        'No stripslashes on HTML content'                                              => [
           // HTML content does not escape slashes, therefore nor should we.
           'html'     => 'Hello, \"<b>world</b>\"',
           'expected' => 'Hello, \"WORLD\"',
-        ),
-        'Zero is not empty'                                                            => array(
+        ],
+        'Zero is not empty'                                                            => [
             'html'     => '0',
             'expected' => '0',
-        ),
-        'Paragraph with whitespace wrapping it'                                        => array(
+        ],
+        'Paragraph with whitespace wrapping it'                                        => [
             'html'     => 'Foo <p>Bar</p> Baz',
             'expected' => "Foo\n\nBar\n\nBaz",
-        ),
-        'Paragraph text with linebreak flat'                                           => array(
+        ],
+        'Paragraph text with linebreak flat'                                           => [
             'html'     => '<p>Foo<br/>Bar</p>',
             'expected' => "Foo\nBar",
-        ),
-        'Paragraph text with linebreak formatted with newline'                         => array(
+        ],
+        'Paragraph text with linebreak formatted with newline'                         => [
             'html'     => "\n<p>\n    Foo<br/>\n    Bar\n</p>\n",
             'expected' => "Foo\nBar",
-        ),
-        'Paragraph text with linebreak formatted whth newline, but without whitespace' => array(
+        ],
+        'Paragraph text with linebreak formatted whth newline, but without whitespace' => [
             'html'     => "<p>Foo<br/>\nBar</p>\n\n<p>lall</p>\n",
             'expected' => "Foo\nBar\n\nlall",
-        ),
-        'Paragraph text with linebreak formatted with indentation'                     => array(
+        ],
+        'Paragraph text with linebreak formatted with indentation'                     => [
             'html'     => "\n<p>\n    Foo<br/>Bar\n</p>\nlall\n",
             'expected' => "Foo\nBar\n\nlall",
-        ),
-        '<br /> within <strong> prevents <strong> from being converted'                                                               => array(
+        ],
+        '<br /> within <strong> prevents <strong> from being converted'                => [
             'html'     => '<strong>This would<br />not be converted.</strong><strong>But this would, though</strong>',
             'expected' => "THIS WOULDNOT BE CONVERTED.\nTHIS WOULDNOT BE CONVERTED.BUT THIS WOULD, THOUGH",
-        ),
-    );
+        ],
+    ];
   }
 
   /**

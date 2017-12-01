@@ -37,6 +37,6 @@ EOT;
    */
   protected function normalizeString($string)
   {
-    return str_replace(array("\r\n", "\r"), "\n", $string);
+    return str_replace(["\r\n", "\r"], "\n", $string);
   }
 }

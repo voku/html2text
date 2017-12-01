@@ -466,28 +466,28 @@ class Html2Text
     $this->convertPre($text);
 
     // Collapse space between tags to avoid left over whitespace.
-    $text = \preg_replace('/>\s+</', '><', $text);
+    $text = (string)\preg_replace('/>\s+</', '><', $text);
 
     // Convert special-chars like "&#39;" into plain-chars like "'".
     $text = \htmlspecialchars_decode($text, ENT_QUOTES);
 
     // Run our defined tags search-and-replace.
-    $text = \preg_replace($searchReplaceArrayKeys, $searchReplaceArrayValues, $text);
+    $text = (string)\preg_replace($searchReplaceArrayKeys, $searchReplaceArrayValues, $text);
 
     // Run our defined tags search-and-replace with callback.
-    $text = \preg_replace_callback(self::$callbackSearch, [$this, 'pregCallback'], $text);
+    $text = (string)\preg_replace_callback(self::$callbackSearch, [$this, 'pregCallback'], $text);
 
     // Strip any other HTML tags.
-    $text = \preg_replace('/<(?:\/|!)?\w+[^>]*>|<!--.*?-->/s', '', $text);
+    $text = (string)\preg_replace('/<(?:\/|!)?\w+[^>]*>|<!--.*?-->/s', '', $text);
 
     // Run our defined entities/characters search-and-replace.
-    $text = \preg_replace($helperSearchReplaceArrayKeys, $helperSearchReplaceArrayValues, $text);
+    $text = (string)\preg_replace($helperSearchReplaceArrayKeys, $helperSearchReplaceArrayValues, $text);
 
     // Replace known html entities + UTF-8 codepoints.
     $text = UTF8::html_entity_decode($text);
 
     // Normalise empty lines.
-    $text = \preg_replace("/[\n]{3,}/", "\n\n", $text);
+    $text = (string)\preg_replace("/[\n]{3,}/", "\n\n", $text);
 
     // Remove empty lines at the beginning and ending of the converted html
     // e.g.: can be produced by eg. P tag on the beginning or at the ending
@@ -749,6 +749,7 @@ class Html2Text
           $chunk = \htmlspecialchars_decode($chunk, ENT_QUOTES);
         }
       }
+      unset($chunk);
 
       $str = \implode($chunks);
 
@@ -765,9 +766,8 @@ class Html2Text
         $delimiter = '@';
       }
 
-      $str = \preg_replace($delimiter . $options['replace'][0] . $delimiter, $options['replace'][1], $str);
+      $str = (string)\preg_replace($delimiter . $options['replace'][0] . $delimiter, $options['replace'][1], $str);
     }
-
 
     if (isset($options['prepend']) && $options['prepend']) {
       $str = $options['prepend'] . $str;

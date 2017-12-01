@@ -1,4 +1,5 @@
 <?php
+
 namespace Html2Text;
 
 use voku\Html2Text\Html2Text;
@@ -35,14 +36,14 @@ EOT;
 
     $html2text = new Html2Text(
         $html,
-        array(
-            'elements' => array(
-                'h1' => array('case' => Html2Text::OPTION_LOWERCASE),
-                'h2' => array('case' => Html2Text::OPTION_UCFIRST),
-                'h3' => array('case' => Html2Text::OPTION_TITLE),
-                'h6' => array('case' => Html2Text::OPTION_UPPERCASE),
-            ),
-        )
+        [
+            'elements' => [
+                'h1' => ['case' => Html2Text::OPTION_LOWERCASE],
+                'h2' => ['case' => Html2Text::OPTION_UCFIRST],
+                'h3' => ['case' => Html2Text::OPTION_TITLE],
+                'h6' => ['case' => Html2Text::OPTION_UPPERCASE],
+            ],
+        ]
     );
     $output = $html2text->getText();
 
@@ -56,6 +57,6 @@ EOT;
    */
   protected function normalizeString($string)
   {
-    return str_replace(array("\r\n", "\r"), "\n", $string);
+    return str_replace(["\r\n", "\r"], "\n", $string);
   }
 }

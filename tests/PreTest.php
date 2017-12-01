@@ -2,7 +2,7 @@
 
 namespace voku\Html2Text\tests;
 
-use \voku\Html2Text\Html2Text;
+use voku\Html2Text\Html2Text;
 
 /**
  * Class PreTest
@@ -37,7 +37,7 @@ After
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 
   public function testPreNew()
@@ -58,6 +58,6 @@ some
 EOT;
 
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 }

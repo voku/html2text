@@ -27,31 +27,31 @@ class HtmlCharsTest extends \PHPUnit\Framework\TestCase
   {
     // A variety of symbols that either used to have special handling
     // or still does.
-    return array(
+    return [
       // Non-breaking space, not a regular one.
       //array('&nbsp;', ' '),
-      array('&gt;', '>'),
-      array('&lt;', '<'),
-      array('&copy;', '©'),
-      array('&#169;', '©'),
-      array('&trade;', '™'),
+      ['&gt;', '>'],
+      ['&lt;', '<'],
+      ['&copy;', '©'],
+      ['&#169;', '©'],
+      ['&trade;', '™'],
       // The TM symbol in Windows-1252, invalid in HTML...
-      array('&#153;', '™'),
+      ['&#153;', '™'],
       // Correct TM symbol numeric code
-      array('&#8482;', '™'),
-      array('&reg;', '®'),
-      array('&#174;', '®'),
-      array('&mdash;', '—'),
+      ['&#8482;', '™'],
+      ['&reg;', '®'],
+      ['&#174;', '®'],
+      ['&mdash;', '—'],
       // The m-dash in Windows-1252, invalid in HTML...
-      array('&#151;', '—'),
+      ['&#151;', '—'],
       // Correct m-dash numeric code
-      array('&#8212;', '—'),
-      array('&bull;', '•'),
-      array('&pound;', '£'),
-      array('&#163;', '£'),
-      array('&euro;', '€'),
-      array('&amp;', '&'),
-    );
+      ['&#8212;', '—'],
+      ['&bull;', '•'],
+      ['&pound;', '£'],
+      ['&#163;', '£'],
+      ['&euro;', '€'],
+      ['&amp;', '&'],
+    ];
   }
 
   /**

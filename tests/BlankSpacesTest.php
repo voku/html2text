@@ -89,7 +89,7 @@ EOT;
    */
   public function testRandomSpaces()
   {
-    $possibleSpaces = array('&nbsp;', '&emsp;', '&ensp;', '&thinsp;');
+    $possibleSpaces = ['&nbsp;', '&emsp;', '&ensp;', '&thinsp;'];
     shuffle($possibleSpaces);
     $randomSpacesString = 'Replace double spaces:' . $possibleSpaces[0] . $possibleSpaces[0] . $possibleSpaces[1] . 'Continue string afterwards.';
 
@@ -107,7 +107,7 @@ EOT;
    */
   public function testRandomSpacesDouble()
   {
-    $possibleSpaces = array('&nbsp;', '&emsp;', '&ensp;', '&thinsp;');
+    $possibleSpaces = ['&nbsp;', '&emsp;', '&ensp;', '&thinsp;'];
     shuffle($possibleSpaces);
     $randomSpacesString = 'Replace double spaces:' . $possibleSpaces[0] . $possibleSpaces[0] . $possibleSpaces[1] . $possibleSpaces[1] . 'Continue string afterwards.';
 

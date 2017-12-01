@@ -33,14 +33,14 @@ EOT;
 
     $html2text = new Html2Text(
         $html,
-        array(
-            'elements' => array(
-                'h1' => array('case' => Html2Text::OPTION_NONE, 'prepend' => "\nAAA "),
-                'h4' => array('case' => Html2Text::OPTION_NONE, 'append' => " BBB\n"),
-                'h6' => array('case' => Html2Text::OPTION_NONE, 'prepend' => "\nAAA ", 'append' => " BBB\n"),
-                'li' => array('prepend' => "\n\t- "),
-            ),
-        )
+        [
+            'elements' => [
+                'h1' => ['case' => Html2Text::OPTION_NONE, 'prepend' => "\nAAA "],
+                'h4' => ['case' => Html2Text::OPTION_NONE, 'append' => " BBB\n"],
+                'h6' => ['case' => Html2Text::OPTION_NONE, 'prepend' => "\nAAA ", 'append' => " BBB\n"],
+                'li' => ['prepend' => "\n\t- "],
+            ],
+        ]
     );
 
     self::assertSame($this->normalizeString($expected), $html2text->getText());
@@ -61,13 +61,13 @@ EOT;
 
     $html2text = new Html2Text(
         $html,
-        array(
+        [
             'width'    => 0,
-            'elements' => array(
-                'h1' => array('case' => Html2Text::OPTION_NONE, 'replace' => array('AAA', 'BBB')),
-                'li' => array('replace' => array('•', '')),
-            ),
-        )
+            'elements' => [
+                'h1' => ['case' => Html2Text::OPTION_NONE, 'replace' => ['AAA', 'BBB']],
+                'li' => ['replace' => ['•', '']],
+            ],
+        ]
     );
 
     self::assertSame($this->normalizeString($expected), $html2text->getText());
@@ -79,21 +79,21 @@ EOT;
 
     $html2text = new Html2Text(
         $html,
-        array(
+        [
             'width'    => 0,
-            'elements' => array(
-                'h1' => array(
+            'elements' => [
+                'h1' => [
                     'case'    => Html2Text::OPTION_UPPERCASE,
-                    'replace' => array('AAA', 'BBB'),
-                ),
-                'li' => array(
+                    'replace' => ['AAA', 'BBB'],
+                ],
+                'li' => [
                     'case'    => Html2Text::OPTION_NONE,
-                    'replace' => array('•', ''),
+                    'replace' => ['•', ''],
                     'prepend' => '- ',
                     'append'  => ' |',
-                ),
-            ),
-        )
+                ],
+            ],
+        ]
     );
 
     $html2text->setPrefixForImages('[IMAGE]: ');
@@ -119,29 +119,29 @@ EOT;
    */
   public function getSpacesData()
   {
-    return array(
-        array(
+    return [
+        [
             $this->normalizeString('BOLD WITH SPACE: Rest of text'),
             '<Strong>Bold with space: </Strong>Rest of text',
-        ),
-        array(
+        ],
+        [
             $this->normalizeString('BOLD WITH SPACE: Rest of text'),
             '<STRONG>Bold with space: </STRONG>Rest of text',
-        ),
-        array(
+        ],
+        [
             $this->normalizeString('BOLD WITH SPACE: Rest of text'),
             '<strong>Bold with space: </strong>Rest of text',
-        ),
-        array($this->normalizeString('BOLD WITH SPACE: Rest of text'), '<b>Bold with space: </b>Rest of text'),
-        array(
+        ],
+        [$this->normalizeString('BOLD WITH SPACE: Rest of text'), '<b>Bold with space: </b>Rest of text'],
+        [
             $this->normalizeString('BOLD WITH SPACE: Rest of text'),
             ' <p> <b>Bold with space: </b>Rest of text </p> ',
-        ),
-        array(
+        ],
+        [
             $this->normalizeString('BOLD WITH SPACE: Rest of text'),
             ' <p> <b>Bold    with  space:  </b>Rest  of    text  </p> ',
-        ),
-    );
+        ],
+    ];
   }
 
   /**
@@ -151,6 +151,6 @@ EOT;
    */
   protected function normalizeString($string)
   {
-    return str_replace(array("\r\n", "\r"), "\n", $string);
+    return str_replace(["\r\n", "\r"], "\n", $string);
   }
 }

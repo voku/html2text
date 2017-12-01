@@ -29,6 +29,6 @@ This is some text
 with a break in the middle but no indent
 EOT;
     $html2text = new Html2Text($html);
-    self::assertSame(str_replace(array("\n", "\r\n", "\r"), "\n", $expected), $html2text->getText());
+    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
   }
 }
