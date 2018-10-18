@@ -4,8 +4,6 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/voku/html2text/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/voku/html2text/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d9030665de184a309797b32e036a2f77)](https://www.codacy.com/app/voku/html2text)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/81471116-0fb1-442b-a78f-7555ee585ebe/mini.png)](https://insight.sensiolabs.com/projects/81471116-0fb1-442b-a78f-7555ee585ebe)
-[![Dependency Status](https://www.versioneye.com/user/projects/55a91f3e306535002000013c/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55a91f3e306535002000013c)
-[![Reference Status](https://www.versioneye.com/php/voku:html2text/reference_badge.svg?style=flat)](https://www.versioneye.com/php/voku:html2text/references)
 [![Latest Stable Version](https://poser.pugx.org/voku/html2text/v/stable)](https://packagist.org/packages/voku/html2text) 
 [![Total Downloads](https://poser.pugx.org/voku/html2text/downloads)](https://packagist.org/packages/voku/html2text) 
 [![Latest Unstable Version](https://poser.pugx.org/voku/html2text/v/unstable)](https://packagist.org/packages/voku/html2text)
