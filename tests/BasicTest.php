@@ -82,6 +82,24 @@ EOT;
     self::assertSame($output, $expected_output);
   }
 
+  public function testIns()
+  {
+    $html = 'This is <ins>inserted</ins>';
+    $expected = 'This is _inserted_';
+    $html2text = new Html2Text($html);
+
+    self::assertEquals($expected, $html2text->getText());
+  }
+
+  public function testDel()
+  {
+    $html = 'My <del>Résumé</del> Curriculum Vitæ';
+    $expected = 'My ~~Résumé~~ Curriculum Vitæ';
+    $html2text = new Html2Text($html);
+
+    self::assertEquals($expected, $html2text->getText());
+  }
+
   /**
    * @return array
    */

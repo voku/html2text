@@ -122,6 +122,10 @@ class Html2Text
               'prepend' => "\n\n```",
               'append'  => "```\n\n",
           ],
+          'ins'    => [
+              'prepend' => '_',
+              'append'  => '_',
+          ],
           'del'    => [
               'prepend' => '~~',
               'append'  => '~~',
@@ -212,6 +216,8 @@ class Html2Text
     '/<(?<element>i)(?: [^>]*)?>(?<value>.*?)<\/i>/i',
     // <em> and </em>
     '/<(?<element>em)(?: [^>]*)?>(?<value>.*?)<\/em>/i',
+    // <ins> and </ins>
+    '/<(?<element>ins)(?: [^>]*)?>(?<value>.*?)<\/ins>/i',
     // <del> and </del>
     '/<(?<element>del)(?: [^>]*)?>(?<value>.*?)<\/del>/i',
     // <code> and </code>
@@ -487,6 +493,7 @@ class Html2Text
     $text = UTF8::html_entity_decode($text);
 
     // Normalise empty lines.
+    /** @noinspection UnnecessaryVariableOverridesInspection */
     $text = (string)\preg_replace("/[\n]{3,}/", "\n\n", $text);
 
     // Remove empty lines at the beginning and ending of the converted html
@@ -745,7 +752,15 @@ class Html2Text
       foreach ($chunks as $i => &$chunk) {
         if ($chunk[0] !== '<') {
           $chunk = UTF8::html_entity_decode($str);
-          $chunk = \mb_convert_case($chunk, $mode, 'UTF-8');
+
+          if ($mode === \MB_CASE_LOWER) {
+            $chunk = UTF8::strtolower($chunk, 'UTF-8', false, null, true);
+          } elseif ($mode === \MB_CASE_UPPER) {
+            $chunk = UTF8::strtoupper($chunk, 'UTF-8', false, null, true);
+          } elseif ($mode === \MB_CASE_TITLE) {
+            $chunk = UTF8::titlecase($chunk, 'UTF-8', false, null, true);
+          }
+
           $chunk = \htmlspecialchars_decode($chunk, ENT_QUOTES);
         }
       }
