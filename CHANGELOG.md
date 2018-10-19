@@ -1,5 +1,10 @@
 # Changelog
 
+### 5.0.1 (2018-10-20)
+
+- fix for PHP 7.3
+
+
 ### 5.0.0 (2017-12-23)
 
 - update "Portable UTF8" from v4 -> v5
