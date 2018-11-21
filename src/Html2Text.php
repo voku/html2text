@@ -195,33 +195,33 @@ class Html2Text
    */
   protected static $callbackSearch = [
     // <h1> / <h2> / <h3> / <h4> / <h5> / <h6> and </h1> / </h2> / </h3> / </h4> / </h5> / </h6>
-    '/<(?<element>h[123456])(?: [^>]*)?>(?<value>.*?)<\/h[123456]>/i',
+    '/<(?<element>h[123456])(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <p> and </p> with surrounding whitespace.
-    '/[ ]*<(?<element>p)(?: [^>]*)?>(?<value>.*?)<\/p>[ ]*/si',
+    '/[ ]*<(?<element>p)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>[ ]*/si',
     // <li> and </li>
-    '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/li>/i',
+    '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/\g{element}>/i',
     // <b> and </b>
-    '/<(?<element>b)(?: [^>]*)?>(?<value>.*?)<\/b>/i',
+    '/<(?<element>b)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <strong> and </strong>
-    '/<(?<element>strong)(?: [^>]*)?>(?<value>.*?)<\/strong>/i',
+    '/<(?<element>strong)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <dt> and </dt>
-    '/<(?<element>dt)(?: [^>]*)?>(?<value>.*?)<\/dt>/i',
+    '/<(?<element>dt)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <dd> and </dd>
-    '/<(?<element>dd)(?: [^>]*)?>(?<value>.*?)<\/dd>/i',
+    '/<(?<element>dd)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <th> and </th>
-    '/<(?<element>th)(?: [^>]*)?>(?<value>.*?)<\/th>/i',
+    '/<(?<element>th)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <a href=""> and </a>
-    '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/a>/i',
+    '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/\g{element}>/i',
     // <i> and </i>
-    '/<(?<element>i)(?: [^>]*)?>(?<value>.*?)<\/i>/i',
+    '/<(?<element>i)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <em> and </em>
-    '/<(?<element>em)(?: [^>]*)?>(?<value>.*?)<\/em>/i',
+    '/<(?<element>em)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <ins> and </ins>
-    '/<(?<element>ins)(?: [^>]*)?>(?<value>.*?)<\/ins>/i',
+    '/<(?<element>ins)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <del> and </del>
-    '/<(?<element>del)(?: [^>]*)?>(?<value>.*?)<\/del>/i',
+    '/<(?<element>del)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <code> and </code>
-    '/<(?<element>code)(?: [^>]*)?>(?<value>.*?)<\/code>/i',
+    '/<(?<element>code)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
     // <br> with leading whitespace after the newline.
     '/<(?<element>br)[^>]*>[ ]*/i',
     // <img alt="" src="">
