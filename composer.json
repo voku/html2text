@@ -10,7 +10,7 @@
     "email"
   ],
   "type": "library",
-  "license": "GPL-2.0",
+  "license": "GPL-2.0-or-later",
   "require": {
     "php": ">=7.0.0",
     "voku/portable-utf8": "~5.2"
