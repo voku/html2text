@@ -22,5 +22,10 @@
     "psr-4": {
       "voku\\Html2Text\\": "src"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "voku\\Html2Text\\tests\\": "tests"
+    }
   }
 }

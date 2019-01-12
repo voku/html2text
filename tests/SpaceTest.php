@@ -7,14 +7,14 @@ use voku\Html2Text\Html2Text;
 /**
  * Class SpaceTest
  *
- * @package Html2Text
+ * @internal
  */
-class SpaceTest extends \PHPUnit\Framework\TestCase
+final class SpaceTest extends \PHPUnit\Framework\TestCase
 {
-  public function testSpaces()
-  {
-    $html = new Html2Text('This&nbsp;is&nbsp;a&nbsp;text&nbsp;with&nbsp;a&nbsp;lot&nbsp;of&nbsp;&nbsp;spaces.');
+    public function testSpaces()
+    {
+        $html = new Html2Text('This&nbsp;is&nbsp;a&nbsp;text&nbsp;with&nbsp;a&nbsp;lot&nbsp;of&nbsp;&nbsp;spaces.');
 
-    self::assertSame('This is a text with a lot of  spaces.', $html->getText());
-  }
+        static::assertSame('This is a text with a lot of  spaces.', $html->getText());
+    }
 }

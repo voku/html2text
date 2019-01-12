@@ -7,13 +7,81 @@ use voku\Html2Text\Html2Text;
 /**
  * Class BlockquoteTest
  *
- * @package Html2Text
+ * @internal
  */
-class BlockquoteTest extends \PHPUnit\Framework\TestCase
+final class BlockquoteTest extends \PHPUnit\Framework\TestCase
 {
-  public function testBlockquote()
-  {
-    $html = <<<'EOT'
+    /**
+     * @return array
+     */
+    public function blockquoteDataProvider()
+    {
+        return [
+            'Basic blockquote'                    => [
+                'html'     => <<<EOT
+<p>Before</p>
+<blockquote>
+
+Foo bar baz
+
+
+HTML symbols &amp;
+
+</blockquote>
+<p>After</p>
+EOT
+                ,
+                'expected' => <<<EOT
+Before
+
+> Foo bar baz HTML symbols &
+
+After
+EOT
+                ,
+            ],
+            'Multiple blockquotes in text'        => [
+                'html'     => <<<EOF
+<p>Highlights from today&rsquo;s <strong>Newlyhired Game</strong>:</p><blockquote><p><strong>Sean:</strong> What came first, Blake&rsquo;s first <em>Chief Architect position</em> or Blake&rsquo;s first <em>girlfriend</em>?</p> </blockquote> <blockquote> <p><strong>Sean:</strong> Devin, Bryan spent almost five years of his life slaving away for this vampire squid wrapped around the face of humanity&hellip;<br/><strong>Devin:</strong> Goldman Sachs?<br/><strong>Sean:</strong> Correct!</p> </blockquote> <blockquote> <p><strong>Sean:</strong> What was the name of the girl Zhu took to prom three months ago?<br/><strong>John:</strong> What?<br/><strong>Derek (from the audience):</strong> Destiny!<br/><strong>Zhu:</strong> Her name is Jolene. She&rsquo;s nice. I like her.</p></blockquote><p>I think the audience is winning.&nbsp; - Derek</p>
+EOF
+                ,
+                'expected' => <<<EOF
+Highlights from today’s NEWLYHIRED GAME:
+
+> SEAN: What came first, Blake’s first _Chief Architect position_ or Blake’s first _girlfriend_?
+
+> SEAN: Devin, Bryan spent almost five years of his life slaving away for this vampire squid wrapped around the face of humanity…
+> DEVIN: Goldman Sachs?
+> SEAN: Correct!
+
+> SEAN: What was the name of the girl Zhu took to prom three months ago?
+> JOHN: What?
+> DEREK (FROM THE AUDIENCE): Destiny!
+> ZHU: Her name is Jolene. She’s nice. I like her.
+
+I think the audience is winning.  - Derek
+EOF
+            ],
+            'Multibyte strings before blockquote' => [
+                'html'     => <<<EOF
+“Hello”
+
+<blockquote>goodbye</blockquote>
+
+EOF
+                ,
+                'expected' => <<<EOF
+“Hello”
+
+> goodbye
+EOF
+            ],
+        ];
+    }
+
+    public function testBlockquote()
+    {
+        $html = <<<EOT
 <p>Before</p>
 <blockquote>
 
@@ -26,7 +94,7 @@ HTML symbols &amp;
 <p>After</p>
 EOT;
 
-    $expected = <<<'EOT'
+        $expected = <<<EOT
 Before
 
 > Foo bar baz HTML symbols &
@@ -34,13 +102,13 @@ Before
 After
 EOT;
 
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 
-  public function testBlockquoteAdvanced()
-  {
-    $html = <<<'EOT'
+    public function testBlockquoteAdvanced()
+    {
+        $html = <<<EOT
 <blockquote>
   <p>Before</p>
   <blockquote>
@@ -59,7 +127,7 @@ EOT;
 <span>lall</span>
 EOT;
 
-    $expected = <<<'EOT'
+        $expected = <<<EOT
 > Before
 > 
 >>  ``` Foo bar baz ```
@@ -70,37 +138,54 @@ EOT;
 lall
 EOT;
 
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 
-  public function testMultipleBlockquotes()
-  {
-    $html = <<<'EOT'
-<p>Before</p>
-<blockquote>Foo foo foo</blockquote>
-<blockquote>Foo foo foo</blockquote>
-<blockquote>Bar bar bar</blockquote>
-<p>After</p>
+    /**
+     * @dataProvider blockquoteDataProvider
+     *
+     * @param string $html
+     * @param string $expected
+     */
+    public function testBlockquoteViaDataProvider($html, $expected)
+    {
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
+
+    public function testBlockquoteWithAttribute()
+    {
+        $html = <<<EOT
+<html>
+<body>
+  <blockquote type="cite">
+    <div>
+      <span>some quoted words</span>
+    </div>
+  </blockquote>
+  <blockquote type="cite">
+    <div>
+      <span>second quote</span>
+    </div>
+  </blockquote>
+</body>
+</html>
 EOT;
-    $expected = <<<'EOT'
-Before
 
-> Foo foo foo
+        $expected = <<<EOT
+> some quoted words
 
-> Foo foo foo
-
-> Bar bar bar
-
-After
+> second quote
 EOT;
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
 
-  public function testMalformedHtmlBlockquotes()
-  {
-    $html = <<<'EOT'
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
+
+    public function testMalformedHtmlBlockquotes()
+    {
+        $html = <<<EOT
 <p>Before</p>
 
 <blockquote>Foo1 foo1 foo1</lockquote>
@@ -121,7 +206,7 @@ EOT;
 
 <p>After</p>
 EOT;
-    $expected = <<<'EOT'
+        $expected = <<<EOT
 Before
 
 > Foo1 foo1 foo1Foo2 foo2 foo2
@@ -132,116 +217,31 @@ Before-After-3 Before-After-4
 
 After
 EOT;
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 
-  public function testBlockquoteWithAttribute()
-  {
-    $html = <<<'EOT'
-<html>
-<body>
-  <blockquote type="cite">
-    <div>
-      <span>some quoted words</span>
-    </div>
-  </blockquote>
-  <blockquote type="cite">
-    <div>
-      <span>second quote</span>
-    </div>
-  </blockquote>
-</body>
-</html>
-EOT;
-
-    $expected = <<<'EOT'
-> some quoted words
-
-> second quote
-EOT;
-
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
-
-  /**
-   * @return array
-   */
-  public function blockquoteDataProvider()
-  {
-    return [
-        'Basic blockquote' => [
-            'html' => <<<EOT
+    public function testMultipleBlockquotes()
+    {
+        $html = <<<EOT
 <p>Before</p>
-<blockquote>
-
-Foo bar baz
-
-
-HTML symbols &amp;
-
-</blockquote>
+<blockquote>Foo foo foo</blockquote>
+<blockquote>Foo foo foo</blockquote>
+<blockquote>Bar bar bar</blockquote>
 <p>After</p>
-EOT
-            ,
-            'expected' => <<<EOT
+EOT;
+        $expected = <<<EOT
 Before
 
-> Foo bar baz HTML symbols &
+> Foo foo foo
+
+> Foo foo foo
+
+> Bar bar bar
 
 After
-EOT
-            ,
-        ],
-        'Multiple blockquotes in text' => [
-            'html' => <<<EOF
-<p>Highlights from today&rsquo;s <strong>Newlyhired Game</strong>:</p><blockquote><p><strong>Sean:</strong> What came first, Blake&rsquo;s first <em>Chief Architect position</em> or Blake&rsquo;s first <em>girlfriend</em>?</p> </blockquote> <blockquote> <p><strong>Sean:</strong> Devin, Bryan spent almost five years of his life slaving away for this vampire squid wrapped around the face of humanity&hellip;<br/><strong>Devin:</strong> Goldman Sachs?<br/><strong>Sean:</strong> Correct!</p> </blockquote> <blockquote> <p><strong>Sean:</strong> What was the name of the girl Zhu took to prom three months ago?<br/><strong>John:</strong> What?<br/><strong>Derek (from the audience):</strong> Destiny!<br/><strong>Zhu:</strong> Her name is Jolene. She&rsquo;s nice. I like her.</p></blockquote><p>I think the audience is winning.&nbsp; - Derek</p>
-EOF
-            ,
-            'expected' => <<<EOF
-Highlights from today’s NEWLYHIRED GAME:
-
-> SEAN: What came first, Blake’s first _Chief Architect position_ or Blake’s first _girlfriend_?
-
-> SEAN: Devin, Bryan spent almost five years of his life slaving away for this vampire squid wrapped around the face of humanity…
-> DEVIN: Goldman Sachs?
-> SEAN: Correct!
-
-> SEAN: What was the name of the girl Zhu took to prom three months ago?
-> JOHN: What?
-> DEREK (FROM THE AUDIENCE): Destiny!
-> ZHU: Her name is Jolene. She’s nice. I like her.
-
-I think the audience is winning.  - Derek
-EOF
-        ],
-        'Multibyte strings before blockquote' => [
-            'html' => <<<EOF
-“Hello”
-
-<blockquote>goodbye</blockquote>
-
-EOF
-            ,
-            'expected' => <<<EOF
-“Hello”
-
-> goodbye
-EOF
-        ]
-    ];
-  }
-
-  /**
-   * @dataProvider blockquoteDataProvider
-   *
-   * @param string $html
-   * @param string $expected
-   */
-  public function testBlockquoteViaDataProvider($html, $expected)
-  {
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+EOT;
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 }

@@ -7,26 +7,27 @@ use voku\Html2Text\Html2Text;
 /**
  * Class PrintTest
  *
- * @package Html2Text
+ * @internal
  */
-class PrintTest extends \PHPUnit\Framework\TestCase
+final class PrintTest extends \PHPUnit\Framework\TestCase
 {
-  const TEST_HTML = 'Hello, &quot;<b>world</b>&quot;';
-  const EXPECTED  = 'Hello, "WORLD"';
+    const EXPECTED = 'Hello, "WORLD"';
 
-  /**
-   * @var Html2Text
-   */
-  protected $html;
+    const TEST_HTML = 'Hello, &quot;<b>world</b>&quot;';
 
-  public function setUp()
-  {
-    $this->html = new Html2Text(self::TEST_HTML);
-    $this->expectOutputString(self::EXPECTED);
-  }
+    /**
+     * @var Html2Text
+     */
+    protected $html;
 
-  public function testPrint_text()
-  {
-    echo $this->html->getText();
-  }
+    protected function setUp()
+    {
+        $this->html = new Html2Text(self::TEST_HTML);
+        $this->expectOutputString(self::EXPECTED);
+    }
+
+    public function testPrintText()
+    {
+        echo $this->html->getText();
+    }
 }

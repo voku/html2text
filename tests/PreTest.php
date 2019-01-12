@@ -7,13 +7,13 @@ use voku\Html2Text\Html2Text;
 /**
  * Class PreTest
  *
- * @package Html2Text
+ * @internal
  */
-class PreTest extends \PHPUnit\Framework\TestCase
+final class PreTest extends \PHPUnit\Framework\TestCase
 {
-  public function testPre()
-  {
-    $html = <<<'EOT'
+    public function testPre()
+    {
+        $html = <<<'EOT'
 <p>Before</p>
 <pre>
 
@@ -26,7 +26,7 @@ HTML symbols &amp;
 <p>After</p>
 EOT;
 
-    $expected = <<<'EOT'
+        $expected = <<<'EOT'
 Before
 
 Foo bar baz
@@ -36,19 +36,19 @@ HTML symbols &
 After
 EOT;
 
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 
-  public function testPreNew()
-  {
-    $html = <<<EOT
+    public function testPreNew()
+    {
+        $html = <<<EOT
 <pre>
 some<br />  indented<br />  text<br />    on<br />    several<br />  lines<br />
 </pre>
 EOT;
 
-    $expected = <<<EOT
+        $expected = <<<EOT
 some
   indented
   text
@@ -57,7 +57,7 @@ some
   lines
 EOT;
 
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 }

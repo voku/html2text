@@ -7,13 +7,13 @@ use voku\Html2Text\Html2Text;
 /**
  * Class TableTest
  *
- * @package Html2Text
+ * @internal
  */
-class TableTest extends \PHPUnit\Framework\TestCase
+final class TableTest extends \PHPUnit\Framework\TestCase
 {
-  public function testTable()
-  {
-    $html = <<<'EOT'
+    public function testTable()
+    {
+        $html = <<<'EOT'
 <table>
   <tr>
     <th>Heading 1</th>
@@ -26,7 +26,7 @@ class TableTest extends \PHPUnit\Framework\TestCase
 </table>
 EOT;
 
-    $expected = <<<'EOT'
+        $expected = <<<'EOT'
 HEADING 1
 Data 1
 
@@ -34,13 +34,13 @@ HEADING 2
 Data 2
 EOT;
 
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 
-  public function testTableDeeper()
-  {
-    $html = <<<'EOT'
+    public function testTableDeeper()
+    {
+        $html = <<<'EOT'
 <table>
   <tr>
     <th>Heading 1</th>
@@ -54,7 +54,7 @@ EOT;
   </tr>
 </table>
 EOT;
-    $expected = <<<'EOT'
+        $expected = <<<'EOT'
 HEADING 1
 Data 1a
 Data 1b
@@ -63,7 +63,7 @@ HEADING 2
 Data 2a
 Data 2b
 EOT;
-    $html2text = new Html2Text($html);
-    self::assertSame(str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $html2text->getText());
+    }
 }

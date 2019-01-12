@@ -8,224 +8,223 @@ use voku\Html2Text\Html2Text;
 /**
  * Class BasicTest
  *
- * @package Html2Text
+ * @internal
  */
-class MailTest extends \PHPUnit\Framework\TestCase
+final class MailTest extends \PHPUnit\Framework\TestCase
 {
+    public function testHtmlToText1()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test1Html.html');
 
-  public function testHtmlToText1()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test1Html.html');
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-    $html2text = new Html2Text($html, ['directConvert' => true]);
+        $text = $html2text->getText();
 
-    $text = $html2text->getText();
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test1Html.txt'), $text);
+    }
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test1Html.txt'), $text);
-  }
+    public function testHtmlToText10()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test10Html.html');
 
-  public function testHtmlToText2()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test2Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test2Html.txt'), $text);
-  }
-
-  public function testHtmlToText3()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test3Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test3Html.txt'), $text);
-  }
-
-  public function testHtmlToText4()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test4Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test4Html.txt'), $text);
-  }
-
-  public function testHtmlToText5()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test5Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test5Html.txt'), $text);
-  }
-
-  public function testHtmlToText6()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test6Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test6Html.txt'), $text);
-  }
-
-  public function testHtmlToText7()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test7Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test7Html.txt'), $text);
-  }
-
-  public function testHtmlToText8()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test8Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test8Html.txt'), $text);
-  }
-
-  public function testHtmlToText9()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test9Html.html');
-
-    $html2text = new Html2Text($html, ['directConvert' => true]);
-
-    $text = $html2text->getText();
-
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test9Html.txt'), $text);
-  }
-
-  public function testHtmlToText10()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test10Html.html');
-
-    $html2text = new Html2Text(
-        $html,
-        [
-            'directConvert'   => true,
-            'do_links'        => 'markdown',
-            'do_links_ignore' => 'javascript:|mailto:',
-            'elements'        => [
-                'pre' => [
-                    'prepend' => '```php' . "\n",
-                    'append'  => "\n" . '```',
+        $html2text = new Html2Text(
+            $html,
+            [
+                'directConvert'   => true,
+                'do_links'        => 'markdown',
+                'do_links_ignore' => 'javascript:|mailto:',
+                'elements'        => [
+                    'pre' => [
+                        'prepend' => '```php' . "\n",
+                        'append'  => "\n" . '```',
+                    ],
+                    'h5' => [
+                        'case'    => Html2Text::OPTION_NONE,
+                        'prepend' => "\n\n",
+                        'append'  => "\n\n",
+                    ],
                 ],
-                'h5'  => [
-                    'case'    => Html2Text::OPTION_NONE,
-                    'prepend' => "\n\n",
-                    'append'  => "\n\n",
-                ],
-            ],
-        ]
-    );
+            ]
+        );
 
-    $text = $html2text->getText();
+        $text = $html2text->getText();
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test10Html.txt'), $text);
-  }
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test10Html.txt'), $text);
+    }
 
-  public function testHtmlToTextMsOffice()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/msoffice.html');
+    public function testHtmlToText2()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test2Html.html');
 
-    $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-    $text = $html2text->getText();
+        $text = $html2text->getText();
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/msoffice.txt'), $text);
-  }
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test2Html.txt'), $text);
+    }
 
-  public function testHtmlToTextNbsp()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/nbsp.html');
+    public function testHtmlToText3()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test3Html.html');
 
-    $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-    $text = $html2text->getText();
+        $text = $html2text->getText();
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/nbsp.txt'), $text);
-  }
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test3Html.txt'), $text);
+    }
 
-  public function testHtmlToTextNonBreakingSpace()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.html');
+    public function testHtmlToText4()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test4Html.html');
 
-    $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-    $text = $html2text->getText();
+        $text = $html2text->getText();
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.txt'), $text);
-  }
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test4Html.txt'), $text);
+    }
 
-  public function testHtmlToTextCode()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/code.html');
+    public function testHtmlToText5()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test5Html.html');
 
-    $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-    $text = $html2text->getText();
+        $text = $html2text->getText();
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/code.txt'), $text);
-  }
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test5Html.txt'), $text);
+    }
 
-  public function testHtmlToTextTable()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/table.html');
+    public function testHtmlToText6()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test6Html.html');
 
-    $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-    $text = $html2text->getText();
+        $text = $html2text->getText();
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/table.txt'), $text);
-  }
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test6Html.txt'), $text);
+    }
 
-  public function testHtmlToTextDl()
-  {
-    $html = UTF8::file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.html');
+    public function testHtmlToText7()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test7Html.html');
 
-    $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-    $text = $html2text->getText();
+        $text = $html2text->getText();
 
-    self::assertSame($this->file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.txt'), $text);
-  }
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test7Html.txt'), $text);
+    }
 
-  /**
-   * @param string $filename
-   *
-   * @return string
-   */
-  protected function file_get_contents($filename)
-  {
-    $string = UTF8::file_get_contents($filename);
+    public function testHtmlToText8()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test8Html.html');
 
-    return $this->normalizeString($string);
-  }
+        $html2text = new Html2Text($html, ['directConvert' => true]);
 
-  /**
-   * @param string $string
-   *
-   * @return string
-   */
-  protected function normalizeString($string)
-  {
-    return str_replace(["\r\n", "\r"], "\n", $string);
-  }
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test8Html.txt'), $text);
+    }
+
+    public function testHtmlToText9()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test9Html.html');
+
+        $html2text = new Html2Text($html, ['directConvert' => true]);
+
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/test9Html.txt'), $text);
+    }
+
+    public function testHtmlToTextCode()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/code.html');
+
+        $html2text = new Html2Text($html, ['directConvert' => true]);
+
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/code.txt'), $text);
+    }
+
+    public function testHtmlToTextDl()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.html');
+
+        $html2text = new Html2Text($html, ['directConvert' => true]);
+
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.txt'), $text);
+    }
+
+    public function testHtmlToTextMsOffice()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/msoffice.html');
+
+        $html2text = new Html2Text($html, ['directConvert' => true]);
+
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/msoffice.txt'), $text);
+    }
+
+    public function testHtmlToTextNbsp()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/nbsp.html');
+
+        $html2text = new Html2Text($html, ['directConvert' => true]);
+
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/nbsp.txt'), $text);
+    }
+
+    public function testHtmlToTextNonBreakingSpace()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.html');
+
+        $html2text = new Html2Text($html, ['directConvert' => true]);
+
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.txt'), $text);
+    }
+
+    public function testHtmlToTextTable()
+    {
+        $html = UTF8::file_get_contents(__DIR__ . '/fixtures/table.html');
+
+        $html2text = new Html2Text($html, ['directConvert' => true]);
+
+        $text = $html2text->getText();
+
+        static::assertSame($this->file_get_contents(__DIR__ . '/fixtures/table.txt'), $text);
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return string
+     */
+    protected function file_get_contents($filename)
+    {
+        $string = UTF8::file_get_contents($filename);
+
+        return $this->normalizeString($string);
+    }
+
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function normalizeString($string)
+    {
+        return \str_replace(["\r\n", "\r"], "\n", $string);
+    }
 }

@@ -7,36 +7,36 @@ use voku\Html2Text\Html2Text;
 /**
  * Class DefinitionListTest
  *
- * @package Html2Text
+ * @internal
  */
-class DefinitionListTest extends \PHPUnit\Framework\TestCase
+final class DefinitionListTest extends \PHPUnit\Framework\TestCase
 {
-  public function testDefinitionList()
-  {
-    $html = <<< EOT
+    public function testDefinitionList()
+    {
+        $html = <<< EOT
 <dl>
   <dt>Definition Term:</dt>
   <dd>Definition Description<dd>
 </dl>
 EOT;
-    $expected = <<<EOT
+        $expected = <<<EOT
 DEFINITION TERM:
 Definition Description
 EOT;
 
-    $html2text = new Html2Text($html);
-    $output = $html2text->getText();
+        $html2text = new Html2Text($html);
+        $output = $html2text->getText();
 
-    self::assertSame($this->normalizeString($expected), $output);
-  }
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-  /**
-   * @param string $string
-   *
-   * @return string
-   */
-  protected function normalizeString($string)
-  {
-    return str_replace(["\r\n", "\r"], "\n", $string);
-  }
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function normalizeString($string)
+    {
+        return \str_replace(["\r\n", "\r"], "\n", $string);
+    }
 }

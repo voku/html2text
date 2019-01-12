@@ -7,13 +7,13 @@ use voku\Html2Text\Html2Text;
 /**
  * Class UnderscoresTest
  *
- * @package Html2Text
+ * @internal
  */
-class UnderscoresTest extends \PHPUnit\Framework\TestCase
+final class UnderscoresTest extends \PHPUnit\Framework\TestCase
 {
-  public function testUnderscores()
-  {
-    $html = <<<'EOT'
+    public function testNoUnderscores()
+    {
+        $html = <<<'EOT'
 <html>
   <body>
     <p>An <i>extremely</i> important <em>emphasis</em>.</p>
@@ -21,17 +21,17 @@ class UnderscoresTest extends \PHPUnit\Framework\TestCase
 </html>
 EOT;
 
-    $expected = <<<'EOT'
+        $expected = <<<'EOT'
 An _extremely_ important _emphasis_.
 EOT;
 
-    $html2text = new Html2Text($html);
-    self::assertSame($expected, $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame($expected, $html2text->getText());
+    }
 
-  public function testNoUnderscores()
-  {
-    $html = <<<'EOT'
+    public function testUnderscores()
+    {
+        $html = <<<'EOT'
 <html>
   <body>
     <p>An <i>extremely</i> important <em>emphasis</em>.</p>
@@ -39,11 +39,11 @@ EOT;
 </html>
 EOT;
 
-    $expected = <<<'EOT'
+        $expected = <<<'EOT'
 An _extremely_ important _emphasis_.
 EOT;
 
-    $html2text = new Html2Text($html);
-    self::assertSame($expected, $html2text->getText());
-  }
+        $html2text = new Html2Text($html);
+        static::assertSame($expected, $html2text->getText());
+    }
 }

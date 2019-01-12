@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.0.2 (2019-01-12)
+
+- use phpcs fixer
+- use namespace for tests
+
+
 ### 5.0.1 (2018-10-20)
 
 - fix for PHP 7.3

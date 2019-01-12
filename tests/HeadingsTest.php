@@ -6,13 +6,14 @@ use voku\Html2Text\Html2Text;
 
 /**
  * @copyright ResearchGate GmbH
+ *
+ * @internal
  */
-class HeadingsTest extends \PHPUnit\Framework\TestCase
+final class HeadingsTest extends \PHPUnit\Framework\TestCase
 {
-
-  public function testHeadings()
-  {
-    $html = <<<EOT
+    public function testHeadings()
+    {
+        $html = <<<EOT
 <h1>Will be UTF-8 (äöüèéилčλ) lowercased</h1>
 <h2>Will be UTF-8 (äöüèéилčλ) ucfirst</h2>
 <h3>Will be UTF-8 (äöüèéилčλ) titled</h3>
@@ -20,7 +21,7 @@ class HeadingsTest extends \PHPUnit\Framework\TestCase
 <h6>Will be UTF-8 (äöüèéилčλ) uppercased</h6>
 <p>Will remain lowercased</p>
 EOT;
-    $expected = <<<EOT
+        $expected = <<<EOT
 will be utf-8 (äöüèéилčλ) lowercased
 
 Will be utf-8 (äöüèéилčλ) ucfirst
@@ -34,29 +35,29 @@ WILL BE UTF-8 (ÄÖÜÈÉИЛČΛ) UPPERCASED
 Will remain lowercased
 EOT;
 
-    $html2text = new Html2Text(
-        $html,
-        [
-            'elements' => [
-                'h1' => ['case' => Html2Text::OPTION_LOWERCASE],
-                'h2' => ['case' => Html2Text::OPTION_UCFIRST],
-                'h3' => ['case' => Html2Text::OPTION_TITLE],
-                'h6' => ['case' => Html2Text::OPTION_UPPERCASE],
-            ],
-        ]
-    );
-    $output = $html2text->getText();
+        $html2text = new Html2Text(
+            $html,
+            [
+                'elements' => [
+                    'h1' => ['case' => Html2Text::OPTION_LOWERCASE],
+                    'h2' => ['case' => Html2Text::OPTION_UCFIRST],
+                    'h3' => ['case' => Html2Text::OPTION_TITLE],
+                    'h6' => ['case' => Html2Text::OPTION_UPPERCASE],
+                ],
+            ]
+        );
+        $output = $html2text->getText();
 
-    self::assertSame($this->normalizeString($expected), $output);
-  }
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-  /**
-   * @param string $string
-   *
-   * @return string
-   */
-  protected function normalizeString($string)
-  {
-    return str_replace(["\r\n", "\r"], "\n", $string);
-  }
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function normalizeString($string)
+    {
+        return \str_replace(["\r\n", "\r"], "\n", $string);
+    }
 }

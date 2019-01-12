@@ -1,3 +1,12 @@
-/build
-/vendor
+# php (composer)
+vendor/
 composer.lock
+
+# php (phpunit)
+build/
+
+# php (phpcs fixer)
+.php_cs.cache
+
+# ide
+.idea/

