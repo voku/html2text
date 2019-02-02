@@ -845,25 +845,29 @@ class Html2Text
             // string can contain HTML tags
             $chunks = \preg_split('/(<[^>]*>)/', $str, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
 
-            // convert only the text between HTML tags
-            foreach ($chunks as $i => &$chunk) {
+            // convert only the text between HTML tags - fixed by vbrantBits
+            $str_decoded = '';
+            foreach ($chunks as $i => $chunk) {
                 if ($chunk[0] !== '<') {
-                    $chunk = UTF8::html_entity_decode($str);
+
+                    $chunk_decoded = UTF8::html_entity_decode($chunk);
 
                     if ($mode === \MB_CASE_LOWER) {
-                        $chunk = UTF8::strtolower($chunk, 'UTF-8', false, null, true);
+                        $chunk_decoded = UTF8::strtolower($chunk_decoded, 'UTF-8', false, null, true);
                     } elseif ($mode === \MB_CASE_UPPER) {
-                        $chunk = UTF8::strtoupper($chunk, 'UTF-8', false, null, true);
+                        $chunk_decoded = UTF8::strtoupper($chunk_decoded, 'UTF-8', false, null, true);
                     } elseif ($mode === \MB_CASE_TITLE) {
-                        $chunk = UTF8::titlecase($chunk, 'UTF-8', false, null, true);
+                        $chunk_decoded = UTF8::titlecase($chunk_decoded, 'UTF-8', false, null, true);
                     }
 
-                    $chunk = \htmlspecialchars_decode($chunk, \ENT_QUOTES);
+                    $str_decoded .= \htmlspecialchars_decode($chunk_decoded, \ENT_QUOTES);
+
                 }
+
             }
             unset($chunk);
-
-            $str = \implode($chunks);
+            
+            $str = (!empty($str_decoded)) ? $str_decoded : $str;
 
             if ($options['case'] == self::OPTION_UCFIRST) {
                 $str = UTF8::ucfirst($str);
