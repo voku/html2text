@@ -18,7 +18,7 @@ Convert HTML to formatted plain text, e.g. for text mails.
 The recommended installation way is through [Composer](https://getcomposer.org).
 
 ```bash
-$ composer require voku/html2text
+$ composer require vibrantBits/html2text
 ```
 
 ### Basic Usage
