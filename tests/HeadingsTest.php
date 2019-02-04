@@ -26,7 +26,7 @@ will be utf-8 (äöüèéилčλ) lowercased
 
 Will be utf-8 (äöüèéилčλ) ucfirst
 
-Will Be Utf-8 (Äöüèéилčλ) Titled
+Will Be Utf-8 (äöüèéилčλ) Titled
 
 WILL BE UTF-8 (ÄÖÜÈÉИЛČΛ) UPPERCASED AS DEFAULT
 

@@ -300,10 +300,14 @@ class Html2Text
                 'append'  => "\n",
             ],
             'strong' => [
-                'case' => self::OPTION_UPPERCASE,
+                'case'    => self::OPTION_UPPERCASE,
+                'prepend' => '',
+                'append'  => '',
             ],
             'b' => [
-                'case' => self::OPTION_UPPERCASE,
+                'case'    => self::OPTION_UPPERCASE,
+                'prepend' => '',
+                'append'  => '',
             ],
             'dt' => [
                 'case'    => self::OPTION_UPPERCASE,
@@ -395,7 +399,7 @@ class Html2Text
      */
     public function getText(): string
     {
-        if ($this->converted === false) {
+        if (!$this->converted) {
             $this->convert();
         }
 
@@ -446,12 +450,15 @@ class Html2Text
         // Convert "space"-replacer into space.
         $text = \str_replace('|+|_html2text_space|+|', ' ', $text);
 
+        // Remove some extra spaces.
+        $text = \preg_replace('#^> +#m', '> ', $text);
+        $text = \preg_replace('# +$#m', '', $text);
+
         // Replace some placeholder at the end.
         $text = \preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
 
         // Normalise empty lines.
-        $text = \preg_replace("/\n\s+\n/", "\n\n", $text);
-        $text = \preg_replace("/[\n]{3,}/", "\n\n", $text);
+        $text = \preg_replace("/\n\s+\n|[\n]{3,}/", "\n\n", $text);
 
         // If max length of line is defined, then use "wordwrap".
         if ($this->options['width'] > 0) {
@@ -478,6 +485,9 @@ class Html2Text
         $helperSearchReplaceArrayKeys = \array_keys(self::$helperSearchReplaceArray);
         $helperSearchReplaceArrayValues = \array_values(self::$helperSearchReplaceArray);
 
+        // Add extra space for some text tags.
+        $text = (string) \preg_replace('/(strong|b|p|i)><(strong|b|p|i)/', '$1>&nbsp;<$2', $text);
+
         // Convert <BLOCKQUOTE> tags. (before PRE!)
         $this->convertBlockquotes($text);
 
@@ -491,27 +501,42 @@ class Html2Text
         $text = \htmlspecialchars_decode($text, \ENT_QUOTES);
 
         // Run our defined tags search-and-replace.
-        $text = (string) \preg_replace($searchReplaceArrayKeys, $searchReplaceArrayValues, $text);
+        $text = (string) \preg_replace(
+            $searchReplaceArrayKeys,
+            $searchReplaceArrayValues,
+            $text
+        );
 
         // Run our defined tags search-and-replace with callback.
-        $text = (string) \preg_replace_callback(self::$callbackSearch, [$this, 'pregCallback'], $text);
+        $text = (string) \preg_replace_callback(
+            self::$callbackSearch,
+            [$this, 'pregCallback'],
+            $text
+        );
 
         // Strip any other HTML tags.
-        $text = (string) \preg_replace('/<(?:\/|!)?\w+[^>]*>|<!--.*?-->/s', '', $text);
+        $text = (string) \preg_replace(
+            '/<(?:\/|!)?\w+[^>]*>|<!--.*?-->/s',
+            '',
+            $text
+        );
 
         // Run our defined entities/characters search-and-replace.
-        $text = (string) \preg_replace($helperSearchReplaceArrayKeys, $helperSearchReplaceArrayValues, $text);
+        $text = (string) \preg_replace(
+            $helperSearchReplaceArrayKeys,
+            $helperSearchReplaceArrayValues,
+            $text
+        );
 
         // Replace known html entities + UTF-8 codepoints.
         $text = UTF8::html_entity_decode($text);
 
-        // Normalise empty lines.
-        /** @noinspection UnnecessaryVariableOverridesInspection */
-        $text = (string) \preg_replace("/[\n]{3,}/", "\n\n", $text);
-
         // Remove empty lines at the beginning and ending of the converted html
         // e.g.: can be produced by eg. P tag on the beginning or at the ending
-        $text = \trim($text);
+        $text = \trim(
+            // Normalise empty lines.
+            (string) \preg_replace("/\n\s+\n|[\n]{3,}/", "\n\n", $text)
+        );
     }
 
     /**
@@ -659,7 +684,7 @@ class Html2Text
                 // Replace newlines with spaces.
                 $para = \str_replace("\n", ' ', $matches['value']);
 
-                // Add trailing newlines for this para.
+                // Add trailing newlines for this paragraph.
                 return "\n\n" . $para . "\n\n";
             case 'img':
 
@@ -677,7 +702,7 @@ class Html2Text
                     )
                 );
 
-                if ($useSrc === true && $matches['alt'] && $matches['src']) {
+                if ($useSrc && $matches['alt'] && $matches['src']) {
                     return ' [[_html2text_image]]"' . $matches['alt'] . '" [' . $matches['src'] . '] ';
                 }
 
@@ -702,10 +727,12 @@ class Html2Text
                 return $this->buildLinkList($url, $matches[5], $linkOverride);
         }
 
+        // h1 - h6
         if (\preg_match('/h[123456]/', $matches['element'])) {
             return $this->convertElement($matches['value'], $matches['element']);
         }
 
+        // default
         if (\array_key_exists($element, $this->options['elements'])) {
             return $this->convertElement($matches['value'], $matches['element']);
         }
@@ -848,7 +875,7 @@ class Html2Text
             // convert only the text between HTML tags
             foreach ($chunks as $i => &$chunk) {
                 if ($chunk[0] !== '<') {
-                    $chunk = UTF8::html_entity_decode($str);
+                    $chunk = UTF8::html_entity_decode($chunk);
 
                     if ($mode === \MB_CASE_LOWER) {
                         $chunk = UTF8::strtolower($chunk, 'UTF-8', false, null, true);
@@ -857,8 +884,6 @@ class Html2Text
                     } elseif ($mode === \MB_CASE_TITLE) {
                         $chunk = UTF8::titlecase($chunk, 'UTF-8', false, null, true);
                     }
-
-                    $chunk = \htmlspecialchars_decode($chunk, \ENT_QUOTES);
                 }
             }
             unset($chunk);
@@ -870,21 +895,17 @@ class Html2Text
             }
         }
 
-        if (isset($options['replace']) && $options['replace']) {
-            if (isset($options['replace'][2])) {
-                $delimiter = $options['replace'][2];
-            } else {
-                $delimiter = '@';
-            }
+        if (!empty($options['replace'])) {
+            $delimiter = $options['replace'][2] ?? '@';
 
             $str = (string) \preg_replace($delimiter . $options['replace'][0] . $delimiter, $options['replace'][1], $str);
         }
 
-        if (isset($options['prepend']) && $options['prepend']) {
+        if (!empty($options['prepend'])) {
             $str = $options['prepend'] . $str;
         }
 
-        if (isset($options['append']) && $options['append']) {
+        if (!empty($options['append'])) {
             $str .= $options['append'];
         }
 

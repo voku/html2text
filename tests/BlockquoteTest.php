@@ -17,8 +17,8 @@ final class BlockquoteTest extends \PHPUnit\Framework\TestCase
     public function blockquoteDataProvider()
     {
         return [
-            'Basic blockquote'                    => [
-                'html'     => <<<EOT
+            'Basic blockquote' => [
+                'html' => <<<EOT
 <p>Before</p>
 <blockquote>
 
@@ -40,8 +40,8 @@ After
 EOT
                 ,
             ],
-            'Multiple blockquotes in text'        => [
-                'html'     => <<<EOF
+            'Multiple blockquotes in text' => [
+                'html' => <<<EOF
 <p>Highlights from today&rsquo;s <strong>Newlyhired Game</strong>:</p><blockquote><p><strong>Sean:</strong> What came first, Blake&rsquo;s first <em>Chief Architect position</em> or Blake&rsquo;s first <em>girlfriend</em>?</p> </blockquote> <blockquote> <p><strong>Sean:</strong> Devin, Bryan spent almost five years of his life slaving away for this vampire squid wrapped around the face of humanity&hellip;<br/><strong>Devin:</strong> Goldman Sachs?<br/><strong>Sean:</strong> Correct!</p> </blockquote> <blockquote> <p><strong>Sean:</strong> What was the name of the girl Zhu took to prom three months ago?<br/><strong>John:</strong> What?<br/><strong>Derek (from the audience):</strong> Destiny!<br/><strong>Zhu:</strong> Her name is Jolene. She&rsquo;s nice. I like her.</p></blockquote><p>I think the audience is winning.&nbsp; - Derek</p>
 EOF
                 ,
@@ -63,7 +63,7 @@ I think the audience is winning.  - Derek
 EOF
             ],
             'Multibyte strings before blockquote' => [
-                'html'     => <<<EOF
+                'html' => <<<EOF
 “Hello”
 
 <blockquote>goodbye</blockquote>
@@ -129,11 +129,11 @@ EOT;
 
         $expected = <<<EOT
 > Before
-> 
+>
 >>  ``` Foo bar baz ```
->>  
+>>
 >>>   HTML symbols &
-> 
+>
 > After
 lall
 EOT;

@@ -19,7 +19,7 @@ final class BasicTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function basicDataProvider()
+    public function basicDataProvider(): array
     {
         return [
             'Readme usage' => [
@@ -57,7 +57,7 @@ final class BasicTest extends \PHPUnit\Framework\TestCase
             ],
             '<br /> within <strong> prevents <strong> from being converted' => [
                 'html'     => '<strong>This would<br />not be converted.</strong><strong>But this would, though</strong>',
-                'expected' => "THIS WOULDNOT BE CONVERTED.\nTHIS WOULDNOT BE CONVERTED.BUT THIS WOULD, THOUGH",
+                'expected' => "THIS WOULD\nNOT BE CONVERTED. BUT THIS WOULD, THOUGH",
             ],
         ];
     }
@@ -70,8 +70,8 @@ final class BasicTest extends \PHPUnit\Framework\TestCase
      */
     public function testBasic($html, $expected)
     {
-        $html = new Html2Text($html);
-        static::assertSame($expected, $html->getText());
+        $html2Text = new Html2Text($html);
+        static::assertSame($expected, $html2Text->getText());
     }
 
     public function testBasicUsageInReadme()
@@ -152,6 +152,46 @@ TEST
 test
 lall
 EOT;
+        $html2text = new Html2Text($html);
+        $output = $html2text->getText();
+        static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $output);
+    }
+
+    public function testIssue17()
+    {
+        $html = '
+        <div class="container wide-1366 full-width-mobile px-lg-0 position-relative fh mt-80 pb-5">
+            <div class="row mw-100">
+                <div class="d-none d-sm-block col-sm-6 col-xl-8 text-center">
+                    <img style="max-width: 200%" src="img/pluma.png">
+                </div>
+                <div class="col-12 col-sm-6 col-xl-4">
+                    <div class="floating-text right-side">
+                        <h1 class="display-3 mb-5 pb-60 border-b-2">
+                            <span class="strong-text-red">What</span> is<br>Writing Lab?
+                        </h1>
+                        <p>
+                            Writing Lab is an initiative within TecLabs that is dedicated to the development of the culture of research in Educational Innovation and to the enhancement of the academic production of the faculty members at Tecnologico de Monterrey.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- figures divider -->
+            <div class="row mw-100 position-relative">
+                <div class="bg-figures-wrapper">
+                    <img src="img/bg_figures.png">
+                </div>
+            </div>
+        </div>
+        ';
+
+        $expected = <<<EOT
+WHAT IS
+WRITING LAB?
+
+Writing Lab is an initiative within TecLabs that is dedicated to the development of the culture of research in Educational Innovation and to the enhancement of the academic production of the faculty members at Tecnologico de Monterrey.
+EOT;
+
         $html2text = new Html2Text($html);
         $output = $html2text->getText();
         static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected), $output);

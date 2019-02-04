@@ -197,15 +197,15 @@ UTF8::filter_var('-ABC-中文空白-', FILTER_VALIDATE_URL); // false
 "filter_var_array()"-wrapper with normalizes to UTF-8 NFC, converting from WINDOWS-1252 when needed.
 
 ```php
-$filters = [ 
+$filters = [
   'name'  => ['filter'  => FILTER_CALLBACK, 'options' => ['voku\helper\UTF8', 'ucwords']],
   'age'   => ['filter'  => FILTER_VALIDATE_INT, 'options' => ['min_range' => 1, 'max_range' => 120]],
   'email' => FILTER_VALIDATE_EMAIL,
 ];
 
 $data = [
-  'name' => 'κόσμε', 
-  'age' => '18', 
+  'name' => 'κόσμε',
+  'age' => '18',
   'email' => 'foo@bar.de'
 ];
 
@@ -285,7 +285,7 @@ Convert all HTML entities to their applicable characters
 INFO: opposite to UTF8::html_encode()
 
 ```php
-UTF8::html_encode('中文空白'); // '中文空白' 
+UTF8::html_encode('中文空白'); // '中文空白'
 ```
 
 [](/#htmlentitiesstring-str-int-flags--ent_compat-string-encoding--utf-8-bool-double_encode--true--string) htmlentities(string $str, int $flags = ENT_COMPAT, string $encoding = 'UTF-8', bool $double_encode = true) : string
@@ -442,7 +442,7 @@ UTF8::json_enocde(array(1, '¥', 'ä')); // '[1,"\u00a5","\u00e4"]'
 Makes string's first char lowercase.
 
 ```php
-UTF8::lcfirst('ÑTËRNÂTIÔNÀLIZÆTIØN'); // ñTËRNÂTIÔNÀLIZÆTIØN 
+UTF8::lcfirst('ÑTËRNÂTIÔNÀLIZÆTIØN'); // ñTËRNÂTIÔNÀLIZÆTIØN
 ```
 
 [](/#maxmixed-arg--string) max(mixed $arg) : string
@@ -687,12 +687,12 @@ Get a binary representation of a specific string.
 UTF8::str_word_count('中文空白 öäü abc#c'); // 4
 UTF8::str_word_count('中文空白 öäü abc#c', 0, '#'); // 3
 
-// format: 1 -> return words (array) 
+// format: 1 -> return words (array)
 //
 UTF8::str_word_count('中文空白 öäü abc#c', 1); // array('中文空白', 'öäü', 'abc', 'c')
 UTF8::str_word_count('中文空白 öäü abc#c', 1, '#'); // array('中文空白', 'öäü', 'abc#c')
 
-// format: 2 -> return words with offset (array) 
+// format: 2 -> return words with offset (array)
 //
 UTF8::str_word_count('中文空白 öäü ab#c', 2); // array(0 => '中文空白', 5 => 'öäü', 9 => 'abc', 13 => 'c')
 UTF8::str_word_count('中文空白 öäü ab#c', 2, '#'); // array(0 => '中文空白', 5 => 'öäü', 9 => 'abc#c')
@@ -1025,7 +1025,7 @@ Convert a string into "ISO-8859"-encoding (Latin-1).
 alias: UTF8::toIso8859() alias: UTF8::to_latin1() alias: UTF8::toLatin1()
 
 ```php
-UTF8::to_utf8(UTF8::to_latin1('  -ABC-中文空白-  ')); // '  -ABC-????-  ' 
+UTF8::to_utf8(UTF8::to_latin1('  -ABC-中文空白-  ')); // '  -ABC-????-  '
 ```
 
 [](/#ucfirststring-str--string) ucfirst(string $str) : string

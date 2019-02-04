@@ -14,7 +14,7 @@ MAKE YOUR EMAIL EASY TO READ
 
 After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "_styles_" drop down box. Want to get rid of styling on a bit of text [http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change] , but having trouble doing it? Just use the "_remove formatting_" button to strip the text of any formatting and reset your style.
 
-Follow on Twitter [/*|TWITTER:PROFILEURL|*]     Friend on Facebook [/*|FACEBOOK:PROFILEURL|*]     Forward to Friend [/*|FORWARD|*]  
+Follow on Twitter [/*|TWITTER:PROFILEURL|*]     Friend on Facebook [/*|FACEBOOK:PROFILEURL|*]     Forward to Friend [/*|FORWARD|*]
 
 _Copyright © *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved._
 *|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
