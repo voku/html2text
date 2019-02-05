@@ -68,16 +68,12 @@ class Html2Text
         '/<script\b[^>]*>.*?<\/script>/i'                => '',
         // <style>s -- which strip_tags supposedly has problems with
         '/<style\b[^>]*>.*?<\/style>/i'                  => '',
-        // <hr>
-        '/<hr\b[^>]*>/i'                                 => "\n-------------------------\n",
         // <div>
         '/<div\b[^>]*>/i'                                => "<div>\n",
         // <table> and </table>
         '/(<table\b[^>]*>|<\/table>)/i'                  => "\n\n",
         // <tr> and </tr>
         '/(<tr\b[^>]*>|<\/tr>)/i'                        => "\n",
-        // <td> and </td>
-        '/<td\b[^>]*>(.*?)<\/td>/i'                      => "\\1\n",
         // <span class="_html2text_ignore">...</span>
         '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
     ];
@@ -97,6 +93,8 @@ class Html2Text
         '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/\g{element}>/i',
         // <li>
         '/<(?<element>li)\b[^>]*>/i',
+        // <hr>
+        '/<(?<element>hr)\b[^>]*>/i',
         // <b> and </b>
         '/<(?<element>b)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
         // <strong> and </strong>
@@ -107,6 +105,8 @@ class Html2Text
         '/<(?<element>dd)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
         // <th> and </th>
         '/<(?<element>th)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
+        // <td> and </td>
+        '/<(?<element>td)\b[^>]*>(?<value>.*?)<\/\g{element}>/i',
         // <a href=""> and </a>
         '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/\g{element}>/i',
         // <i> and </i>
@@ -296,6 +296,12 @@ class Html2Text
                 'prepend' => "\t\t",
                 'append'  => "\n",
             ],
+            'hr'               => [
+                'case'    => self::OPTION_NONE,
+                'content' => '-------------------------',
+                'prepend' => "\n",
+                'append'  => "\n",
+            ],
             'strong'           => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => '',
@@ -305,6 +311,11 @@ class Html2Text
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => '',
                 'append'  => '',
+            ],
+            'td'               => [
+                'case'    => self::OPTION_NONE,
+                'prepend' => "\n",
+                'append'  => "",
             ],
             'dt'               => [
                 'case'    => self::OPTION_UPPERCASE,
@@ -934,6 +945,10 @@ class Html2Text
             $delimiter = $options['replace'][2] ?? '@';
 
             $str = (string) \preg_replace($delimiter . $options['replace'][0] . $delimiter, $options['replace'][1], $str);
+        }
+
+        if (!empty($options['content'])) {
+            $str = $options['content'];
         }
 
         if (!empty($options['prepend'])) {
