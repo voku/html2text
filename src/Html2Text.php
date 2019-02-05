@@ -56,24 +56,24 @@ class Html2Text
      * @var array
      */
     protected static $searchReplaceArray = [
-        // Non-legal carriage return
-        "/\r/"                                           => '',
         // Windows carriage return
         "/\r\n/"                                         => "\n",
+        // Non-legal carriage return
+        "/\r/"                                           => '',
         // Newlines and tabs
         "/[\n\t]+/"                                      => ' ',
-        // <head>
-        '/<head\b[^>]*>.*?<\/head>/i'                    => '',
+        // <head> and </head>
+        '/<head(?: [^>]*)?>.*?<\/head>/i'                => '',
         // <script>s -- which strip_tags supposedly has problems with
-        '/<script\b[^>]*>.*?<\/script>/i'                => '',
+        '/<script(?: [^>]*)?>.*?<\/script>/i'            => '',
         // <style>s -- which strip_tags supposedly has problems with
-        '/<style\b[^>]*>.*?<\/style>/i'                  => '',
+        '/<style(?: [^>]*)?>.*?<\/style>/i'              => '',
         // <div>
-        '/<div\b[^>]*>/i'                                => "<div>\n",
+        '/<div(?: [^>]*)?>/i'                            => "<div>\n",
         // <table> and </table>
-        '/(<table\b[^>]*>|<\/table>)/i'                  => "\n\n",
+        '/(<table(?: [^>]*)?>|<\/table>)/i'              => "\n\n",
         // <tr> and </tr>
-        '/(<tr\b[^>]*>|<\/tr>)/i'                        => "\n",
+        '/(<tr(?: [^>]*)?>|<\/tr>)/i'                    => "\n",
         // <span class="_html2text_ignore">...</span>
         '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
     ];
@@ -90,11 +90,11 @@ class Html2Text
         // <p> and </p> with surrounding whitespace.
         '/[ ]*<(?<element>p)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>[ ]*/si',
         // <li> and </li>
-        '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/\g{element}>/i',
+        '/<(?<element>li)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
         // <li>
-        '/<(?<element>li)\b[^>]*>/i',
+        '/<(?<element>li)(?: [^>]*)?>/i',
         // <hr>
-        '/<(?<element>hr)\b[^>]*>/i',
+        '/<(?<element>hr)(?: [^>]*)?>/i',
         // <b> and </b>
         '/<(?<element>b)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
         // <strong> and </strong>
@@ -161,11 +161,11 @@ class Html2Text
      * @var array
      */
     protected static $preSearchReplaceArray = [
-        "/\n/"           => '<br>',
-        "/\t/"           => '&nbsp;&nbsp;',
-        '/ /'            => '&nbsp;',
-        '/<pre\b[^>]*>/' => '',
-        '/<\/pre>/'      => '',
+        "/\n/"               => '<br>',
+        "/\t/"               => '&nbsp;&nbsp;',
+        '/ /'                => '&nbsp;',
+        '/<pre(?: [^>]*)?>/' => '',
+        '/<\/pre>/'          => '',
     ];
 
     /**
@@ -463,14 +463,15 @@ class Html2Text
         $text = \str_replace('|+|_html2text_space|+|', ' ', $text);
 
         // Remove some extra spaces.
-        $text = \preg_replace('#^> +#m', '> ', $text);
-        $text = \preg_replace('# +$#m', '', $text);
+        $endSearchReplaceArrayKeys[] = '# +$#m';
+        $endSearchReplaceArrayValues[] = '';
+
+        // Normalise empty lines.
+        $endSearchReplaceArrayKeys[] = "/\n\s+\n|[\n]{3,}/";
+        $endSearchReplaceArrayValues[] = "\n\n";
 
         // Replace some placeholder at the end.
         $text = \preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
-
-        // Normalise empty lines.
-        $text = \preg_replace("/\n\s+\n|[\n]{3,}/", "\n\n", $text);
 
         // If max length of line is defined, then use "wordwrap".
         if ($this->options['width'] > 0) {
@@ -491,14 +492,23 @@ class Html2Text
      */
     protected function converter(&$text)
     {
-        $searchReplaceArrayKeys = \array_keys(self::$searchReplaceArray);
-        $searchReplaceArrayValues = \array_values(self::$searchReplaceArray);
+        static $searchReplaceArrayKeys = null;
+        static $searchReplaceArrayValues = null;
+        if ($searchReplaceArrayKeys === null) {
+            $searchReplaceArrayKeys = \array_keys(self::$searchReplaceArray);
+        }
+        if ($searchReplaceArrayValues === null) {
+            $searchReplaceArrayValues = \array_values(self::$searchReplaceArray);
+        }
 
-        $helperSearchReplaceArrayKeys = \array_keys(self::$helperSearchReplaceArray);
-        $helperSearchReplaceArrayValues = \array_values(self::$helperSearchReplaceArray);
-
-        // Add extra space for some text tags.
-        $text = (string) \preg_replace('/(strong|b|p|i)><(strong|b|p|i)/', '$1>&nbsp;<$2', $text);
+        static $helperSearchReplaceArrayKeys = null;
+        static $helperSearchReplaceArrayValues = null;
+        if ($helperSearchReplaceArrayKeys === null) {
+            $helperSearchReplaceArrayKeys = \array_keys(self::$helperSearchReplaceArray);
+        }
+        if ($helperSearchReplaceArrayValues === null) {
+            $helperSearchReplaceArrayValues = \array_values(self::$helperSearchReplaceArray);
+        }
 
         // Convert <BLOCKQUOTE> tags. (before PRE!)
         $this->convertBlockquotes($text);
@@ -549,7 +559,7 @@ class Html2Text
         $text = UTF8::html_entity_decode($text);
 
         // Remove empty lines at the beginning and ending of the converted html
-        // e.g.: can be produced by eg. P tag on the beginning or at the ending
+        // e.g.: can be produced by e.g. P tag on the beginning or at the ending
         $text = \trim(
         // Normalise empty lines.
             (string) \preg_replace("/\n\s+\n|[\n]{3,}/", "\n\n", $text)
@@ -671,7 +681,7 @@ class Html2Text
         while (\preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
 
             // Replace br tags with newlines to prevent the search-and-replace callback from killing whitespace.
-            $this->preContent = \preg_replace('/(<br\b[^>]*>)/i', "\n", $matches[1]);
+            $this->preContent = \preg_replace('/(<br(?: [^>]*)?>)/i', "\n", $matches[1]);
 
             // Use options (append, prepend, ...) for the current "pre"-tag.
             $this->preContent = $this->convertElement('<pre>' . $this->preContent . '</pre>', 'pre');

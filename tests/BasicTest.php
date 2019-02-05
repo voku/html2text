@@ -56,7 +56,7 @@ final class BasicTest extends \PHPUnit\Framework\TestCase
                 'expected' => "Foo\nBar\n\nlall",
             ],
             '<br /> within <strong> prevents <strong> from being converted' => [
-                'html'     => '<strong>This would<br />not be converted.</strong><strong>But this would, though</strong>',
+                'html'     => '<strong>This would<br />not be converted.</strong>&nbsp;<strong>But this would, though</strong>',
                 'expected' => "THIS WOULD\nNOT BE CONVERTED. BUT THIS WOULD, THOUGH",
             ],
         ];
