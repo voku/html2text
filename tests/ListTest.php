@@ -22,9 +22,9 @@ final class ListTest extends \PHPUnit\Framework\TestCase
 EOT;
 
         $expected = <<<'EOT'
-* Item 1
-* Item 2
-* Item 3
+  * Item 1
+  * Item 2
+  * Item 3
 EOT;
 
         $html2text = new Html2Text($html);
@@ -42,9 +42,9 @@ EOT;
 EOT;
 
         $expected = <<<'EOT'
-* Item 1
-* Item 2
-* Item 3
+  * Item 1
+  * Item 2
+  * Item 3
 EOT;
 
         $html2text = new Html2Text($html);

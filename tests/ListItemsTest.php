@@ -29,17 +29,17 @@ final class ListItemsTest extends \PHPUnit\Framework\TestCase
 </ol>
 EOT;
         $expected_output = <<<EOT
-* one
-* two
-* three
-* four
-* five
-* six
-* seven
-* eight
-* nine
-* ten
-* eleven
+  * one
+  * two
+  * three
+  * four
+  * five
+  * six
+  * seven
+  * eight
+  * nine
+  * ten
+  * eleven
 EOT;
 
         $html2text = new Html2Text($input);
@@ -67,16 +67,15 @@ EOT;
 </ul>
 EOT;
         $expected_output = <<<EOT
-* Coffee
-Tea
+  * Coffee
+  * Tea
 
-* Black tea
-* Green tea
+    * Black tea
+    * Green tea
 
-* Green tea: foo
-* Green tea: bar
-
-* Milk
+      * Green tea: foo
+      * Green tea: bar
+  * Milk
 EOT;
 
         $html2text = new Html2Text($input);
@@ -94,8 +93,8 @@ EOT;
 </ol>
 EOT;
         $expected_output = <<<EOT
-* this is a really long line, and it should be split into two lines. let's hope it is
-* two
+  * this is a really long line, and it should be split into two lines. let's hope it is
+  * two
 EOT;
 
         $html2text = new Html2Text($input);
@@ -113,14 +112,40 @@ EOT;
 </ul>
 EOT;
         $expected_output = <<<EOT
-* this is a really long line, and it should be split into two lines. let's hope it is
-* two
+  * this is a really long line, and it should be split into two lines. let's hope it is
+  * two
 EOT;
 
         $html2text = new Html2Text($input);
         $output = $html2text->getText();
 
         static::assertSame(\str_replace(["\n", "\r\n", "\r"], "\n", $expected_output), $output);
+    }
+
+    public function testNestedList()
+    {
+        $html = <<<EOT
+<ul>
+  <li>Coffee</li>
+  <li>Tea
+    <ul>
+      <li>Black tea</li>
+      <li>Green tea</li>
+    </ul>
+  </li>
+  <li>Milk</li>
+</ul>
+EOT;
+        $expected_output = <<<EOT
+  * Coffee
+  * Tea
+
+    * Black tea
+    * Green tea
+  * Milk
+EOT;
+        $html2text = new Html2Text($html);
+        self::assertEquals(\str_replace(["\n", "\r\n", "\r"], "\n", $expected_output), $html2text->getText());
     }
 
     public function testOrderedList()
@@ -142,22 +167,23 @@ EOT;
     <li>two</li>
     <li>three</li>
 </ol>
+<br>
 foo
 EOT;
         $expected_output = <<<EOT
-* one
-* two
-*
+  * one
+  * two
+  *
 
 lall
 
-* foo
-* bar
-*
+  * foo
+  * bar
+  *
 
-* one
-* two
-* three
+  * one
+  * two
+  * three
 
 foo
 EOT;
@@ -178,9 +204,9 @@ EOT;
 </ul>
 EOT;
         $expected_output = <<<EOT
-* one
-* two
-*
+  * one
+  * two
+  *
 EOT;
 
         $html2text = new Html2Text($input);

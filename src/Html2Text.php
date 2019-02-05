@@ -68,12 +68,6 @@ class Html2Text
         '/<script\b[^>]*>.*?<\/script>/i' => '',
         // <style>s -- which strip_tags supposedly has problems with
         '/<style\b[^>]*>.*?<\/style>/i' => '',
-        // <ul> and </ul>
-        '/(<ul\b[^>]*>|<\/ul>)/i' => "\n\n",
-        // <ol> and </ol>
-        '/(<ol\b[^>]*>|<\/ol>)/i' => "\n\n",
-        // <dl> and </dl>
-        '/(<dl\b[^>]*>|<\/dl>)/i' => "\n\n",
         // <hr>
         '/<hr\b[^>]*>/i' => "\n-------------------------\n",
         // <div>
@@ -101,6 +95,8 @@ class Html2Text
         '/[ ]*<(?<element>p)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>[ ]*/si',
         // <li> and </li>
         '/<(?<element>li)\b[^>]*>(?<value>.*?)<\/\g{element}>/i',
+        // <li>
+        '/<(?<element>li)\b[^>]*>/i',
         // <b> and </b>
         '/<(?<element>b)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
         // <strong> and </strong>
@@ -315,7 +311,7 @@ class Html2Text
                 'append'  => "\n",
             ],
             'dd' => [
-                'prepend' => "\t* ",
+                'prepend' => "* ",
                 'append'  => "\n",
             ],
             'code' => [
@@ -331,8 +327,12 @@ class Html2Text
                 'append'  => '~~',
             ],
             'li' => [
-                'prepend' => "\t* ",
+                'prepend' => "* ",
                 'append'  => "\n",
+            ],
+            'li_without_value' => [
+                'prepend' => "* ",
+                'append'  => "",
             ],
             'i' => [
                 'prepend' => '_',
@@ -465,8 +465,8 @@ class Html2Text
             $text = UTF8::wordwrap($text, $this->options['width']);
         }
 
-        // Remove leading/ending empty lines/spaces.
-        $text = \trim($text);
+        // Remove leading/ending empty lines.
+        $text = \trim($text, "\r\n");
 
         $this->text = $text;
         $this->converted = true;
@@ -490,6 +490,9 @@ class Html2Text
 
         // Convert <BLOCKQUOTE> tags. (before PRE!)
         $this->convertBlockquotes($text);
+
+        // Convert <LIST> tags. (before PRE!)
+        $this->convertLists($text);
 
         // Convert <PRE> tags.
         $this->convertPre($text);
@@ -540,13 +543,16 @@ class Html2Text
     }
 
     /**
-     * Helper function for BLOCKQUOTE body conversion.
+     * Helper function for nested tags.
      *
      * @param string $text HTML content
+     * @param string $tag HTML tag
+     * @param string $find RegEx
+     * @param string $replace RegEx
      */
-    protected function convertBlockquotes(&$text)
+    private function convertNested(&$text, string $tag, string $find, string $replace)
     {
-        if (\preg_match_all('/<\/*blockquote[^>]*>/i', $text, $matches, \PREG_OFFSET_CAPTURE)) {
+        if (\preg_match_all('/<\/*' . $tag . '[^>]*>/i', $text, $matches, \PREG_OFFSET_CAPTURE)) {
 
             // init
             $originalText = $text;
@@ -564,16 +570,16 @@ class Html2Text
                     --$level;
 
                     if ($level < 0) {
-                        // malformed HTML: go to next blockquote
+                        // malformed HTML: go to next tag
                         $level = 0;
                     } elseif ($level > 0) {
-                        // skip inner blockquote
+                        // skip inner tag
                     } else {
                         $end = $m[1];
 
                         $len = $end - $taglen - $start;
 
-                        // get blockquote content
+                        // get tag content
                         $body = UTF8::substr($text, $start + $taglen - $diff, $len);
 
                         // set text width
@@ -582,11 +588,11 @@ class Html2Text
                             $this->options['width'] -= 2;
                         }
 
-                        // convert blockquote content
+                        // convert tag content
                         $this->converter($body);
 
                         // add citation markers
-                        $body = \preg_replace('/((?:^|\n)>*)/', '\\1> ', $body);
+                        $body = \preg_replace($find, $replace, $body);
 
                         // create PRE block
                         $body = '<pre>' . UTF8::htmlspecialchars($body) . '</pre>';
@@ -610,6 +616,25 @@ class Html2Text
                 }
             }
         }
+    }
+
+    /**
+     * Helper function for UL and OL body conversion.
+     *
+     * @param string $text HTML content
+     */
+    protected function convertLists(&$text)
+    {
+        $this->convertNested($text, '(?:ul|ol|dl)', "/((?:^|\n)>*) ?/", "\\1\t");
+    }
+    /**
+     * Helper function for BLOCKQUOTE body conversion.
+     *
+     * @param string $text HTML content
+     */
+    protected function convertBlockquotes(&$text)
+    {
+        $this->convertNested($text, 'blockquote', "/((?:^|\n)>*) ?/", '\\1> ');
     }
 
     /**
@@ -734,7 +759,7 @@ class Html2Text
 
         // default
         if (\array_key_exists($element, $this->options['elements'])) {
-            return $this->convertElement($matches['value'], $matches['element']);
+            return $this->convertElement($matches['value'] ?? '', $matches['element']);
         }
 
         return '';
@@ -861,7 +886,13 @@ class Html2Text
      */
     private function convertElement(string $str, string $element): string
     {
-        $options = $this->getOptionsForElement($element);
+        $options = null;
+        if ($str === '') {
+            $options = $this->getOptionsForElement($element . '_without_value');
+        }
+        if (!$options) {
+            $options = $this->getOptionsForElement($element);
+        }
         if (!$options) {
             return $str;
         }

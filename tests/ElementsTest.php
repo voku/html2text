@@ -105,8 +105,8 @@ EOT;
 
         // -----------
 
-        $html = '<h1>Should have "AAA" changed to BBB</h1><ul><li>• Custom bullet should be removed</li></ul><img src="tux.png" alt="The Linux Tux" />';
-        $expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '- Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux"';
+        $html = '<h1>Should have "AAA" changed to BBB</h1><ul><li>• Custom bullet should be removed</li></ul><br><img src="tux.png" alt="The Linux Tux" />';
+        $expected = 'SHOULD HAVE "BBB" CHANGED TO BBB' . "\n\n" . '  - Custom bullet should be removed |' . "\n\n" . '[IMAGE]: "The Linux Tux"';
 
         $html2text = new Html2Text(
             $html,
@@ -121,7 +121,7 @@ EOT;
                         'case'    => Html2Text::OPTION_NONE,
                         'replace' => ['•', ''],
                         'prepend' => '- ',
-                        'append'  => ' |',
+                        'append'  => " |",
                     ],
                 ],
             ]

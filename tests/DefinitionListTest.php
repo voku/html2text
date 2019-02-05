@@ -20,8 +20,8 @@ final class DefinitionListTest extends \PHPUnit\Framework\TestCase
 </dl>
 EOT;
         $expected = <<<EOT
-DEFINITION TERM:
-Definition Description
+  DEFINITION TERM:
+  Definition Description
 EOT;
 
         $html2text = new Html2Text($html);

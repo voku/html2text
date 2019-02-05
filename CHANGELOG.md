@@ -1,5 +1,9 @@
 # Changelog
 
+### 5.0.3 (2019-02-05)
+- fix string repeat (when html tags are inside other html tags) | thanks @ vibrantBits
+
+
 ### 5.0.2 (2019-01-12)
 
 - use phpcs fixer

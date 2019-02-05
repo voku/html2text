@@ -1,46 +1,46 @@
-COFFEE
-* default
-* Black drink
-* Block hot drink
+  COFFEE
+  * default
+  * Black drink
+  * Block hot drink
 
-MILK
-* White cold drink
-* Old :P
+  MILK
+  * White cold drink
+  * Old :P
 
-FOO
-* bar
+  FOO
+  * bar
 
-FOO
-* bar
-
--------------------------
-
-FIREFOX
-* A free, open source, cross-platform, graphical web browser developed by the Mozilla Corporation and hundreds of volunteers.
-* The Red Panda also known as the Lesser Panda, Wah, Bear Cat or Firefox, is a mostly herbivorous mammal, slightly larger than a domestic cat (60 cm long).
+  FOO
+  * bar
 
 -------------------------
 
-NAME
-* Godzilla
-
-BORN
-* 1952
-
-BIRTHPLACE
-* Japan
-
-COLOR
-* Green
+  FIREFOX
+  * A free, open source, cross-platform, graphical web browser developed by the Mozilla Corporation and hundreds of volunteers.
+  * The Red Panda also known as the Lesser Panda, Wah, Bear Cat or Firefox, is a mostly herbivorous mammal, slightly larger than a domestic cat (60 cm long).
 
 -------------------------
 
-AUTHORS
+  NAME
+  * Godzilla
 
-* John Lennon
-* Paul McCartney
+  BORN
+  * 1952
 
-GENRES
+  BIRTHPLACE
+  * Japan
 
-* Pop
-* Rock
+  COLOR
+  * Green
+
+-------------------------
+
+  AUTHORS
+
+    * John Lennon
+    * Paul McCartney
+
+  GENRES
+
+    * Pop
+    * Rock
