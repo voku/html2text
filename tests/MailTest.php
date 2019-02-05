@@ -16,7 +16,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test1Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -30,15 +30,15 @@ final class MailTest extends \PHPUnit\Framework\TestCase
         $html2text = new Html2Text(
             $html,
             [
-                'directConvert'   => true,
-                'do_links'        => 'markdown',
-                'do_links_ignore' => 'javascript:|mailto:',
-                'elements'        => [
+                'do_extra_html_decode' => false,
+                'do_links'             => 'markdown',
+                'do_links_ignore'      => 'javascript:|mailto:',
+                'elements'             => [
                     'pre' => [
                         'prepend' => '```php' . "\n",
                         'append'  => "\n" . '```',
                     ],
-                    'h5' => [
+                    'h5'  => [
                         'case'    => Html2Text::OPTION_NONE,
                         'prepend' => "\n\n",
                         'append'  => "\n\n",
@@ -56,7 +56,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test2Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -67,7 +67,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test3Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -78,7 +78,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test4Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -89,7 +89,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test5Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -100,7 +100,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test6Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -111,7 +111,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test7Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -122,7 +122,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test8Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -133,7 +133,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/test9Html.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -144,7 +144,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/code.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -155,7 +155,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/dl_dt_dd.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -166,7 +166,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/msoffice.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -177,7 +177,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/nbsp.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -188,7 +188,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/non-breaking-spaces.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 
@@ -199,7 +199,7 @@ final class MailTest extends \PHPUnit\Framework\TestCase
     {
         $html = UTF8::file_get_contents(__DIR__ . '/fixtures/table.html');
 
-        $html2text = new Html2Text($html, ['directConvert' => true]);
+        $html2text = new Html2Text($html);
 
         $text = $html2text->getText();
 

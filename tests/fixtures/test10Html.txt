@@ -383,7 +383,7 @@ Check if the string contains any html-tags .
 alias: UTF8::isHtml()
 
 ```php
-UTF8::is_html('LALL'); // true
+UTF8::is_html('<b>lall</b>'); // true
 ```
 
 [](/#is_utf16string-str--intfalse) is_utf16(string $str) : int|false
@@ -797,7 +797,7 @@ UTF8::string_has_bom("\xef\xbb\xbf foobar"); // true
 Strip HTML and PHP tags from a string + clean invalid UTF-8.
 
 ```php
-UTF8::strip_tags("κόσμε\xa0\xa1"); // 'κόσμε'
+UTF8::strip_tags("<span>κόσμε\xa0\xa1</span>"); // 'κόσμε'
 ```
 
 [](/#strlenstring-str-string-encoding--utf-8-bool-cleanutf8--false--int) strlen(string $str, string $encoding = 'UTF-8', bool $cleanUtf8 = false) : int
@@ -1083,14 +1083,5 @@ UTF8::words_limit('fòô bàř fòô', 2, ''); // 'fòô bàř'
 Wraps a string to a given number of characters
 
 ```php
-UTF8::wordwrap('Iñtërnâtiônàlizætiøn', 10, "\n", true)); // 'Iñ
-të
-rn
-ât
-iô
-nà
-li
-zæ
-ti
-øn'
+UTF8::wordwrap('Iñtërnâtiônàlizætiøn', 10, "\n", true)); // 'Iñ<br>të<br>rn<br>ât<br>iô<br>nà<br>li<br>zæ<br>ti<br>øn'
 ```

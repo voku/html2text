@@ -57,27 +57,27 @@ class Html2Text
      */
     protected static $searchReplaceArray = [
         // Non-legal carriage return
-        "/\r/" => '',
+        "/\r/"                                           => '',
         // Windows carriage return
-        "/\r\n/" => "\n",
+        "/\r\n/"                                         => "\n",
         // Newlines and tabs
-        "/[\n\t]+/" => ' ',
+        "/[\n\t]+/"                                      => ' ',
         // <head>
-        '/<head\b[^>]*>.*?<\/head>/i' => '',
+        '/<head\b[^>]*>.*?<\/head>/i'                    => '',
         // <script>s -- which strip_tags supposedly has problems with
-        '/<script\b[^>]*>.*?<\/script>/i' => '',
+        '/<script\b[^>]*>.*?<\/script>/i'                => '',
         // <style>s -- which strip_tags supposedly has problems with
-        '/<style\b[^>]*>.*?<\/style>/i' => '',
+        '/<style\b[^>]*>.*?<\/style>/i'                  => '',
         // <hr>
-        '/<hr\b[^>]*>/i' => "\n-------------------------\n",
+        '/<hr\b[^>]*>/i'                                 => "\n-------------------------\n",
         // <div>
-        '/<div\b[^>]*>/i' => "<div>\n",
+        '/<div\b[^>]*>/i'                                => "<div>\n",
         // <table> and </table>
-        '/(<table\b[^>]*>|<\/table>)/i' => "\n\n",
+        '/(<table\b[^>]*>|<\/table>)/i'                  => "\n\n",
         // <tr> and </tr>
-        '/(<tr\b[^>]*>|<\/tr>)/i' => "\n",
+        '/(<tr\b[^>]*>|<\/tr>)/i'                        => "\n",
         // <td> and </td>
-        '/<td\b[^>]*>(.*?)<\/td>/i' => "\\1\n",
+        '/<td\b[^>]*>(.*?)<\/td>/i'                      => "\\1\n",
         // <span class="_html2text_ignore">...</span>
         '/<span class="_html2text_ignore">.+?<\/span>/i' => '',
     ];
@@ -134,9 +134,9 @@ class Html2Text
      */
     protected static $helperSearchReplaceArray = [
         // TM symbol in win-1252
-        '/&#153;/' => '™',
+        '/&#153;/'  => '™',
         // m-dash in win-1252
-        '/&#151;/' => '—',
+        '/&#151;/'  => '—',
         // runs of spaces, post-handling
         '/&nbsp;/i' => '|+|_html2text_space|+|',
         // convert more spaces into one space
@@ -257,76 +257,77 @@ class Html2Text
      * @var array
      */
     private static $defaultOptions = [
-        'do_links'        => 'inline',
-        'do_links_ignore' => 'javascript:|mailto:|#',
-        'width'           => 0,
-        'elements'        => [
-            'h1' => [
+        'do_extra_html_decode' => true,
+        'do_links'             => 'inline',
+        'do_links_ignore'      => 'javascript:|mailto:|#',
+        'width'                => 0,
+        'elements'             => [
+            'h1'               => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => "\n\n",
                 'append'  => "\n\n",
             ],
-            'h2' => [
+            'h2'               => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => "\n\n",
                 'append'  => "\n\n",
             ],
-            'h3' => [
+            'h3'               => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => "\n\n",
                 'append'  => "\n\n",
             ],
-            'h4' => [
+            'h4'               => [
                 'case'  => self::OPTION_UPPERCASE,
                 'colon' => false,
             ],
-            'h5' => [
+            'h5'               => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => "\n\n",
                 'append'  => "\n\n",
             ],
-            'h6' => [
+            'h6'               => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => "\n\n",
                 'append'  => "\n\n",
             ],
-            'th' => [
+            'th'               => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => "\t\t",
                 'append'  => "\n",
             ],
-            'strong' => [
+            'strong'           => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => '',
                 'append'  => '',
             ],
-            'b' => [
+            'b'                => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => '',
                 'append'  => '',
             ],
-            'dt' => [
+            'dt'               => [
                 'case'    => self::OPTION_UPPERCASE,
                 'prepend' => "\n\n",
                 'append'  => "\n",
             ],
-            'dd' => [
+            'dd'               => [
                 'prepend' => "* ",
                 'append'  => "\n",
             ],
-            'code' => [
+            'code'             => [
                 'prepend' => "\n\n```",
                 'append'  => "```\n\n",
             ],
-            'ins' => [
+            'ins'              => [
                 'prepend' => '_',
                 'append'  => '_',
             ],
-            'del' => [
+            'del'              => [
                 'prepend' => '~~',
                 'append'  => '~~',
             ],
-            'li' => [
+            'li'               => [
                 'prepend' => "* ",
                 'append'  => "\n",
             ],
@@ -334,15 +335,15 @@ class Html2Text
                 'prepend' => "* ",
                 'append'  => "",
             ],
-            'i' => [
+            'i'                => [
                 'prepend' => '_',
                 'append'  => '_',
             ],
-            'em' => [
+            'em'               => [
                 'prepend' => '_',
                 'append'  => '_',
             ],
-            'pre' => [
+            'pre'              => [
                 'prepend' => '',
                 'append'  => '',
             ],
@@ -501,7 +502,9 @@ class Html2Text
         $text = (string) \preg_replace('/>\s+</', '><', $text);
 
         // Convert special-chars like "&#39;" into plain-chars like "'".
-        $text = \htmlspecialchars_decode($text, \ENT_QUOTES);
+        if ($this->options['do_extra_html_decode'] === true) {
+            $text = \htmlspecialchars_decode($text, \ENT_QUOTES);
+        }
 
         // Run our defined tags search-and-replace.
         $text = (string) \preg_replace(
@@ -537,7 +540,7 @@ class Html2Text
         // Remove empty lines at the beginning and ending of the converted html
         // e.g.: can be produced by eg. P tag on the beginning or at the ending
         $text = \trim(
-            // Normalise empty lines.
+        // Normalise empty lines.
             (string) \preg_replace("/\n\s+\n|[\n]{3,}/", "\n\n", $text)
         );
     }
@@ -545,9 +548,9 @@ class Html2Text
     /**
      * Helper function for nested tags.
      *
-     * @param string $text HTML content
-     * @param string $tag HTML tag
-     * @param string $find RegEx
+     * @param string $text    HTML content
+     * @param string $tag     HTML tag
+     * @param string $find    RegEx
      * @param string $replace RegEx
      */
     private function convertNested(&$text, string $tag, string $find, string $replace)
@@ -627,6 +630,7 @@ class Html2Text
     {
         $this->convertNested($text, '(?:ul|ol|dl)', "/((?:^|\n)>*) ?/", "\\1\t");
     }
+
     /**
      * Helper function for BLOCKQUOTE body conversion.
      *
@@ -773,8 +777,8 @@ class Html2Text
      * appeared. Also makes an effort at identifying and handling absolute
      * and relative links.
      *
-     * @param string      $link         URL of the link
-     * @param string      $display      Part of the text to associate number with
+     * @param string      $link    URL of the link
+     * @param string      $display Part of the text to associate number with
      * @param string|null $linkOverride
      *
      * @return string
