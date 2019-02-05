@@ -31,6 +31,10 @@ final class BasicTest extends \PHPUnit\Framework\TestCase
                 'html'     => 'Hello, \"<b>world</b>\"',
                 'expected' => 'Hello, \"WORLD\"',
             ],
+            'Empty b tag in HTML content' => [
+                'html'     => 'Hello, <b></b>',
+                'expected' => 'Hello,',
+            ],
             'Zero is not empty' => [
                 'html'     => '0',
                 'expected' => '0',
