@@ -5,6 +5,7 @@
 - fix string repeat (when html tags are inside other html tags) | thanks @ vibrantBits
 - fix ul, ol, dl nested handling | thanks @ on2
 - new option for "htmlspecialchars_decode()" usage
+- move more regex into regex with options (<hr>, <td>)
 
 
 ### 5.0.2 (2019-01-12)
