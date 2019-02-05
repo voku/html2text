@@ -106,7 +106,7 @@ class Html2Text
         // <th> and </th>
         '/<(?<element>th)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
         // <td> and </td>
-        '/<(?<element>td)\b[^>]*>(?<value>.*?)<\/\g{element}>/i',
+        '/<(?<element>td)(?: [^>]*)?>(?<value>.*?)<\/\g{element}>/i',
         // <a href=""> and </a>
         '/<(?<element>a) [^>]*href=("|\')([^"\']+)\2([^>]*)>(.*?)<\/\g{element}>/i',
         // <i> and </i>
@@ -314,8 +314,8 @@ class Html2Text
             ],
             'td'               => [
                 'case'    => self::OPTION_NONE,
-                'prepend' => "\n",
-                'append'  => "",
+                'prepend' => "",
+                'append'  => "\n",
             ],
             'dt'               => [
                 'case'    => self::OPTION_UPPERCASE,
