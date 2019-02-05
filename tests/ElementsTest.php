@@ -121,7 +121,7 @@ EOT;
                         'case'    => Html2Text::OPTION_NONE,
                         'replace' => ['•', ''],
                         'prepend' => '- ',
-                        'append'  => " |",
+                        'append'  => ' |',
                     ],
                 ],
             ]
