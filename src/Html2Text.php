@@ -314,7 +314,7 @@ class Html2Text
             ],
             'td'               => [
                 'case'    => self::OPTION_NONE,
-                'prepend' => "",
+                'prepend' => '',
                 'append'  => "\n",
             ],
             'dt'               => [
@@ -323,7 +323,7 @@ class Html2Text
                 'append'  => "\n",
             ],
             'dd'               => [
-                'prepend' => "* ",
+                'prepend' => '* ',
                 'append'  => "\n",
             ],
             'code'             => [
@@ -339,12 +339,12 @@ class Html2Text
                 'append'  => '~~',
             ],
             'li'               => [
-                'prepend' => "* ",
+                'prepend' => '* ',
                 'append'  => "\n",
             ],
             'li_without_value' => [
-                'prepend' => "* ",
-                'append'  => "",
+                'prepend' => '* ',
+                'append'  => '',
             ],
             'i'                => [
                 'prepend' => '_',
