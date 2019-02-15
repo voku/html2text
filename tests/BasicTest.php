@@ -137,6 +137,7 @@ EOT;
     {
         $html = <<<EOT
 <p>Between this and</p>
+<p>foo&zwnj;bar</p>
 <p>this paragraph there should be only one newline</p>
 <h1>and this also goes for headings</h1>
 <h1 style="color: red;">test</h1>
@@ -146,6 +147,8 @@ lall
 EOT;
         $expected = <<<EOT
 Between this and
+
+foo‌bar
 
 this paragraph there should be only one newline
 
