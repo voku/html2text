@@ -377,6 +377,8 @@ class Html2Text
      * Replace the default "\n\nLinks:\n------\n"-prefix for link-lists.
      *
      * @param string $string
+     *
+     * @return void
      */
     public function setPrefixForLinks(string $string)
     {
@@ -387,6 +389,8 @@ class Html2Text
      * Replace the default "Image: "-prefix for images.
      *
      * @param string $string
+     *
+     * @return void
      */
     public function setPrefixForImages(string $string)
     {
@@ -397,6 +401,8 @@ class Html2Text
      * Set the source HTML.
      *
      * @param string $html HTML source content
+     *
+     * @return void
      */
     public function setHtml(string $html)
     {
@@ -422,6 +428,8 @@ class Html2Text
      * Sets a base URL to handle relative links.
      *
      * @param string $baseUrl
+     *
+     * @return void
      */
     public function setBaseUrl(string $baseUrl)
     {
@@ -430,6 +438,8 @@ class Html2Text
 
     /**
      * Convert HTML into Text.
+     *
+     * @return void
      */
     protected function convert()
     {
@@ -456,7 +466,11 @@ class Html2Text
 
         // Trim every line.
         $textArray = \explode("\n", $text);
-        \array_walk($textArray, ['self', 'trimCallback']);
+        \array_walk($textArray, function (&$value) {
+            $this->trimCallback($value);
+
+            return $value;
+        });
         $text = \implode("\n", $textArray);
 
         // Convert "space"-replacer into space.
@@ -471,7 +485,11 @@ class Html2Text
         $endSearchReplaceArrayValues[] = "\n\n";
 
         // Replace some placeholder at the end.
-        $text = \preg_replace($endSearchReplaceArrayKeys, $endSearchReplaceArrayValues, $text);
+        $text = (string)\preg_replace(
+            $endSearchReplaceArrayKeys,
+            $endSearchReplaceArrayValues,
+            $text
+        );
 
         // If max length of line is defined, then use "wordwrap".
         if ($this->options['width'] > 0) {
@@ -486,9 +504,9 @@ class Html2Text
     }
 
     /**
-     * converter
-     *
      * @param string $text
+     *
+     * @return void
      */
     protected function converter(&$text)
     {
@@ -543,7 +561,7 @@ class Html2Text
 
         // Strip any other HTML tags.
         $text = (string) \preg_replace(
-            '/<(?:\/|!)?\w+[^>]*>|<!--.*?-->/s',
+            '/<[\/!]?\w+[^>]*>|<!--.*?-->/s',
             '',
             $text
         );
@@ -573,6 +591,8 @@ class Html2Text
      * @param string $tag     HTML tag
      * @param string $find    RegEx
      * @param string $replace RegEx
+     *
+     * @return void
      */
     private function convertNested(&$text, string $tag, string $find, string $replace)
     {
@@ -646,6 +666,8 @@ class Html2Text
      * Helper function for UL and OL body conversion.
      *
      * @param string $text HTML content
+     *
+     * @return void
      */
     protected function convertLists(&$text)
     {
@@ -656,6 +678,8 @@ class Html2Text
      * Helper function for BLOCKQUOTE body conversion.
      *
      * @param string $text HTML content
+     *
+     * @return void
      */
     protected function convertBlockquotes(&$text)
     {
@@ -666,6 +690,8 @@ class Html2Text
      * Convert "<pre>"-tags.
      *
      * @param string $text
+     *
+     * @return void
      */
     protected function convertPre(&$text)
     {
@@ -687,7 +713,7 @@ class Html2Text
             $this->preContent = $this->convertElement('<pre>' . $this->preContent . '</pre>', 'pre');
 
             // Run our defined tags search-and-replace with callback.
-            $this->preContent = \preg_replace_callback(
+            $this->preContent = (string)\preg_replace_callback(
                 self::$callbackSearch,
                 [$this, 'pregCallback'],
                 $this->preContent
@@ -711,6 +737,8 @@ class Html2Text
      * Callback function for array_walk use.
      *
      * @param string $string
+     *
+     * @return void
      */
     protected function trimCallback(&$string)
     {
@@ -841,7 +869,7 @@ class Html2Text
                 $this->linkList[] = $url;
             }
 
-            return ' ' . $display . ' [' . ($index + 1) . '] ';
+            return ' ' . $display . ' [' . ((int)$index + 1) . '] ';
         }
 
         if ($linkMethod === 'nextline') {
@@ -896,11 +924,7 @@ class Html2Text
         // init
         $element = \strtolower($element);
 
-        if (!\array_key_exists($element, $this->options['elements'])) {
-            return null;
-        }
-
-        return $this->options['elements'][$element];
+        return $this->options['elements'][$element] ?? null;
     }
 
     /**
@@ -927,6 +951,7 @@ class Html2Text
 
             // string can contain HTML tags
             $chunks = \preg_split('/(<[^>]*>)/', $str, -1, \PREG_SPLIT_NO_EMPTY | \PREG_SPLIT_DELIM_CAPTURE);
+            assert(is_array($chunks));
 
             // convert only the text between HTML tags
             foreach ($chunks as $i => &$chunk) {
