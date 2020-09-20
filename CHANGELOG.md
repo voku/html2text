@@ -1,5 +1,10 @@
 # Changelog
 
+### 5.0.4 (2020-09-20)
+
+- fix errors reported by phpstan
+
+
 ### 5.0.3 (2019-02-05)
 
 - fix string repeat (when html tags are inside other html tags) | thanks @ vibrantBits
