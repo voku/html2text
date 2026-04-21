@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/voku/html2text.svg?branch=master)](https://travis-ci.org/voku/html2text)
+[![CI](https://github.com/voku/html2text/actions/workflows/ci.yml/badge.svg)](https://github.com/voku/html2text/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/voku/html2text/badge.svg)](https://coveralls.io/r/voku/html2text)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d9030665de184a309797b32e036a2f77)](https://www.codacy.com/app/voku/html2text)
 [![Latest Stable Version](https://poser.pugx.org/voku/html2text/v/stable)](https://packagist.org/packages/voku/html2text) 
@@ -89,7 +89,7 @@ For professional support please contact [me](https://about.me/voku).
 
 - Thanks to [GitHub](https://github.com) (Microsoft) for hosting the code and a good infrastructure including Issues-Managment, etc.
 - Thanks to [IntelliJ](https://www.jetbrains.com) as they make the best IDEs for PHP and they gave me an open source license for PhpStorm!
-- Thanks to [Travis CI](https://travis-ci.com/) for being the most awesome, easiest continous integration tool out there!
+- Thanks to [GitHub Actions](https://github.com/features/actions) for the automated CI pipeline.
 - Thanks to [StyleCI](https://styleci.io/) for the simple but powerfull code style check.
 - Thanks to [PHPStan](https://github.com/phpstan/phpstan) && [Psalm](https://github.com/vimeo/psalm) for relly great Static analysis tools and for discover bugs in the code!
  

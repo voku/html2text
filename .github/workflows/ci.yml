@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Composer validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.37.0
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+  smoke-test:
+    name: Runtime smoke test (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '7.0'
+            composer-version: v2.2
+            composer-flags: '--prefer-lowest --prefer-stable --no-dev'
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.37.0
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:${{ matrix.composer-version }}
+          coverage: none
+
+      - name: Install runtime dependencies
+        run: composer update --no-interaction --no-progress --prefer-dist ${{ matrix.composer-flags }}
+
+      - name: Run a runtime smoke test
+        run: php -r 'require "vendor/autoload.php"; $text = (new \voku\Html2Text\Html2Text("<b>Hello</b>"))->getText(); if ($text !== "HELLO") { fwrite(STDERR, "Unexpected output: " . $text . PHP_EOL); exit(1); }'
+
+  test:
+    name: Unit tests (PHP ${{ matrix.php }}, ${{ matrix.dependencies }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '7.4'
+            composer-version: v2
+            dependencies: lowest
+            composer-flags: '--prefer-lowest --prefer-stable'
+          - php: '8.3'
+            composer-version: v2
+            dependencies: highest
+            composer-flags: ''
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.37.0
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:${{ matrix.composer-version }}
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress --prefer-dist ${{ matrix.composer-flags }}
+
+      - name: Audit installed dependencies
+        if: matrix.dependencies == 'highest'
+        run: composer audit --format plain
+
+      - name: Run the test suite
+        run: vendor/bin/phpunit -c phpunit.xml
