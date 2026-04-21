@@ -20,7 +20,7 @@ final class PrintTest extends \PHPUnit\Framework\TestCase
      */
     protected $html;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->html = new Html2Text(self::TEST_HTML);
         $this->expectOutputString(self::EXPECTED);
