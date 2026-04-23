@@ -754,7 +754,7 @@ class Html2Text
         // init
         $element = \strtolower($matches['element']);
 
-        switch ($matches['element']) {
+        switch ($element) {
             case 'p':
                 // Replace newlines with spaces.
                 $para = \str_replace("\n", ' ', $matches['value']);
@@ -803,13 +803,13 @@ class Html2Text
         }
 
         // h1 - h6
-        if (\preg_match('/h[123456]/', $matches['element'])) {
-            return $this->convertElement($matches['value'], $matches['element']);
+        if (\preg_match('/h[123456]/', $element)) {
+            return $this->convertElement($matches['value'], $element);
         }
 
         // default
         if (\array_key_exists($element, $this->options['elements'])) {
-            return $this->convertElement($matches['value'] ?? '', $matches['element']);
+            return $this->convertElement($matches['value'] ?? '', $element);
         }
 
         return '';
