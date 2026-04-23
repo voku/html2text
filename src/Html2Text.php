@@ -694,11 +694,11 @@ class Html2Text
     protected function convertPre(&$text)
     {
         static $preSearchReplaceArrayKeys = null;
-        static $preSearchReplaceArrayVales = null;
+        static $preSearchReplaceArrayValues = null;
 
         if ($preSearchReplaceArrayKeys === null) {
             $preSearchReplaceArrayKeys = \array_keys(self::$preSearchReplaceArray);
-            $preSearchReplaceArrayVales = \array_values(self::$preSearchReplaceArray);
+            $preSearchReplaceArrayValues = \array_values(self::$preSearchReplaceArray);
         }
 
         // Get the content of PRE element.
@@ -719,7 +719,7 @@ class Html2Text
             // convert the content
             $this->preContent = \sprintf(
                 '<div><br>%s<br></div>',
-                \preg_replace($preSearchReplaceArrayKeys, $preSearchReplaceArrayVales, $this->preContent)
+                \preg_replace($preSearchReplaceArrayKeys, $preSearchReplaceArrayValues, $this->preContent)
             );
 
             // replace the content

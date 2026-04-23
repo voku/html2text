@@ -44,7 +44,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          coverage: xdebug
+          coverage: ${{ matrix.php == '8.2' && 'xdebug' || 'none' }}
           extensions: zip
           tools: composer
 
@@ -67,7 +67,7 @@ jobs:
       - name: Run tests
         run: |
           mkdir -p build/logs
-          php vendor/bin/phpunit -c phpunit.xml --coverage-clover=build/logs/clover.xml
+          php vendor/bin/phpunit -c phpunit.xml ${{ matrix.php == '8.2' && '--coverage-clover=build/logs/clover.xml' || '' }}
 
       - name: Run phpstan
         if: ${{ matrix.php == '8.2' }}
@@ -75,6 +75,7 @@ jobs:
           php vendor/bin/phpstan analyse
 
       - name: Upload coverage results to Coveralls
+        if: ${{ matrix.php == '8.2' }}
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -82,6 +83,7 @@ jobs:
           php-coveralls --coverage_clover=build/logs/clover.xml -v
 
       - name: Upload coverage results to Codecov
+        if: ${{ matrix.php == '8.2' }}
         uses: codecov/codecov-action@v4
         with:
           files: build/logs/clover.xml
