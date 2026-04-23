@@ -68,13 +68,14 @@ jobs:
           composer dump-autoload -o
 
       - name: Run tests
+        if: ${{ matrix.php != env.COVERAGE_PHP }}
+        run: php vendor/bin/phpunit -c phpunit.xml
+
+      - name: Run tests (with coverage)
+        if: ${{ matrix.php == env.COVERAGE_PHP }}
         run: |
           mkdir -p build/logs
-          if [ "${{ matrix.php }}" = "${{ env.COVERAGE_PHP }}" ]; then
-            php vendor/bin/phpunit -c phpunit.xml --coverage-clover=build/logs/clover.xml
-          else
-            php vendor/bin/phpunit -c phpunit.xml
-          fi
+          php vendor/bin/phpunit -c phpunit.xml --coverage-clover=build/logs/clover.xml
 
       - name: Run phpstan
         if: ${{ matrix.php == env.COVERAGE_PHP }}
