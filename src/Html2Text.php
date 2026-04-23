@@ -579,7 +579,7 @@ class Html2Text
         // Remove empty lines at the beginning and ending of the converted html
         // e.g.: can be produced by e.g. P tag on the beginning or at the ending
         $text = \trim(
-        // Normalise empty lines.
+            // Normalise empty lines.
             (string) \preg_replace("/\n\s+\n|[\n]{3,}/", "\n\n", $text)
         );
     }
@@ -597,7 +597,6 @@ class Html2Text
     private function convertNested(&$text, string $tag, string $find, string $replace)
     {
         if (\preg_match_all('/<\/*' . $tag . '[^>]*>/i', $text, $matches, \PREG_OFFSET_CAPTURE)) {
-
             // init
             $originalText = $text;
             $start = 0;
@@ -606,7 +605,6 @@ class Html2Text
             $diff = 0;
 
             foreach ($matches[0] as $m) {
-
                 // Convert preg offsets from bytes to characters.
                 $m[1] = UTF8::strlen(\substr($originalText, 0, $m[1]));
 
@@ -705,7 +703,6 @@ class Html2Text
 
         // Get the content of PRE element.
         while (\preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
-
             // Replace br tags with newlines to prevent the search-and-replace callback from killing whitespace.
             $this->preContent = \preg_replace('/(<br(?: [^>]*)?>)/i', "\n", $matches[1]);
 
@@ -860,7 +857,6 @@ class Html2Text
         }
 
         if ($linkMethod === 'table') {
-
             //
             // table
             //
@@ -873,7 +869,6 @@ class Html2Text
         }
 
         if ($linkMethod === 'nextline') {
-
             // Shorten output when "target url" and "display url" match.
             if ($url === $display) {
                 return ' ' . $url . ' ';
@@ -886,7 +881,6 @@ class Html2Text
         }
 
         if ($linkMethod === 'markdown') {
-
             //
             // markdown
             //
@@ -894,7 +888,6 @@ class Html2Text
         }
 
         if ($linkMethod === 'bbcode') {
-
             //
             // bbcode
             //
