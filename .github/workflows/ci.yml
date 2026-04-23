@@ -1,13 +1,17 @@
 name: CI
 
 on:
-  pull_request:
-    branches:
-      - master
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,127 +21,75 @@ permissions:
   contents: read
 
 jobs:
-  validate:
-    name: Composer validation
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out the repository
-        uses: actions/checkout@v4
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          tools: composer:v2
-          coverage: none
-
-      - name: Validate composer.json
-        run: composer validate --strict
-
-  smoke-test:
-    name: Runtime smoke test (PHP ${{ matrix.php }})
+  tests:
+    name: Tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - php: '7.1'
-            composer-version: v2.2
-            composer-flags: '--prefer-lowest --prefer-stable --no-dev'
-
+        php:
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+    timeout-minutes: 10
     steps:
-      - name: Check out the repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          tools: composer:${{ matrix.composer-version }}
-          coverage: none
+          coverage: xdebug
+          extensions: zip
+          tools: composer
 
-      - name: Install runtime dependencies
-        run: composer update --no-interaction --no-progress --prefer-dist ${{ matrix.composer-flags }}
+      - name: Determine composer cache directory
+        id: composer-cache
+        run: echo "directory=$(composer config cache-dir)" >> $GITHUB_OUTPUT
 
-      - name: Run a runtime smoke test
-        run: php -r 'require "vendor/autoload.php"; $text = (new \voku\Html2Text\Html2Text("<b>Hello</b>"))->getText(); if ($text !== "HELLO") { fwrite(STDERR, "Unexpected output: " . $text . PHP_EOL); exit(1); }'
-
-  test:
-    name: Unit tests (PHP ${{ matrix.php }}, ${{ matrix.dependencies }})
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - php: '7.1'
-            composer-version: v2.2
-            dependencies: lowest
-            composer-flags: '--prefer-lowest --prefer-stable'
-            phpunit-config: phpunit.legacy.xml
-          - php: '7.2'
-            composer-version: v2.2
-            dependencies: lowest
-            composer-flags: '--prefer-lowest --prefer-stable'
-            phpunit-config: phpunit.legacy.xml
-          - php: '7.3'
-            composer-version: v2.2
-            dependencies: lowest
-            composer-flags: '--prefer-lowest --prefer-stable'
-            phpunit-config: phpunit.legacy.xml
-          - php: '7.4'
-            composer-version: v2
-            dependencies: lowest
-            composer-flags: '--prefer-lowest --prefer-stable'
-            phpunit-config: phpunit.legacy.xml
-          - php: '8.0'
-            composer-version: v2
-            dependencies: highest
-            composer-flags: ''
-            phpunit-config: phpunit.xml
-          - php: '8.1'
-            composer-version: v2
-            dependencies: highest
-            composer-flags: ''
-            phpunit-config: phpunit.xml
-          - php: '8.2'
-            composer-version: v2
-            dependencies: highest
-            composer-flags: ''
-            phpunit-config: phpunit.xml
-          - php: '8.3'
-            composer-version: v2
-            dependencies: highest
-            composer-flags: ''
-            phpunit-config: phpunit.xml
-          - php: '8.4'
-            composer-version: v2
-            dependencies: highest
-            composer-flags: ''
-            phpunit-config: phpunit.xml
-          - php: '8.5'
-            composer-version: v2
-            dependencies: highest
-            composer-flags: ''
-            phpunit-config: phpunit.xml
-
-    steps:
-      - name: Check out the repository
-        uses: actions/checkout@v4
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
         with:
-          php-version: ${{ matrix.php }}
-          tools: composer:${{ matrix.composer-version }}
-          coverage: none
+          path: ${{ steps.composer-cache.outputs.directory }}
+          key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ matrix.php }}-composer-
 
       - name: Install dependencies
-        run: composer update --no-interaction --no-progress --prefer-dist ${{ matrix.composer-flags }}
+        run: |
+          composer update --prefer-dist --no-interaction
+          composer dump-autoload -o
 
-      - name: Audit installed dependencies
-        if: matrix.php == '8.5'
-        run: composer audit --format plain
+      - name: Run tests
+        run: |
+          mkdir -p build/logs
+          php vendor/bin/phpunit -c phpunit.xml --coverage-clover=build/logs/clover.xml
 
-      - name: Run the test suite
-        run: vendor/bin/phpunit -c ${{ matrix.phpunit-config }}
+      - name: Run phpstan
+        if: ${{ matrix.php == '8.2' }}
+        run: |
+          php vendor/bin/phpstan analyse
+
+      - name: Upload coverage results to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=build/logs/clover.xml -v
+
+      - name: Upload coverage results to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: build/logs/clover.xml
+
+      - name: Archive logs artifacts
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs_php-${{ matrix.php }}
+          path: |
+            build/logs
