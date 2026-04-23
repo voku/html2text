@@ -62,8 +62,8 @@ final class HtmlCharsTest extends \PHPUnit\Framework\TestCase
      */
     public function testSymbol($entity, $symbol)
     {
-        $html = "${entity} signs should be UTF-8 symbols";
-        $expected = "${symbol} signs should be UTF-8 symbols";
+        $html = "{$entity} signs should be UTF-8 symbols";
+        $expected = "{$symbol} signs should be UTF-8 symbols";
 
         $html2text = new Html2Text($html);
         static::assertSame($expected, $html2text->getText());
