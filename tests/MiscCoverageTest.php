@@ -197,4 +197,45 @@ final class MiscCoverageTest extends \PHPUnit\Framework\TestCase
         );
         static::assertSame('Hello-World', $html2text->getText());
     }
+
+    // -------------------------------------------------------------------------
+    // convertNested: width reduction (line 630)
+    // -------------------------------------------------------------------------
+
+    public function testNestedBlockquoteWithWidthReducesWidth(): void
+    {
+        // A blockquote processed with width > 0 triggers the width -= 2 branch
+        // inside convertNested (the previously uncovered line 630).
+        $html = '<blockquote>Quoted content here.</blockquote>';
+        $html2text = new Html2Text($html, ['width' => 80]);
+        $output = $html2text->getText();
+        static::assertStringContainsString('Quoted content here', $output);
+    }
+
+    // -------------------------------------------------------------------------
+    // pregCallback: unknown element fallback (line 815)
+    // -------------------------------------------------------------------------
+
+    public function testPregCallbackUnknownElementReturnsEmpty(): void
+    {
+        // pregCallback returns '' when the element does not match any known
+        // handler and is not present in $options['elements'] (line 815).
+        $html2text = new Html2Text('');
+        $ref = new \ReflectionMethod($html2text, 'pregCallback');
+        $ref->setAccessible(true);
+        $result = $ref->invoke($html2text, ['element' => 'unknownelement', 'value' => 'test']);
+        static::assertSame('', $result);
+    }
+
+    // -------------------------------------------------------------------------
+    // convertElement: element not in options → return input unchanged (line 939)
+    // -------------------------------------------------------------------------
+
+    public function testConvertElementWithNoOptionsReturnsInputUnchanged(): void
+    {
+        // When an element's options entry is set to false/null, convertElement
+        // falls through to `return $str` (line 939) and returns the raw text.
+        $html2text = new Html2Text('<h1>Hello</h1>', ['elements' => ['h1' => false]]);
+        static::assertSame('Hello', $html2text->getText());
+    }
 }

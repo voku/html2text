@@ -2,8 +2,10 @@
 
 ### 5.0.5 (2026-04-24)
 
-- increase code coverage by adding tests for previously untested code paths
-  (method coverage: 64.71% → 82.35%, +17.64 pp)
+- increase test coverage to 100% (lines and methods)
+  by covering the three previously unreachable branches in
+  `convertNested` (width-reduction path), `pregCallback` (unknown-element fallback),
+  and `convertElement` (no-options fallback)
 
 
 ### 5.0.4 (2020-09-20)
