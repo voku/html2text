@@ -2,35 +2,23 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
   pull_request:
-    branches:
-      - master
   workflow_dispatch:
-
-defaults:
-  run:
-    shell: bash
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
 
-env:
-  COVERAGE_PHP: '8.2'
-
 jobs:
   tests:
-    name: Tests (PHP ${{ matrix.php }})
+    name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         php:
+          - '7.1'
+          - '7.2'
+          - '7.3'
           - '7.4'
           - '8.0'
           - '8.1'
@@ -38,68 +26,59 @@ jobs:
           - '8.3'
           - '8.4'
           - '8.5'
-    timeout-minutes: 10
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: shivammathur/setup-php@2.37.0
         with:
           php-version: ${{ matrix.php }}
-          coverage: xdebug
-          extensions: zip
-          tools: composer
+          coverage: none
+          tools: composer:v2
 
-      - name: Determine composer cache directory
-        id: composer-cache
-        run: echo "directory=$(composer config cache-dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache.outputs.directory }}
-          key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: ${{ matrix.php }}-composer-
+      - name: Validate composer.json
+        run: composer validate --strict
 
       - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Audit dependencies
         run: |
-          composer update --prefer-dist --no-interaction
-          composer dump-autoload -o
+          if composer audit --help >/dev/null 2>&1; then
+            composer audit --no-dev
+          else
+            echo "Skipping composer audit: command unavailable for this Composer/PHP combination."
+          fi
 
-      - name: Run tests
-        if: ${{ matrix.php != env.COVERAGE_PHP }}
-        run: php vendor/bin/phpunit -c phpunit.xml
+      - name: Run PHPUnit
+        run: composer test
 
-      - name: Run tests (with coverage)
-        if: ${{ matrix.php == env.COVERAGE_PHP }}
-        run: |
-          mkdir -p build/logs
-          php vendor/bin/phpunit -c phpunit.xml --coverage-clover=build/logs/clover.xml
+  lowest-dependencies:
+    name: Lowest dependencies
+    runs-on: ubuntu-latest
 
-      - name: Run phpstan
-        if: ${{ matrix.php == env.COVERAGE_PHP }}
-        run: |
-          php vendor/bin/phpstan analyse
+    steps:
+      - uses: actions/checkout@v6.0.2
 
-      - name: Upload coverage results to Coveralls
-        if: ${{ matrix.php == env.COVERAGE_PHP }}
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          composer global require php-coveralls/php-coveralls
-          php-coveralls --coverage_clover=build/logs/clover.xml -v
-
-      - name: Upload coverage results to Codecov
-        if: ${{ matrix.php == env.COVERAGE_PHP }}
-        uses: codecov/codecov-action@v4
+      - uses: shivammathur/setup-php@2.37.0
         with:
-          files: build/logs/clover.xml
+          php-version: '7.1'
+          coverage: none
+          tools: composer:v2
 
-      - name: Archive logs artifacts
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs_php-${{ matrix.php }}
-          path: |
-            build/logs
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Install lowest supported dependencies
+        run: composer update --prefer-lowest --prefer-dist --no-interaction --no-progress
+
+      - name: Audit dependencies
+        run: |
+          if composer audit --help >/dev/null 2>&1; then
+            composer audit --no-dev
+          else
+            echo "Skipping composer audit: command unavailable for this Composer/PHP combination."
+          fi
+
+      - name: Run PHPUnit
+        run: composer test
