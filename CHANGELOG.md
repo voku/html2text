@@ -2,10 +2,11 @@
 
 ### 5.0.5 (2026-04-24)
 
-- increase test coverage to 100% (lines and methods)
-  by covering the three previously unreachable branches in
-  `convertNested` (width-reduction path), `pregCallback` (unknown-element fallback),
-  and `convertElement` (no-options fallback)
+- fix uppercase HTML tag handling in `pregCallback`
+- improve test coverage to 100% (lines and methods) by adding tests for previously uncovered branches
+- modernize CI/CD and test automation (GitHub Actions updates, coverage/phpstan jobs, caching, uploads)
+- improve PHPUnit compatibility and configuration for CI (including PHPUnit 9 support and legacy config usage)
+- add automated dependency update tooling (Dependabot + Renovate) and general repository maintenance updates
 
 
 ### 5.0.4 (2020-09-20)
