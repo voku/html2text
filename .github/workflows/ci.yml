@@ -53,6 +53,28 @@ jobs:
       - name: Run PHPUnit
         run: composer test
 
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - uses: shivammathur/setup-php@2.37.0
+        with:
+          php-version: '8.3'
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Install PHPStan
+        run: composer require --dev phpstan/phpstan:^1.10 --no-interaction --no-progress
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --configuration=phpstan.neon
+
   lowest-dependencies:
     name: Lowest dependencies
     runs-on: ubuntu-latest
