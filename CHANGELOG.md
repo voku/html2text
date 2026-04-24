@@ -1,5 +1,11 @@
 # Changelog
 
+### 5.0.5 (2026-04-24)
+
+- increase code coverage by adding tests for previously untested code paths
+  (method coverage: 64.71% → 82.35%, +17.64 pp)
+
+
 ### 5.0.4 (2020-09-20)
 
 - fix errors reported by phpstan
