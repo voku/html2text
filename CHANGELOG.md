@@ -1,5 +1,13 @@
 # Changelog
 
+### 5.0.5 (2026-04-24)
+
+- increase test coverage to 100% (lines and methods)
+  by covering the three previously unreachable branches in
+  `convertNested` (width-reduction path), `pregCallback` (unknown-element fallback),
+  and `convertElement` (no-options fallback)
+
+
 ### 5.0.4 (2020-09-20)
 
 - fix errors reported by phpstan
