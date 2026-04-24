@@ -637,7 +637,7 @@ class Html2Text
                         $body = \preg_replace($find, $replace, $body);
 
                         // create PRE block
-                        $body = '<pre>' . UTF8::htmlspecialchars($body) . '</pre>';
+                        $body = '<pre>' . (string)UTF8::htmlspecialchars($body) . '</pre>';
 
                         // re-set text width
                         $this->options['width'] = $pWidth;
@@ -694,17 +694,17 @@ class Html2Text
     protected function convertPre(&$text)
     {
         static $preSearchReplaceArrayKeys = null;
-        static $preSearchReplaceArrayVales = null;
+        static $preSearchReplaceArrayValues = null;
 
         if ($preSearchReplaceArrayKeys === null) {
-            $preSearchReplaceArrayKeys = ($preSearchReplaceArrayKeys ?? \array_keys(self::$preSearchReplaceArray));
-            $preSearchReplaceArrayVales = ($preSearchReplaceArrayVales ?? \array_values(self::$preSearchReplaceArray));
+            $preSearchReplaceArrayKeys = \array_keys(self::$preSearchReplaceArray);
+            $preSearchReplaceArrayValues = \array_values(self::$preSearchReplaceArray);
         }
 
         // Get the content of PRE element.
         while (\preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
             // Replace br tags with newlines to prevent the search-and-replace callback from killing whitespace.
-            $this->preContent = \preg_replace('/(<br(?: [^>]*)?>)/i', "\n", $matches[1]);
+            $this->preContent = (string)\preg_replace('/(<br(?: [^>]*)?>)/i', "\n", $matches[1]);
 
             // Use options (append, prepend, ...) for the current "pre"-tag.
             $this->preContent = $this->convertElement('<pre>' . $this->preContent . '</pre>', 'pre');
@@ -719,7 +719,7 @@ class Html2Text
             // convert the content
             $this->preContent = \sprintf(
                 '<div><br>%s<br></div>',
-                \preg_replace($preSearchReplaceArrayKeys, $preSearchReplaceArrayVales, $this->preContent)
+                \preg_replace($preSearchReplaceArrayKeys, $preSearchReplaceArrayValues, $this->preContent)
             );
 
             // replace the content
